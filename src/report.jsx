@@ -1,5 +1,5 @@
 /* ============================================================================
-   ClearHarvest — Low-Emission Rice Offtake  ·  Interactive Project Report
+   ClearHarvest - Low-Emission Rice Offtake  ·  Interactive Project Report
    Grow Indigo Pvt. Ltd.  |  Nizamabad, Telangana  |  Nov 2026 – Apr 2026
    ----------------------------------------------------------------------------
    RUNTIME NOTE (read me first)
@@ -39,12 +39,12 @@ import {
    in this runtime), so brand colour lives in inline style objects.
 ---------------------------------------------------------------------------- */
 const C = {
-  ink: "#0A1F16",        // deep wet-soil green-black — page floor
-  field: "#0E5B33",      // Grow Indigo forest green — headings, chrome
-  leaf: "#4FA65B",       // young paddy leaf — positive deltas
-  water: "#1E88A8",      // AWD tube water — the scroll signature
+  ink: "#0A1F16",        // deep wet-soil green-black - page floor
+  field: "#0E5B33",      // Grow Indigo forest green - headings, chrome
+  leaf: "#4FA65B",       // young paddy leaf - positive deltas
+  water: "#1E88A8",      // AWD tube water - the scroll signature
   waterDeep: "#12566B",
-  husk: "#C98A2E",       // dried straw / amber — cautions + data accents
+  husk: "#C98A2E",       // dried straw / amber - cautions + data accents
   clay: "#8C5A3C",
   paper: "#EEF3EC",      // cool pale green-grey (not cream)
   paperDim: "#DFE8DD",
@@ -104,7 +104,7 @@ function GlobalStyle() {
 ---------------------------------------------------------------------------- */
 
 /** Fires once when the element crosses into view. The trigger for every
- *  fade-up on the page — charts and counters listen to it too. */
+ *  fade-up on the page - charts and counters listen to it too. */
 function useInView(options = {}) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -116,7 +116,7 @@ function useInView(options = {}) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          io.disconnect(); // reveal once — re-animating on scroll-back feels cheap
+          io.disconnect(); // reveal once - re-animating on scroll-back feels cheap
         }
       },
       { threshold: options.threshold ?? 0.18, rootMargin: options.rootMargin ?? "0px 0px -8% 0px" }
@@ -264,7 +264,7 @@ function GeoStamp({ place, coords, when, className = "" }) {
 }
 
 /* ----------------------------------------------------------------------------
-   4 · SIGNATURE ELEMENT — the AWD field tube
+   4 · SIGNATURE ELEMENT - the AWD field tube
    The whole programme turns on one object: a perforated pipe sunk into the
    paddy, read by hand. It becomes the page's scroll indicator. Water rises and
    falls through the report the way it does through a wetting–drying cycle, and
@@ -315,7 +315,7 @@ function AwdGauge({ progress }) {
             opacity="0.5"
           />
         </g>
-        {/* perforations — the pipe is drilled so field water can enter */}
+        {/* perforations - the pipe is drilled so field water can enter */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
           <circle key={i} cx="23" cy={30 + i * 19} r="1.6" fill={C.field} opacity="0.35" />
         ))}
@@ -330,7 +330,7 @@ function AwdGauge({ progress }) {
 }
 
 /* ----------------------------------------------------------------------------
-   5 · CHROME — progress rule + section jump
+   5 · CHROME - progress rule + section jump
 ---------------------------------------------------------------------------- */
 const NAV = [
   ["summary", "Summary"],
@@ -402,8 +402,7 @@ function TopBar({ progress }) {
 
 /* ----------------------------------------------------------------------------
    6 · HERO
-   Thesis, not decoration: a flooded field that drains as the page loads —
-   the single practice the whole programme rests on, stated in one line.
+   Thesis, not decoration: a flooded field that drains as the page loads - the single practice the whole programme rests on, stated in one line.
 ---------------------------------------------------------------------------- */
 function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -470,7 +469,7 @@ function Hero() {
             style={{ color: "rgba(255,255,255,.78)", maxWidth: "56ch", lineHeight: 1.6 }}
           >
             300 paddy farmers across 1,718 acres in Nizamabad stopped flooding their fields
-            continuously — and cut the carbon in every tonne of rice by half.
+            continuously - and cut the carbon in every tonne of rice by half.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-x-10 gap-y-5">
@@ -550,7 +549,7 @@ function ImpactStrip() {
       <SectionHead
         index="01"
         title="What the season delivered"
-        lede="The ABC Low-Emission Rice Offtake Project promoted Alternate Wetting & Drying (AWD)–based regenerative practices that cut greenhouse gas emissions, improved water-use efficiency and strengthened long-term soil health — verified farm to mill."
+        lede="The ABC Low-Emission Rice Offtake Project promoted Alternate Wetting & Drying (AWD)–based regenerative practices that cut greenhouse gas emissions, improved water-use efficiency and strengthened long-term soil health - verified farm to mill."
       />
       <div className="grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {HEADLINES.map((s, i) => (
@@ -565,15 +564,15 @@ function ImpactStrip() {
           </h3>
           <p className="mt-4" style={{ lineHeight: 1.75, color: C.ink, maxWidth: "68ch" }}>
             Rice is one of the most water-intensive crops on earth, and traditional flooded cultivation is a
-            significant source of methane — while exposing farmers to erratic rainfall, rising temperatures and
+            significant source of methane - while exposing farmers to erratic rainfall, rising temperatures and
             declining groundwater. Against that backdrop the project introduced a set of regenerative interventions
             focused on <strong>water</strong>, <strong>soil</strong> and <strong>implementation competencies</strong>.
           </p>
           <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "68ch" }}>
             Participating farmers kept their prevailing rice establishment method. The single change at the centre of
             the programme was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
-            conserve water and suppress methane formation. Everything else — biologicals, residue management, digital
-            traceability — was built around making that change stick and making it auditable.
+            conserve water and suppress methane formation. Everything else - biologicals, residue management, digital
+            traceability - was built around making that change stick and making it auditable.
           </p>
         </Reveal>
         <Reveal delay={120}>
@@ -594,7 +593,7 @@ function ImpactStrip() {
 }
 
 /* ----------------------------------------------------------------------------
-   8 · PROJECT LOCATION — interactive map
+   8 · PROJECT LOCATION - interactive map
    ⟵ SWAP: <ComposableMap projection="geoMercator"><Geographies geography={IN_TOPO}>
       … react-simple-maps consumes the same [lon, lat] rings used below, so the
       geometry constants drop straight into a TopoJSON/GeoJSON feature.
@@ -603,7 +602,7 @@ const BBOX = { lon0: 67.0, lon1: 98.5, lat0: 5.5, lat1: 37.5 };
 const MAP_W = 560;
 const MAP_H = 640;
 
-/** Equirectangular projection with a cos(mid-latitude) correction — enough
+/** Equirectangular projection with a cos(mid-latitude) correction - enough
  *  fidelity for a locator map and zero network dependency. */
 function project([lon, lat]) {
   const x = ((lon - BBOX.lon0) / (BBOX.lon1 - BBOX.lon0)) * MAP_W;
@@ -645,7 +644,7 @@ function IndiaMap({ active, setActive }) {
       {/* national outline */}
       <path d={ring(INDIA)} fill={C.paperDim} stroke={C.line} strokeWidth="1.2" strokeLinejoin="round" />
 
-      {/* Telangana — the only interactive geography on the map */}
+      {/* Telangana - the only interactive geography on the map */}
       <path
         d={ring(TELANGANA)}
         fill={on ? "url(#tgGrad)" : C.field}
@@ -659,7 +658,7 @@ function IndiaMap({ active, setActive }) {
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}
         onClick={() => setActive((v) => !v)}
-        aria-label="Telangana — project state"
+        aria-label="Telangana - project state"
       />
 
       {/* project pin + ping */}
@@ -696,7 +695,7 @@ function LocationSection() {
       <SectionHead
         index="02"
         title="One district, twenty-three villages"
-        lede="The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana — a groundwater-dependent rice bowl where continuous flooding is the default and the case for AWD is strongest."
+        lede="The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana - a groundwater-dependent rice bowl where continuous flooding is the default and the case for AWD is strongest."
       />
       <div className="grid gap-10 lg:grid-cols-2 items-center">
         <Reveal>
@@ -731,7 +730,7 @@ function LocationSection() {
                 className="mt-3"
                 style={{ color: active ? "rgba(255,255,255,.78)" : C.mute, lineHeight: 1.7, transition: "color .45s ease" }}
               >
-                Varni and Chandur blocks, covering 23 villages — including Ghanpur, Sangam, Kunipoor, Srinagar and
+                Varni and Chandur blocks, covering 23 villages - including Ghanpur, Sangam, Kunipoor, Srinagar and
                 Bhavanipet, where field evidence in this report was captured.
               </p>
 
@@ -774,7 +773,7 @@ function LocationSection() {
 
 /* ----------------------------------------------------------------------------
    9 · THE THREE INTERVENTIONS
-   Hover (or focus, or tap on touch) opens the mechanism drawer — the "how it
+   Hover (or focus, or tap on touch) opens the mechanism drawer - the "how it
    actually works" text stays out of the way until asked for.
 ---------------------------------------------------------------------------- */
 const INTERVENTIONS = [
@@ -795,12 +794,12 @@ const INTERVENTIONS = [
       ["Methane", "Flooded fields are a major methane source; drying limits the anaerobic conditions that create it."],
     ],
     benefits: [
-      "~45% water savings — down to ~1,788 litres per kg of paddy",
+      "~45% water savings - down to ~1,788 litres per kg of paddy",
       "Lower methane emissions through reduced waterlogging",
       "Improved root aeration and nutrient uptake",
       "Enhanced water productivity and groundwater management",
       "Decreased weed pressure in certain field conditions",
-      "Healthier soil structure — less prolonged saturation stress",
+      "Healthier soil structure - less prolonged saturation stress",
       "Farmer-friendly monitoring via a simple tube",
       "Climate resilience where irrigation is scarce",
     ],
@@ -815,7 +814,7 @@ const INTERVENTIONS = [
       <path d="M12 21c0-6 3-10 8-11 0 7-3 11-8 11zM12 21C12 15 9 11 4 10c0 7 3 11 8 11z" fill="currentColor" />
     ),
     mechanism:
-      "An advanced microbial NPK consortium biofertiliser: nitrogen-fixing, phosphorus-solubilising and potash-mobilising bacteria enriched with naturally derived soil minerals. It adds plant-beneficial microbes to the crop rhizosphere, lifting soil biological activity and nutrient-use efficiency. Every farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos — one acre's worth — plus training on correct application.",
+      "An advanced microbial NPK consortium biofertiliser: nitrogen-fixing, phosphorus-solubilising and potash-mobilising bacteria enriched with naturally derived soil minerals. It adds plant-beneficial microbes to the crop rhizosphere, lifting soil biological activity and nutrient-use efficiency. Every farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - plus training on correct application.",
     why: [
       ["Nutrient efficiency", "Biological availability lets the same crop run on less applied nitrogen."],
       ["Cost", "Inputs were supplied at no cost, so adoption carried no added expense."],
@@ -823,7 +822,7 @@ const INTERVENTIONS = [
     ],
     benefits: [
       "Steady biologically-driven N-P-K supply; up to 20% less synthetic fertiliser dependence",
-      "Improved soil structure — aeration, moisture retention, root penetration",
+      "Improved soil structure - aeration, moisture retention, root penetration",
       "Lower urea requirement, subject to soil condition, crop stage and agronomic advice",
       "Consistent vegetative growth and quality grain formation",
       "Lower disease incidence and better long-term soil health",
@@ -839,15 +838,15 @@ const INTERVENTIONS = [
       <path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-6h6v6" stroke="currentColor" strokeWidth="1.8" fill="none" />
     ),
     mechanism:
-      "CRM was implemented to eliminate open field burning. Selected farmers were supported in baling and bundling rice residues immediately after harvest, so straw was collected, removed or repurposed instead of burnt. Where residues are retained, mulched, composted or incorporated, biomass nutrients recycle back into the soil and may reduce synthetic nitrogen needs in later seasons. Where residues are baled and removed, the gains are cleaner fields, avoided burning and productive biomass use — urea replacement must be assessed against the specific CRM pathway and soil tests.",
+      "CRM was implemented to eliminate open field burning. Selected farmers were supported in baling and bundling rice residues immediately after harvest, so straw was collected, removed or repurposed instead of burnt. Where residues are retained, mulched, composted or incorporated, biomass nutrients recycle back into the soil and may reduce synthetic nitrogen needs in later seasons. Where residues are baled and removed, the gains are cleaner fields, avoided burning and productive biomass use - urea replacement must be assessed against the specific CRM pathway and soil tests.",
     why: [
       ["Air quality", "Burning releases particulate matter, CO₂, methane and nitrous oxide."],
       ["Soil biota", "Field fires damage soil life and destroy organic carbon."],
-      ["Income", "Baled straw has a buyer — local cowsheds and gaushalas."],
+      ["Income", "Baled straw has a buyer - local cowsheds and gaushalas."],
     ],
     benefits: [
       "New income stream from selling baled residue to gaushalas",
-      "Target exceeded — 100% growth over the original 300-acre plan",
+      "Target exceeded - 100% growth over the original 300-acre plan",
       "Higher soil organic matter; organic carbon retained rather than burnt",
       "Biomass reused as livestock feed, compost and bioenergy",
       "Reduced air pollution and fire risk across the project villages",
@@ -894,7 +893,7 @@ function InterventionCard({ item, delay }) {
           {item.kicker}
         </div>
 
-        {/* MECHANISM DRAWER — opens on hover / focus-within / tap */}
+        {/* MECHANISM DRAWER - opens on hover / focus-within / tap */}
         <div className="ch-drawer">
           <div>
             <p className="mt-5" style={{ lineHeight: 1.7, fontSize: 14.5, color: C.ink }}>
@@ -936,7 +935,7 @@ function InterventionsSection() {
       <SectionHead
         index="03"
         title="Three interventions, one system"
-        lede="Water, soil and residue were addressed together — each one supported by the same field team, the same digital record and the same farmer. Hover any card to open its mechanism."
+        lede="Water, soil and residue were addressed together - each one supported by the same field team, the same digital record and the same farmer. Hover any card to open its mechanism."
       />
       <div className="grid gap-5 lg:grid-cols-3">
         {INTERVENTIONS.map((it, i) => (
@@ -948,7 +947,7 @@ function InterventionsSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   10 · GOVERNANCE — team structure, responsibilities, competencies
+   10 · GOVERNANCE - team structure, responsibilities, competencies
 ---------------------------------------------------------------------------- */
 const ROLES = [
   ["Project Management Unit", [
@@ -983,7 +982,7 @@ const ROLES = [
     "GHG emission quantification and water-saving assessments from field-level data",
   ]],
   ["Engineering Leads", [
-    "Developed and maintained the digital tools — FieldKhata and S3 Sutra",
+    "Developed and maintained the digital tools - FieldKhata and S3 Sutra",
     "Data accuracy, security and seamless flow across platforms",
     "Troubleshooting, field adoption and technology readiness",
     "Digital traceability and audit-trail generation from farm to mill",
@@ -1137,7 +1136,7 @@ const IPM = [
   ["Cultural control", "Timely agronomic operations, field sanitation, balanced nutrition, weed management and AWD-based water management."],
   ["Mechanical & physical", "Removal of infected plant parts, cleaning of field bunds, physical suppression of weeds and pest habitats."],
   ["Biological control", "Biological inputs and practices that improved soil and crop health and encouraged beneficial organisms."],
-  ["Chemical control", "Recommended only when pest or disease pressure required it — correct pesticide, dosage and crop stage."],
+  ["Chemical control", "Recommended only when pest or disease pressure required it - correct pesticide, dosage and crop stage."],
 ];
 
 function GovernanceSection() {
@@ -1168,7 +1167,7 @@ function GovernanceSection() {
             method) went into <strong style={{ color: C.ink }}>FieldKhata</strong>; the agronomist and scientific team
             then checked accuracy, completeness and geolocation consistency before anything reached GHG accounting.
             Post-harvest, <strong style={{ color: C.ink }}>S3 Sutra</strong> traced low-emission paddy from farm to
-            miller — farmer validation, produce quantities and movement — and a third-party auditor reviewed the
+            miller - farmer validation, produce quantities and movement - and a third-party auditor reviewed the
             evidence and digital records.
           </p>
         </Reveal>
@@ -1208,7 +1207,7 @@ function GovernanceSection() {
               <p>
                 <strong style={{ color: C.ink }}>Integrated Nutrient Management.</strong> Nutrient decisions combined
                 farmer practice, crop-stage requirements, biological inputs, soil condition and split application of
-                fertilisers — with Oorjit and Grow Phos as biological complements optimising nitrogen and phosphorus
+                fertilisers - with Oorjit and Grow Phos as biological complements optimising nitrogen and phosphorus
                 availability.
               </p>
               <p>
@@ -1223,7 +1222,7 @@ function GovernanceSection() {
               </p>
               <p>
                 <strong style={{ color: C.ink }}>Always-on channels.</strong> Vernacular video on Grow Indigo's YouTube
-                learning platform plus weekly WhatsApp messages in Telugu — including pest advisories naming the Kisan
+                learning platform plus weekly WhatsApp messages in Telugu - including pest advisories naming the Kisan
                 Advisor to call.
               </p>
             </div>
@@ -1236,7 +1235,7 @@ function GovernanceSection() {
           <Eyebrow color={C.husk}>Stakeholder management</Eyebrow>
           <p className="mt-3" style={{ color: "rgba(255,255,255,.8)", lineHeight: 1.75, maxWidth: "80ch" }}>
             Field teams, scientists, Aishwarya Rice Mills (ABC's empanelled miller) and ABC representatives worked in a
-            connected framework — enabling timely execution, transparent data flow and high implementation fidelity.
+            connected framework - enabling timely execution, transparent data flow and high implementation fidelity.
             The TBM and Kisan Advisors supervised the entire procurement process, and the PMU visited fields to ensure
             timely completion.
           </p>
@@ -1254,13 +1253,13 @@ function GovernanceSection() {
 const AWD_BENEFITS = [
   ["Water conservation", C.water, [
     "Reduces irrigation water demand by 30–45% versus continuous flooding without compromising yield",
-    "Project achieved ~45% water savings — ~1,788 litres per kg of paddy against a ~3,250 litre baseline",
+    "Project achieved ~45% water savings - ~1,788 litres per kg of paddy against a ~3,250 litre baseline",
     "Preserves groundwater reserves and reduces pumping load on shared aquifers",
     "Lets irrigation cycles be planned around critical stages: tillering, panicle initiation, milking",
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of rice, a globally significant agricultural emission source",
-    "Project delivered 679.13 kg CO₂e/MT reduction — 51% against ABC's baseline of 1,325 kg CO₂e/MT",
+    "Project delivered 679.13 kg CO₂e/MT reduction - 51% against ABC's baseline of 1,325 kg CO₂e/MT",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1283,7 +1282,7 @@ const AWD_BENEFITS = [
     "Healthier soil biology competes with crop pathogens, reducing disease pressure naturally",
   ]],
   ["Energy savings", C.husk, [
-    "Fewer irrigation events mean less pump runtime — lower electricity and diesel use",
+    "Fewer irrigation events mean less pump runtime - lower electricity and diesel use",
     "Reduced pumping load cuts wear and maintenance on irrigation infrastructure",
     "At national scale, wide AWD adoption can ease peak agricultural electricity demand",
     "Indirect savings across the supply chain as fertiliser manufacturing and transport fall",
@@ -1345,7 +1344,7 @@ function BenefitsSection() {
         index="05"
         tone="dark"
         title="One practice, eight kinds of return"
-        lede="AWD is a climate-smart, water-saving rice cultivation practice that delivers measurable environmental, agronomic, economic and social benefits — from an individual field to an entire watershed. Hover a tile to open the full evidence."
+        lede="AWD is a climate-smart, water-saving rice cultivation practice that delivers measurable environmental, agronomic, economic and social benefits - from an individual field to an entire watershed. Hover a tile to open the full evidence."
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {AWD_BENEFITS.map(([t, c, p], i) => (
@@ -1356,7 +1355,7 @@ function BenefitsSection() {
         <div className="p-7 md:p-9 rounded-lg text-center" style={{ background: C.field }}>
           <Eyebrow color={C.husk}>The big picture</Eyebrow>
           <p className="ch-display mt-4 mx-auto text-xl md:text-2xl" style={{ color: "#fff", fontWeight: 600, maxWidth: "44ch", lineHeight: 1.3 }}>
-            AWD is a single practice with cascading positive impacts — saving water, reducing emissions, improving
+            AWD is a single practice with cascading positive impacts - saving water, reducing emissions, improving
             soils, protecting biodiversity, cutting energy costs, safeguarding health and strengthening community water
             governance.
           </p>
@@ -1367,14 +1366,14 @@ function BenefitsSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   12 · RESULTS — animated Recharts, gated on viewport entry
+   12 · RESULTS - animated Recharts, gated on viewport entry
    Each chart mounts only once its wrapper is in view, so Recharts' own
    animation doubles as the scroll-triggered reveal.
 ---------------------------------------------------------------------------- */
 const EMISSIONS = [
   { name: "ABC baseline", value: 1325, fill: C.mute, note: "ABC's declared baseline for rice, kg CO₂e per MT" },
-  { name: "Project · excl. nursery", value: 621.32, fill: C.leaf, note: "703.68 kg CO₂e/MT lower — a ~53% reduction" },
-  { name: "Project · incl. nursery", value: 645.87, fill: C.field, note: "679.13 kg CO₂e/MT lower — 51%, the headline result" },
+  { name: "Project · excl. nursery", value: 621.32, fill: C.leaf, note: "703.68 kg CO₂e/MT lower - a ~53% reduction" },
+  { name: "Project · incl. nursery", value: 645.87, fill: C.field, note: "679.13 kg CO₂e/MT lower - 51%, the headline result" },
 ];
 
 const NITROGEN = [
@@ -1390,7 +1389,7 @@ const WATER = [
 
 const YIELD = [
   { name: "Previous season", value: 2.7, fill: C.mute, note: "Average rice yield, MT" },
-  { name: "Current season", value: 2.5, fill: C.husk, note: "Down ~7.4% — attributed to seasonal and agronomic factors" },
+  { name: "Current season", value: 2.5, fill: C.husk, note: "Down ~7.4% - attributed to seasonal and agronomic factors" },
 ];
 
 function ChartTip({ active, payload, unit }) {
@@ -1523,7 +1522,7 @@ function ResultsSection() {
             title="Yield, season on season"
             unit="MT per acre, average"
             height={230}
-            footnote="A ~7.4% decline. The report attributes it to seasonal factors — irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging — alongside agronomic variation in transplanting dates, varietal performance, pest pressure, weed competition, nutrient timing and soil fertility."
+            footnote="A ~7.4% decline. The report attributes it to seasonal factors - irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging - alongside agronomic variation in transplanting dates, varietal performance, pest pressure, weed competition, nutrient timing and soil fertility."
           >
             <LineChart data={YIELD} margin={{ top: 16, right: 24, left: -18, bottom: 8 }}>
               <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
@@ -1571,8 +1570,8 @@ function ResultsSection() {
           <div className="p-7 rounded-lg h-full" style={{ background: C.field }}>
             <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
-              Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 35.6 kg N/acre — a 26%
-              reduction — driven primarily by Oorjit granules' enhanced fertiliser-use efficiency combined with AWD
+              Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 35.6 kg N/acre - a 26%
+              reduction - driven primarily by Oorjit granules' enhanced fertiliser-use efficiency combined with AWD
               irrigation, and further supported by temporary urea market shortages. Against farmers' business-as-usual
               62.4 kg N/acre, the project rate is 43% lower.
             </p>
@@ -1588,7 +1587,7 @@ function ResultsSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   13 · THE SEASON — activity timeline + critical stages
+   13 · THE SEASON - activity timeline + critical stages
    The Gantt bars grow from the left when the block scrolls in; hovering a bar
    surfaces the operational detail behind it.
 ---------------------------------------------------------------------------- */
@@ -1639,7 +1638,7 @@ function Timeline() {
                 {bars.map(([t, start, span, detail]) => (
                   <div
                     key={t}
-                    onMouseEnter={() => setTip(`${t} — ${detail}`)}
+                    onMouseEnter={() => setTip(`${t} - ${detail}`)}
                     onMouseLeave={() => setTip(null)}
                     className="ch-data px-2 py-2 rounded"
                     style={{
@@ -1687,7 +1686,7 @@ function Timeline() {
 
 const STAGES = [
   ["Tillering", "For effective tiller production", "Reduction in effective tillers leads to yield loss"],
-  ["Panicle to flowering", "For fertile grain formation", "More sterile grains — yield loss"],
+  ["Panicle to flowering", "For fertile grain formation", "More sterile grains - yield loss"],
   ["Milking to dough", "For complete grain filling", "Less head rice, more broken rice"],
 ];
 
@@ -1708,8 +1707,8 @@ function SeasonSection() {
           <div className="space-y-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute }}>
             <p>
               Seedlings were transplanted mid-season and, within the first three days, farmers applied a
-              post-emergence herbicide — Bispyribac Sodium 10SC, or Fenoxaprop-p-ethyl 6.7EC + Metsulfuron Methyl 10WP
-              + Chlorimuron Ethyl 10WP — for early weed suppression. Between 10–15 days after transplanting, AWD field
+              post-emergence herbicide - Bispyribac Sodium 10SC, or Fenoxaprop-p-ethyl 6.7EC + Metsulfuron Methyl 10WP
+              + Chlorimuron Ethyl 10WP - for early weed suppression. Between 10–15 days after transplanting, AWD field
               pipes were installed across all project plots and manual water-level measurement began.
             </p>
             <p>
@@ -1753,8 +1752,8 @@ function SeasonSection() {
 const SHORT_TERM = [
   ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~26% reduction per acre in nitrogen fertiliser."],
   ["No investment for AWD infrastructure", "AWD pipes were supplied, removing upfront cost and enabling immediate adoption."],
-  ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping — direct savings on power and fuel."],
-  ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas — additional income while avoiding residue-management costs."],
+  ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping - direct savings on power and fuel."],
+  ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs."],
 ];
 const LONG_TERM = [
   ["Improved soil organic carbon", "Repeated use of biological inputs and AWD raises SOC over time, improving nutrient retention and supporting stable, improved yields."],
@@ -1823,7 +1822,7 @@ function SourcingSection() {
         index="09"
         tone="dark"
         title="Mapped to ABC's Responsible Sourcing Standard"
-        lede="ABC's standard sets out how the company expects its agricultural supply chain to operate — environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports ABC's Scope 3 and ESG disclosure obligations."
+        lede="ABC's standard sets out how the company expects its agricultural supply chain to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports ABC's Scope 3 and ESG disclosure obligations."
       />
       <div className="grid gap-6 lg:grid-cols-2">
         <Reveal>
@@ -1898,18 +1897,18 @@ function SourcingSection() {
           <div className="mt-5 grid gap-6 md:grid-cols-3" style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.75)" }}>
             <p>
               AWD alone delivers eight distinct ESG benefits. That breadth lets ABC communicate the work credibly
-              across climate, water, biodiversity and rural-development pillars — without overstating any single claim,
+              across climate, water, biodiversity and rural-development pillars - without overstating any single claim,
               and while staying inside the bounds of the field evidence.
             </p>
             <p>
               Geo-tagged field boundaries, farmer-diary practice records, scientific QC and Cool Farm Platform
               quantification together produce emission reductions that are field-attributable and third-party
-              verifiable — the quality threshold for Scope 3 insetting claims under emerging GHG Protocol and SBTi
+              verifiable - the quality threshold for Scope 3 insetting claims under emerging GHG Protocol and SBTi
               guidance.
             </p>
             <p>
               The programme is a working template for how ABC's Responsible Sourcing commitments translate into
-              measurable, defensible field outcomes — providing both the operational learnings and the disclosure
+              measurable, defensible field outcomes - providing both the operational learnings and the disclosure
               evidence needed to scale climate-aligned procurement across the rice category, and beyond.
             </p>
           </div>
@@ -1925,20 +1924,20 @@ function SourcingSection() {
    Drop a real image in via the `src` field and it replaces the drawn scene.
 ---------------------------------------------------------------------------- */
 const EVIDENCE = [
-  { n: 1, title: "Village-level meetings with farmers", scene: "meeting", place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM GMT +05:30", caption: "Farmers attending a VLM with the field team — four VLMs were held across the project period." },
+  { n: 1, title: "Village-level meetings with farmers", scene: "meeting", place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM GMT +05:30", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
   { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", scene: "form", place: "Ghanpur, Telangana, India", coords: "Farmer ID 1f22356e", when: "Rabi 2026", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Feedback form (second respondent)", scene: "form", place: "Ghanpur, Telangana, India", coords: "Stakeholder feedback", when: "22-01-26", caption: "Second signed stakeholder feedback record retained in the audit pack." },
   { n: 5, title: "ABC team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "ABC representatives in-field with the Grow Indigo team and participating farmers." },
-  { n: 6, title: "AWD pipes during monitoring", scene: "pipe", place: "Ghanpur, Telangana, India", coords: "18.573399°N 77.927099°E", when: "Thu, 05/02/2026 12:00 PM GMT +05:30", caption: "Perforated field tube with the measuring scale in place — water depth read directly against the gauge." },
+  { n: 6, title: "AWD pipes during monitoring", scene: "pipe", place: "Ghanpur, Telangana, India", coords: "18.573399°N 77.927099°E", when: "Thu, 05/02/2026 12:00 PM GMT +05:30", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 7, title: "Harvest in action", scene: "harvest", place: "Bhavanipet, Telangana, India", coords: "18.580134°N 77.925124°E", when: "Mon, 23/03/2026 09:33 AM GMT +05:30", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
-  { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt — 600 acres against a 300-acre target." },
+  { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt - 600 acres against a 300-acre target." },
   { n: 9, title: "Grains ready to be transported", scene: "grain", place: "Nizamabad, Telangana, India", coords: "18.522364°N 77.868633°E", when: "Mon, 20/04/2026 07:16 AM GMT +05:30", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 10, title: "Procurement form and receipt", scene: "form", place: "Varni, Nizamabad", coords: "Vehicle AP29TB1278 · Paddy 36,750 kg net", when: "12-04-2026", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher — the closing links in the farm-to-mill chain." },
+  { n: 10, title: "Procurement form and receipt", scene: "form", place: "Varni, Nizamabad", coords: "Vehicle AP29TB1278 · Paddy 36,750 kg net", when: "12-04-2026", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
 ];
 
 /** Small drawn scenes stand in for the source photographs. Swap `src` in and
- *  render an <img> here instead — the geotag bar is designed to sit over it. */
+ *  render an <img> here instead - the geotag bar is designed to sit over it. */
 function EvidenceScene({ kind }) {
   const base = { width: "100%", height: 168, display: "block" };
   const scenes = {
@@ -2045,7 +2044,7 @@ function EvidenceSection() {
       <SectionHead
         index="10"
         title="Field evidence"
-        lede="The annexures below document field-level evidence, monitoring data and operational records collected throughout the project period — each one geo-tagged and dated at the point of capture."
+        lede="The annexures below document field-level evidence, monitoring data and operational records collected throughout the project period - each one geo-tagged and dated at the point of capture."
       />
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {EVIDENCE.map((e, i) => (
@@ -2082,7 +2081,7 @@ function EvidenceSection() {
         <div className="ch-data p-4 rounded" style={{ fontSize: 11, color: C.mute, background: C.paperDim, lineHeight: 1.7 }}>
           Scenes above are drawn placeholders holding the layout for the source photographs. Replace{" "}
           <span style={{ color: C.field, fontWeight: 600 }}>&lt;EvidenceScene /&gt;</span> with an{" "}
-          <span style={{ color: C.field, fontWeight: 600 }}>&lt;img&gt;</span> — the geotag bar is already positioned to
+          <span style={{ color: C.field, fontWeight: 600 }}>&lt;img&gt;</span> - the geotag bar is already positioned to
           sit over it.
         </div>
       </Reveal>
@@ -2103,7 +2102,7 @@ const BIBLIOGRAPHY = [
 
 const DATA_NOTES = [
   "Headline GHG reduction of 679.13 kg CO₂e/MT (51%) is measured against ABC's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 24.54 kg CO₂e/MT.",
-  "The report also states 703.68 kg CO₂e/MT (~53%) excluding nursery emissions and 666.87 kg CO₂e/MT (~50%) using gross nursery emissions — all three are shown in Chart 1 rather than collapsed into one number.",
+  "The report also states 703.68 kg CO₂e/MT (~53%) excluding nursery emissions and 666.87 kg CO₂e/MT (~50%) using gross nursery emissions - all three are shown in Chart 1 rather than collapsed into one number.",
   "Water use of ~1,788 litres/kg is derived from the ~45% saving reported against the stated ~3,250 litres/kg baseline; the source document leaves this cell blank.",
   "Farmer counts differ by stage: 300 farmers in the executive summary, 419 enrolled and 249 completing procurement in the quantification section, of whom 16 were sampled.",
 ];
