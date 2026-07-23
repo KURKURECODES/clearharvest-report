@@ -43,9 +43,6 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-import chLogo from "./assets/chlogo1.png";
-import giLogo from "./assets/gilogo1.png";
-
 /* ----------------------------------------------------------------------------
    1 · DESIGN TOKENS
    Palette drawn from the field itself: flooded-paddy water, wet silt, husk,
@@ -517,7 +514,7 @@ function TopBar() {
         {/* ClearHarvest mark - real logo drops into LogoSlot via `src` */}
         <Magnetic strength={0.2}>
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">
-            <LogoSlot name="ClearHarvest" src={chLogo} light height={26} />
+            <LogoSlot name="ClearHarvest" light height={26} />
           </button>
         </Magnetic>
 
@@ -546,7 +543,7 @@ function TopBar() {
 
         {/* Grow Indigo mark, mirrored right */}
         <div className="ml-auto md:ml-0">
-          <LogoSlot name="Grow Indigo" src={giLogo} align="right" light height={26} />
+          <LogoSlot name="Grow Indigo" align="right" light height={26} />
         </div>
       </div>
       <div style={{ height: 2, background: "rgba(255,255,255,.12)" }}>
@@ -3182,9 +3179,9 @@ function LogoSlot({ name, src, align = "left", light = false, height = 34 }) {
 function LogoLockup({ light = false, height = 34, rule = true }) {
   return (
     <div className="flex items-center gap-5 w-full">
-      <LogoSlot name="ClearHarvest" src={chLogo} align="left" light={light} height={height} />
+      <LogoSlot name="ClearHarvest" align="left" light={light} height={height} />
       {rule && <span style={{ flex: 1, height: 1, background: light ? "rgba(255,255,255,.18)" : C.line }} />}
-      <LogoSlot name="Grow Indigo" src={giLogo} align="right" light={light} height={height} />
+      <LogoSlot name="Grow Indigo" align="right" light={light} height={height} />
     </div>
   );
 }
