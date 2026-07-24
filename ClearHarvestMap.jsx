@@ -35,7 +35,18 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 // maplibre-gl v5 ships named exports only - no default export.
-import { Map as MLMap, Marker, Popup, NavigationControl, ScaleControl } from "maplibre-gl";
+import { Map as MLMap, Marker, Popup, NavigationControl, ScaleControl, setWorkerUrl } from "maplibre-gl";
+// MapLibre resolves its tile-parsing worker script relative to its own
+// bundled chunk's import.meta.url at runtime - a pattern bundlers can't
+// statically detect. Worse, the worker file itself does a relative
+// `import ... from "./maplibre-gl-shared.mjs"`, so even a `?url` static
+// asset copy of just the worker breaks it (the shared chunk never ships
+// alongside it, and the missing-file request 404s inside the worker,
+// which never surfaces on the main thread - the map just hangs on
+// "loading" forever). Both files are vendored into public/maplibre/ as an
+// unhashed, unbundled pair so the relative import between them keeps
+// working, and setWorkerUrl points MapLibre at that copy directly.
+setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
 
 import BOUNDARIES from "./boundaries.geo.json";
 import FIELDS_FC from "./fields.geo.json";
@@ -116,6 +127,7 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
       maxZoom: 17,
     });
     map.current = m;
+    m.on("error", (e) => console.error("MapLibre error:", e?.error || e));
     m.addControl(new NavigationControl({ showCompass: false }), "bottom-right");
     m.addControl(new ScaleControl({ maxWidth: 90, unit: "metric" }), "bottom-left");
     popup.current = new Popup({ closeButton: false, closeOnClick: false, offset: 12, className: "ch-popup" });
