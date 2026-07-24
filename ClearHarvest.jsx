@@ -40,6 +40,8 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell, LabelList, ReferenceLine,
 } from "recharts";
+import "maplibre-gl/dist/maplibre-gl.css";
+import LocationSection from "./ClearHarvestMap.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,9 +65,9 @@ const C = {
   mute: "#5C7264",
 };
 
-const FONT_DISPLAY = "'Bricolage Grotesque', 'Archivo', system-ui, sans-serif";
-const FONT_BODY = "'Inter Tight', 'Inter', system-ui, sans-serif";
-const FONT_DATA = "'IBM Plex Mono', ui-monospace, monospace";
+const FONT_DISPLAY = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
+const FONT_BODY = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
+const FONT_DATA = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
 
 /** Framer's shared easing curve - one curve across the whole site keeps the
  *  motion language coherent no matter which library is driving it. */
@@ -75,8 +77,6 @@ const GSAP_EASE = "power3.out";
 function GlobalStyle() {
   return (
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter+Tight:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
       .ch-root { font-family: ${FONT_BODY}; background: ${C.paper}; color: ${C.ink};
         overflow-x: hidden; }
       .ch-display { font-family: ${FONT_DISPLAY}; letter-spacing: -0.03em; line-height: 0.98; }
@@ -462,6 +462,7 @@ const NAV = [
   ["governance", "Governance"], ["sequence", "Sequence"], ["testimonials", "Voices"],
   ["photography", "Photography"], ["benefits", "AWD benefits"], ["results", "Results"],
   ["season", "Season"], ["economics", "Economics"], ["sourcing", "Sourcing"], ["evidence", "Evidence"],
+  ["about", "About"],
 ];
 
 function TopBar() {
@@ -564,7 +565,7 @@ const HERO_META = [
   ["Season", "Rabi 2026"],
   ["Programme", "ClearHarvest by Grow Indigo"],
   ["Geography", "Varni & Chandur blocks, Telangana"],
-  ["Quantification", "Cool Farm Platform V3.0"],
+  ["Quantification", "Cool Farm Platform v3.0"],
 ];
 
 function Hero() {
@@ -683,7 +684,7 @@ function Hero() {
 const HEADLINES = [
   { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 23 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
-  { value: 51, suffix: "%", label: "GHG reduction", note: "vs ABC baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
+  { value: 51, suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
   { value: 45, prefix: "~", suffix: "%", label: "Water saved", note: "3,250 → ~1,788 litres per kg paddy", tone: C.water },
   { value: 600, suffix: "", label: "Acres baled", note: "double the 300-acre CRM target", tone: C.husk },
   { value: 26, suffix: "%", label: "Less nitrogen", note: "48 → 35.6 kg N/acre vs PJTSAU dose", tone: C.clay },
@@ -691,7 +692,7 @@ const HEADLINES = [
 
 const TICKER = [
   "679.13 kg CO₂e/MT reduced",
-  "51% below ABC baseline",
+  "51% below Nestle baseline",
   "~45% water saved",
   "26% less nitrogen",
   "600 acres baled",
@@ -788,521 +789,6 @@ function ImpactStrip() {
         </div>
       </Section>
     </>
-  );
-}
-
-/* ----------------------------------------------------------------------------
-   7 · PROJECT LOCATION - four-level KML drill-down
-   India → Telangana → Nizamabad → village → individual farmer field.
-
-   Levels 0–2 share one geographic projection and zoom by animating a group
-   transform. Level 3 switches to a local plot view because farmer fields are
-   ~0.002° across - at national scale they would be sub-pixel, and pushing the
-   zoom that far introduces float noise in the path data.
-
-   ⟵ DATA: FIELDS below is generated from a seeded PRNG so the layout is
-   stable across renders. Replace `buildFields()` with your FieldKhata KML
-   export - parse each <Placemark> into { id, farmer, acres, village, ring }
-   where ring is an array of [lon, lat] pairs, and everything downstream works
-   unchanged.
----------------------------------------------------------------------------- */
-const BBOX = { lon0: 67.0, lon1: 98.5, lat0: 5.5, lat1: 37.5 };
-const MAP_W = 560;
-const MAP_H = 640;
-
-function project([lon, lat]) {
-  const x = ((lon - BBOX.lon0) / (BBOX.lon1 - BBOX.lon0)) * MAP_W;
-  const y = ((BBOX.lat1 - lat) / (BBOX.lat1 - BBOX.lat0)) * MAP_H;
-  return [x, y];
-}
-const ring = (pts) => pts.map((pt, i) => `${i ? "L" : "M"}${project(pt).map((n) => n.toFixed(1)).join(" ")}`).join(" ") + " Z";
-
-const INDIA = [
-  [74.0, 34.6], [76.6, 35.5], [78.4, 34.6], [79.5, 33.0], [80.1, 30.5], [81.6, 30.3],
-  [84.0, 28.6], [86.2, 27.6], [88.1, 27.3], [88.9, 26.9], [89.6, 26.2], [92.0, 27.8],
-  [95.4, 28.0], [97.3, 28.2], [96.6, 27.0], [97.1, 25.4], [94.6, 24.0], [93.4, 23.0],
-  [92.5, 22.0], [91.5, 22.8], [89.5, 21.8], [88.0, 21.6], [87.0, 21.5], [85.5, 19.8],
-  [84.5, 19.0], [82.5, 17.0], [80.5, 15.8], [80.2, 13.5], [79.8, 11.9], [79.3, 10.3],
-  [78.2, 9.2], [77.5, 8.1], [76.5, 9.0], [75.8, 11.5], [74.8, 13.5], [73.8, 15.5],
-  [72.9, 18.5], [72.6, 20.0], [72.9, 21.8], [70.0, 20.8], [69.0, 22.3], [68.2, 23.7],
-  [70.5, 24.5], [71.0, 26.0], [72.5, 27.5], [73.5, 29.5], [74.6, 31.0], [74.0, 32.5],
-];
-
-const TELANGANA = [
-  [77.3, 19.9], [78.6, 19.9], [79.9, 19.6], [80.6, 18.8], [80.9, 17.8], [80.3, 17.0],
-  [79.5, 15.95], [78.5, 15.9], [77.7, 16.5], [77.3, 17.3], [76.85, 18.35],
-];
-
-const NIZAMABAD = [78.09, 18.67];
-
-/* Five project villages, positioned from the GPS stamps on the field
-   photographs in the annexures. Field counts sum to 309. */
-const VILLAGES = [
-  { key: "ghanpur",    name: "Ghanpur",    lon: 77.9271, lat: 18.5734, fields: 78, block: "Chandur" },
-  { key: "sangam",     name: "Sangam",     lon: 77.9121, lat: 18.6038, fields: 64, block: "Chandur" },
-  { key: "kunipoor",   name: "Kunipoor",   lon: 77.9406, lat: 18.5111, fields: 71, block: "Varni"   },
-  { key: "srinagar",   name: "Srinagar",   lon: 77.9253, lat: 18.5371, fields: 52, block: "Varni"   },
-  { key: "bhavanipet", name: "Bhavanipet", lon: 77.9251, lat: 18.5801, fields: 44, block: "Chandur" },
-];
-const TOTAL_FIELDS = VILLAGES.reduce((n, v) => n + v.fields, 0); // 309
-
-/* Deterministic name pool - replace wholesale when the real KML lands. */
-const SURNAMES = ["Kolluri", "Gundeti", "Bandari", "Mekala", "Pochampally", "Nalla", "Yerram", "Kandula", "Bhoomaiah", "Sirikonda", "Racha", "Dharmapuri", "Vemula", "Jangam", "Peddi"];
-const GIVEN = ["Gangaram", "Venu", "Ashok", "Narsimha", "Ramulu", "Srinivas", "Lakshmi", "Anjaiah", "Mallesh", "Sailu", "Rajitha", "Kumar", "Padma", "Bhaskar", "Swaroopa", "Ravi"];
-
-/** Mulberry32 - small, fast, seedable. Keeps the plot layout identical on
- *  every render so hover targets never jump between paints. */
-function prng(seed) {
-  return function () {
-    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-/** Builds field polygons in a local 0–100 plot space per village. Fields are
- *  irregular quadrilaterals on a jittered grid - the shape real bunded paddy
- *  plots take when digitised from a walked boundary. */
-function buildFields() {
-  const out = [];
-  VILLAGES.forEach((v, vi) => {
-    const rand = prng(vi * 7919 + 13);
-    const cols = Math.ceil(Math.sqrt(v.fields * 1.35));
-    const rows = Math.ceil(v.fields / cols);
-    const cw = 100 / cols;
-    const chh = 100 / rows;
-    for (let i = 0; i < v.fields; i++) {
-      const cx = (i % cols) * cw;
-      const cy = Math.floor(i / cols) * chh;
-      const j = () => (rand() - 0.5) * cw * 0.28;
-      const pad = cw * 0.12;
-      const x0 = cx + pad + j(), y0 = cy + pad + j();
-      const x1 = cx + cw - pad + j(), y1 = cy + pad + j();
-      const x2 = cx + cw - pad + j(), y2 = cy + chh - pad + j();
-      const x3 = cx + pad + j(), y3 = cy + chh - pad + j();
-      const acres = +(2.1 + rand() * 12.4).toFixed(1);
-      out.push({
-        id: `${v.key.slice(0, 3).toUpperCase()}-${String(i + 1).padStart(3, "0")}`,
-        village: v.key,
-        villageName: v.name,
-        block: v.block,
-        farmer: `${SURNAMES[Math.floor(rand() * SURNAMES.length)]} ${GIVEN[Math.floor(rand() * GIVEN.length)]}`,
-        acres,
-        awd: rand() > 0.06,          // AWD pipe installed & logged
-        crm: rand() > 0.62,          // residue baled rather than burnt
-        d: `M${x0.toFixed(2)} ${y0.toFixed(2)}L${x1.toFixed(2)} ${y1.toFixed(2)}L${x2.toFixed(2)} ${y2.toFixed(2)}L${x3.toFixed(2)} ${y3.toFixed(2)}Z`,
-        cx: (x0 + x1 + x2 + x3) / 4,
-        cy: (y0 + y1 + y2 + y3) / 4,
-      });
-    }
-  });
-  return out;
-}
-const FIELDS = buildFields();
-
-/* Zoom targets for levels 0–2, in projected pixel space. */
-const VIEWS = {
-  india: { cx: MAP_W / 2, cy: MAP_H / 2, scale: 1 },
-  telangana: (() => { const [x, y] = project([78.8, 17.9]); return { cx: x, cy: y, scale: 3.4 }; })(),
-  district: (() => { const [x, y] = project(NIZAMABAD); return { cx: x, cy: y, scale: 11 }; })(),
-};
-
-const LEVELS = ["india", "telangana", "district", "village"];
-const LEVEL_LABEL = { india: "India", telangana: "Telangana", district: "Nizamabad district", village: "Village" };
-
-/** Levels 0–2: the geographic view. A single <g> carries the zoom so the
- *  outline, state fill and village pins all move together. */
-function GeoView({ level, hoverVillage, setHoverVillage, onPickVillage }) {
-  const view = VIEWS[level] || VIEWS.india;
-  const showVillages = level === "district";
-
-  return (
-    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full h-auto" role="img" aria-label={`Map: ${LEVEL_LABEL[level]}`}>
-      <defs>
-        <linearGradient id="tgGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={C.leaf} />
-          <stop offset="100%" stopColor={C.field} />
-        </linearGradient>
-      </defs>
-
-      <motion.g
-        animate={{
-          scale: view.scale,
-          x: MAP_W / 2 - view.cx * view.scale,
-          y: MAP_H / 2 - view.cy * view.scale,
-        }}
-        initial={false}
-        transition={{ duration: 1.05, ease: EASE }}
-        style={{ transformOrigin: "0px 0px" }}
-      >
-        <path d={ring(INDIA)} fill={C.paperDim} stroke={C.line} strokeWidth="1.2" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-
-        <motion.path
-          d={ring(TELANGANA)}
-          fill="url(#tgGrad)"
-          stroke="#fff"
-          strokeWidth="1.4"
-          vectorEffect="non-scaling-stroke"
-          animate={{ fillOpacity: level === "india" ? 0.65 : 1 }}
-          transition={{ duration: 0.5 }}
-        />
-
-        {/* district marker, only meaningful once Telangana fills the frame */}
-        <AnimatePresence>
-          {level !== "india" && (
-            <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
-              {(() => {
-                const [x, y] = project(NIZAMABAD);
-                return (
-                  <>
-                    <circle cx={x} cy={y} r={2.6 / view.scale} fill={C.husk} stroke="#fff" strokeWidth={0.8 / view.scale} />
-                    {level === "telangana" && (
-                      <text x={x + 4 / view.scale} y={y - 3 / view.scale} className="ch-data" fontSize={4 / view.scale} fill="#fff" fontWeight="600">
-                        Nizamabad
-                      </text>
-                    )}
-                  </>
-                );
-              })()}
-            </motion.g>
-          )}
-        </AnimatePresence>
-
-        {/* the five project villages */}
-        <AnimatePresence>
-          {showVillages &&
-            VILLAGES.map((v, i) => {
-              const [x, y] = project([v.lon, v.lat]);
-              const on = hoverVillage === v.key;
-              const r = (on ? 3.4 : 2.4) / view.scale;
-              return (
-                <motion.g
-                  key={v.key}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  transition={{ duration: 0.45, delay: 0.25 + i * 0.07, ease: EASE }}
-                  style={{ cursor: "pointer", transformOrigin: `${x}px ${y}px` }}
-                  onMouseEnter={() => setHoverVillage(v.key)}
-                  onMouseLeave={() => setHoverVillage(null)}
-                  onClick={() => onPickVillage(v.key)}
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && onPickVillage(v.key)}
-                  role="button"
-                  aria-label={`${v.name} - ${v.fields} farmer fields`}
-                >
-                  <circle cx={x} cy={y} r={r * 2.4} fill={C.husk} opacity={on ? 0.22 : 0.1} />
-                  <circle cx={x} cy={y} r={r} fill={on ? "#fff" : C.husk} stroke={C.ink} strokeWidth={0.5 / view.scale} />
-                  <text
-                    x={x + 5 / view.scale}
-                    y={y + 1.4 / view.scale}
-                    className="ch-data"
-                    fontSize={3.4 / view.scale}
-                    fill="#fff"
-                    fontWeight="600"
-                  >
-                    {v.name}
-                  </text>
-                  <text x={x + 5 / view.scale} y={y + 5.4 / view.scale} className="ch-data" fontSize={2.8 / view.scale} fill="rgba(255,255,255,.75)">
-                    {v.fields} fields
-                  </text>
-                </motion.g>
-              );
-            })}
-        </AnimatePresence>
-      </motion.g>
-    </svg>
-  );
-}
-
-/** Level 3: the KML plot view. Each polygon is one farmer's field. */
-function PlotView({ village, hoverField, setHoverField, selected, onPickField }) {
-  const v = VILLAGES.find((x) => x.key === village);
-  const fields = FIELDS.filter((f) => f.village === village);
-
-  // fields wash in row by row, the way a KML layer paints as it loads
-  const scope = useGsapContext((self, el) => {
-    gsap.fromTo(
-      el.querySelectorAll(".plot"),
-      { opacity: 0, scale: 0.4, transformOrigin: "center" },
-      { opacity: 1, scale: 1, duration: 0.5, ease: GSAP_EASE, stagger: { each: 0.006, from: "start" } }
-    );
-  }, [village]);
-
-  return (
-    <svg ref={scope} viewBox="-6 -6 112 112" className="w-full h-auto" role="img" aria-label={`${v.name}: ${v.fields} mapped farmer fields`}>
-      {/* village bund / access track, for orientation */}
-      <path d="M-6 46 L112 52" stroke={C.line} strokeWidth="1.6" fill="none" strokeDasharray="3 2" />
-      <path d="M48 -6 L52 112" stroke={C.line} strokeWidth="1.2" fill="none" strokeDasharray="3 2" />
-
-      {fields.map((f) => {
-        const on = hoverField === f.id;
-        const sel = selected === f.id;
-        return (
-          <path
-            key={f.id}
-            className="plot"
-            d={f.d}
-            fill={sel ? C.husk : on ? C.leaf : f.awd ? C.field : C.mute}
-            fillOpacity={sel || on ? 1 : 0.55}
-            stroke="#fff"
-            strokeWidth="0.28"
-            style={{ cursor: "pointer", transition: "fill .18s ease, fill-opacity .18s ease" }}
-            onMouseEnter={() => setHoverField(f.id)}
-            onMouseLeave={() => setHoverField(null)}
-            onClick={() => onPickField(f.id)}
-            tabIndex={0}
-            onFocus={() => setHoverField(f.id)}
-            onBlur={() => setHoverField(null)}
-            onKeyDown={(e) => e.key === "Enter" && onPickField(f.id)}
-            role="button"
-            aria-label={`${f.id}, ${f.farmer}, ${f.acres} acres`}
-          />
-        );
-      })}
-    </svg>
-  );
-}
-
-/** Breadcrumb - doubles as the up-navigation. */
-function MapCrumbs({ level, village, onGo }) {
-  const trail = [
-    { key: "india", label: "India" },
-    { key: "telangana", label: "Telangana" },
-    { key: "district", label: "Nizamabad" },
-  ];
-  if (level === "village" && village) {
-    trail.push({ key: "village", label: VILLAGES.find((v) => v.key === village)?.name });
-  }
-  const idx = LEVELS.indexOf(level);
-  return (
-    <LayoutGroup id="crumbs">
-      <div className="flex flex-wrap items-center gap-1.5">
-        {trail.map((t, i) => {
-          const isCurrent = i === idx;
-          return (
-            <React.Fragment key={t.key}>
-              {i > 0 && <span className="ch-data" style={{ color: C.line, fontSize: 11 }}>/</span>}
-              <motion.button
-                onClick={() => onGo(t.key)}
-                className="relative ch-data px-2.5 py-1 rounded"
-                style={{ fontSize: 10.5, letterSpacing: ".08em", color: isCurrent ? "#fff" : C.mute, fontWeight: 600 }}
-                whileHover={{ color: isCurrent ? "#fff" : C.field }}
-                disabled={i > idx}
-              >
-                {isCurrent && (
-                  <motion.span layoutId="crumb-pill" className="absolute inset-0 rounded" style={{ background: C.field }}
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }} />
-                )}
-                <span className="relative">{t.label?.toUpperCase()}</span>
-              </motion.button>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    </LayoutGroup>
-  );
-}
-
-function DetailRow({ k, v, accent }) {
-  return (
-    <div className="flex justify-between gap-4 py-2" style={{ borderBottom: "1px solid rgba(255,255,255,.1)" }}>
-      <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".08em" }}>{k.toUpperCase()}</span>
-      <span style={{ fontSize: 13.5, color: accent || "#fff", fontWeight: 600, textAlign: "right" }}>{v}</span>
-    </div>
-  );
-}
-
-/** The panel that answers "what am I looking at" at every level. */
-function MapPanel({ level, village, field, hoverVillage, hoverField }) {
-  const shownVillage = village || hoverVillage;
-  const v = VILLAGES.find((x) => x.key === shownVillage);
-  const f = FIELDS.find((x) => x.id === (field || hoverField));
-
-  let body;
-  if (level === "village" && f) {
-    body = (
-      <motion.div key={f.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28, ease: EASE }}>
-        <Eyebrow color={C.husk}>Farmer field · KML polygon</Eyebrow>
-        <h3 className="ch-display mt-4 text-2xl md:text-3xl" style={{ color: "#fff", fontWeight: 700 }}>{f.farmer}</h3>
-        <div className="mt-5">
-          <DetailRow k="Field ID" v={f.id} />
-          <DetailRow k="Area" v={`${f.acres} acres`} accent={C.leaf} />
-          <DetailRow k="Village" v={f.villageName} />
-          <DetailRow k="Block" v={f.block} />
-          <DetailRow k="AWD pipe" v={f.awd ? "Installed & logged" : "Not enrolled"} accent={f.awd ? C.leaf : "rgba(255,255,255,.5)"} />
-          <DetailRow k="Residue" v={f.crm ? "Baled - no burning" : "Retained in field"} accent={f.crm ? C.husk : undefined} />
-        </div>
-        <p className="ch-data mt-5" style={{ fontSize: 10.5, color: "rgba(255,255,255,.45)", lineHeight: 1.7 }}>
-          Boundary captured by the Kisan Advisor in FieldKhata and quality-checked by the scientific team before GHG accounting.
-        </p>
-      </motion.div>
-    );
-  } else if ((level === "village" || level === "district") && v) {
-    body = (
-      <motion.div key={v.key} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28, ease: EASE }}>
-        <Eyebrow color={C.husk}>{v.block} block</Eyebrow>
-        <h3 className="ch-display mt-4 text-2xl md:text-3xl" style={{ color: "#fff", fontWeight: 700 }}>{v.name}</h3>
-        <div className="mt-5">
-          <DetailRow k="Mapped fields" v={<Counter value={v.fields} />} accent={C.leaf} />
-          <DetailRow k="Coordinates" v={`${v.lat.toFixed(4)}°N ${v.lon.toFixed(4)}°E`} />
-          <DetailRow k="District" v="Nizamabad, Telangana" />
-        </div>
-        <p className="mt-5" style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.7)" }}>
-          {level === "district"
-            ? "Open the village to see every mapped farmer field, with name and area on each polygon."
-            : "Hover or tap any polygon for the farmer's name, field ID and area."}
-        </p>
-      </motion.div>
-    );
-  } else {
-    body = (
-      <motion.div key={level} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28, ease: EASE }}>
-        <Eyebrow color={C.husk}>{LEVEL_LABEL[level]}</Eyebrow>
-        <h3 className="ch-display mt-4 text-2xl md:text-3xl" style={{ color: "#fff", fontWeight: 700 }}>
-          {level === "india" ? "Where the rice comes from" : "Nizamabad district"}
-        </h3>
-        <div className="mt-5">
-          <DetailRow k="Mapped fields" v={<Counter value={TOTAL_FIELDS} />} accent={C.leaf} />
-          <DetailRow k="Villages" v={`${VILLAGES.length} of 23`} />
-          <DetailRow k="Blocks" v="Varni & Chandur" />
-          <DetailRow k="Emission reduction" v="679.13 kg CO₂e/MT" accent={C.leaf} />
-        </div>
-        <p className="mt-5" style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.7)" }}>
-          Every enrolled field was geofenced in FieldKhata as a KML boundary. Drill down to open the polygons and read
-          the farmer name, field ID and area recorded against each one.
-        </p>
-      </motion.div>
-    );
-  }
-
-  return (
-    <div className="p-7 md:p-8 rounded-lg h-full" style={{ background: C.ink, minHeight: 420 }}>
-      <AnimatePresence mode="wait" initial={false}>{body}</AnimatePresence>
-    </div>
-  );
-}
-
-function LocationSection() {
-  const [level, setLevel] = useState("india");
-  const [village, setVillage] = useState(null);
-  const [field, setField] = useState(null);
-  const [hoverVillage, setHoverVillage] = useState(null);
-  const [hoverField, setHoverField] = useState(null);
-
-  // the drill runs itself once on first view, then hands control to the reader
-  const auto = useRef(false);
-  const scope = useGsapContext((self, el) => {
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 65%",
-      once: true,
-      onEnter: () => {
-        if (auto.current) return;
-        auto.current = true;
-        gsap.delayedCall(0.4, () => setLevel("telangana"));
-        gsap.delayedCall(1.7, () => setLevel("district"));
-      },
-    });
-  }, []);
-
-  const goto = (key) => {
-    if (key === "village") return;
-    setLevel(key);
-    if (key !== "village") { setField(null); setHoverField(null); }
-    if (key === "india" || key === "telangana") { setVillage(null); }
-  };
-
-  const pickVillage = (key) => { setVillage(key); setLevel("village"); setField(null); };
-
-  return (
-    <Section id="location">
-      <SectionHead
-        index="02"
-        title="Every field on the map"
-        lede={`The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All ${TOTAL_FIELDS} enrolled farmer fields were geofenced as KML boundaries in FieldKhata - drill from the country down to a single plot.`}
-      />
-
-      <div ref={scope} className="grid gap-6 lg:grid-cols-5 items-start">
-        <div className="lg:col-span-3">
-          <div className="p-4 md:p-6 rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <MapCrumbs level={level} village={village} onGo={goto} />
-              <AnimatePresence>
-                {level !== "india" && (
-                  <motion.button
-                    initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }}
-                    onClick={() => goto(LEVELS[Math.max(0, LEVELS.indexOf(level) - 1)])}
-                    className="ch-data px-3 py-1.5 rounded"
-                    style={{ fontSize: 10, letterSpacing: ".1em", color: C.mute, border: `1px solid ${C.line}` }}
-                  >
-                    ← ZOOM OUT
-                  </motion.button>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <div style={{ position: "relative", minHeight: 340 }}>
-              <AnimatePresence mode="wait">
-                {level === "village" ? (
-                  <motion.div key="plots" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.03 }} transition={{ duration: 0.5, ease: EASE }}>
-                    <PlotView
-                      village={village}
-                      hoverField={hoverField}
-                      setHoverField={setHoverField}
-                      selected={field}
-                      onPickField={setField}
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div key="geo" initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.5, ease: EASE }}>
-                    <GeoView
-                      level={level}
-                      hoverVillage={hoverVillage}
-                      setHoverVillage={setHoverVillage}
-                      onPickVillage={pickVillage}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* legend + village shortcuts */}
-            <div className="mt-4 pt-4 flex flex-wrap items-center gap-x-5 gap-y-2" style={{ borderTop: `1px solid ${C.line}` }}>
-              {level === "village" ? (
-                <>
-                  {[[C.field, "AWD field"], [C.leaf, "Hovered"], [C.husk, "Selected"], [C.mute, "Not enrolled"]].map(([c, l]) => (
-                    <span key={l} className="ch-data flex items-center gap-2" style={{ fontSize: 10, color: C.mute }}>
-                      <span style={{ width: 10, height: 10, background: c, borderRadius: 2 }} />
-                      {l.toUpperCase()}
-                    </span>
-                  ))}
-                </>
-              ) : (
-                VILLAGES.map((v) => (
-                  <motion.button
-                    key={v.key}
-                    onClick={() => pickVillage(v.key)}
-                    onMouseEnter={() => setHoverVillage(v.key)}
-                    onMouseLeave={() => setHoverVillage(null)}
-                    whileHover={{ y: -2 }}
-                    className="ch-data"
-                    style={{ fontSize: 10.5, color: C.field, fontWeight: 600, letterSpacing: ".05em" }}
-                  >
-                    {v.name.toUpperCase()} <span style={{ color: C.mute }}>{v.fields}</span>
-                  </motion.button>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-2">
-          <MapPanel level={level} village={village} field={field} hoverVillage={hoverVillage} hoverField={hoverField} />
-        </div>
-      </div>
-    </Section>
   );
 }
 
@@ -1493,7 +979,7 @@ function InterventionsSection() {
 const ROLES = [
   ["Project Management Unit", [
     "Strategic supervision and governance",
-    "Alignment with ABC's sustainability and reporting requirements",
+    "Alignment with Nestle's sustainability and reporting requirements",
     "Smooth execution throughout the programme, including procurement and reporting",
   ]],
   ["RBM / Agronomist", [
@@ -1724,7 +1210,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Who did what, and how it was checked"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to ABC's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to Nestle's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal><OrgChart /></Reveal>
@@ -1807,7 +1293,7 @@ function GovernanceSection() {
         <div className="p-7 rounded-lg" style={{ background: C.ink }}>
           <Eyebrow color={C.husk}>Stakeholder management</Eyebrow>
           <p className="mt-3" style={{ color: "rgba(255,255,255,.8)", lineHeight: 1.75, maxWidth: "80ch" }}>
-            Field teams, scientists, Aishwarya Rice Mills (ABC's empanelled miller) and ABC representatives worked in a
+            Field teams, scientists, Aishwarya Rice Mills (Nestle's empanelled miller) and Nestle representatives worked in a
             connected framework - enabling timely execution, transparent data flow and high implementation fidelity.
             The TBM and Kisan Advisors supervised the entire procurement process, and the PMU visited fields to ensure
             timely completion.
@@ -1830,7 +1316,7 @@ const AWD_BENEFITS = [
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of rice, a globally significant agricultural emission source",
-    "Project delivered 679.13 kg CO₂e/MT reduction - 51% against ABC's baseline of 1,325 kg CO₂e/MT",
+    "Project delivered 679.13 kg CO₂e/MT reduction - 51% against Nestle's baseline of 1,325 kg CO₂e/MT",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1990,7 +1476,7 @@ function BenefitsSection() {
    animation doubles as the scroll reveal. Tooltips animate through framer.
 ---------------------------------------------------------------------------- */
 const EMISSIONS = [
-  { name: "ABC baseline", value: 1325, fill: C.mute, note: "ABC's declared baseline for rice, kg CO₂e per MT" },
+  { name: "Nestle baseline", value: 1325, fill: C.mute, note: "Nestle's declared baseline for rice, kg CO₂e per MT" },
   { name: "Project · excl. nursery", value: 621.32, fill: C.leaf, note: "703.68 kg CO₂e/MT lower - a ~53% reduction" },
   { name: "Project · incl. nursery", value: 645.87, fill: C.field, note: "679.13 kg CO₂e/MT lower - 51%, the headline result" },
 ];
@@ -2385,7 +1871,7 @@ const SHORT_TERM = [
 const LONG_TERM = [
   ["Improved soil organic carbon", "Repeated use of biological inputs and AWD raises SOC over time, improving nutrient retention and supporting stable, improved yields."],
   ["Reduced production risk", "Regenerative practices strengthen resilience to water stress, erratic rainfall and pest pressure, helping farmers manage climate and market risk."],
-  ["Stronger market access", "Traceable, low-emission rice opens premium procurement linkages with sustainability-focused buyers like ABC."],
+  ["Stronger market access", "Traceable, low-emission rice opens premium procurement linkages with sustainability-focused buyers like Nestle."],
   ["Community capacity built", "Knowledge of climate-smart practices stays with farmers, multiplying the benefit across seasons and neighbours."],
 ];
 
@@ -2429,7 +1915,7 @@ function EconomicsSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   14 · ALIGNMENT WITH ABC RESPONSIBLE SOURCING
+   14 · ALIGNMENT WITH Nestle RESPONSIBLE SOURCING
    Hovering a lever moves a shared layoutId highlight onto its pillar, so the
    mapping is demonstrated by the motion rather than asserted by an arrow.
 ---------------------------------------------------------------------------- */
@@ -2454,8 +1940,8 @@ function SourcingSection() {
       <SectionHead
         index="12"
         tone="dark"
-        title="Mapped to ABC's Responsible Sourcing Standard"
-        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports ABC's Scope 3 and ESG disclosure obligations."
+        title="Mapped to Nestle's Responsible Sourcing Standard"
+        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestle's Scope 3 and ESG disclosure obligations."
       />
       <LayoutGroup id="sourcing">
         <div className="grid gap-6 lg:grid-cols-2">
@@ -2539,7 +2025,7 @@ function SourcingSection() {
           <Eyebrow color={C.husk}>Insight</Eyebrow>
           <Stagger className="mt-5 grid gap-6 md:grid-cols-3" stagger={0.12} style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.75)" }}>
             <motion.p variants={vFadeUp}>
-              AWD alone delivers eight distinct ESG benefits. That breadth lets ABC communicate the work credibly
+              AWD alone delivers eight distinct ESG benefits. That breadth lets Nestle communicate the work credibly
               across climate, water, biodiversity and rural-development pillars - without overstating any single claim,
               and while staying inside the bounds of the field evidence.
             </motion.p>
@@ -2571,7 +2057,7 @@ const EVIDENCE = [
   { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", scene: "form", place: "Ghanpur, Telangana, India", coords: "Farmer ID 1f22356e", when: "Rabi 2026", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Feedback form (second respondent)", scene: "form", place: "Ghanpur, Telangana, India", coords: "Stakeholder feedback", when: "22-01-26", caption: "Second signed stakeholder feedback record retained in the audit pack." },
-  { n: 5, title: "ABC team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "ABC representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 5, title: "Nestle team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
   { n: 6, title: "AWD pipes during monitoring", scene: "pipe", place: "Ghanpur, Telangana, India", coords: "18.573399°N 77.927099°E", when: "Thu, 05/02/2026 12:00 PM GMT +05:30", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 7, title: "Harvest in action", scene: "harvest", place: "Bhavanipet, Telangana, India", coords: "18.580134°N 77.925124°E", when: "Mon, 23/03/2026 09:33 AM GMT +05:30", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
   { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt - 600 acres against a 300-acre target." },
@@ -2810,7 +2296,7 @@ const SEQUENCE = [
   },
   {
     n: "09", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
-    body: "Low-emission paddy moved from farm to ABC's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
+    body: "Low-emission paddy moved from farm to Nestle's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
   },
   {
@@ -2825,7 +2311,7 @@ const SEQUENCE = [
   },
   {
     n: "12", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 679.13 kg CO₂e/MT reduced, 51% against ABC's baseline, with the methodology and its caveats stated in full.",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 679.13 kg CO₂e/MT reduced, 51% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform V3.0 · 16 farmers sampled",
   },
 ];
@@ -3187,6 +2673,72 @@ function LogoLockup({ light = false, height = 34, rule = true }) {
 }
 
 /* ----------------------------------------------------------------------------
+   20b · ABOUT GROW INDIGO + CONTACT
+---------------------------------------------------------------------------- */
+const CONTACT = {
+  email: "clearharvest@growindigo.co.in",
+  phone: "+91 8329049612",
+};
+
+function AboutSection() {
+  return (
+    <Section id="about" tone="tint">
+      <SectionHead
+        index="14"
+        title="About Grow Indigo"
+        lede="Grow Indigo works with farming communities across India to make regenerative practices measurable, financeable and easy to adopt at scale. ClearHarvest is its programme delivery and MRV arm - the same Kisan Advisor network, FieldKhata geofencing and Cool Farm Platform quantification used throughout this report."
+      />
+
+      <div className="grid gap-6 lg:grid-cols-5 items-start">
+        <Reveal className="lg:col-span-3">
+          <div className="p-7 md:p-8 rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
+            <Eyebrow color={C.husk}>Who we are</Eyebrow>
+            <p className="mt-4" style={{ fontSize: 15, lineHeight: 1.75, color: C.ink }}>
+              Grow Indigo partners with rice, cotton and other row-crop farmers to deploy water-saving irrigation,
+              biological soil inputs and residue management practices that cut greenhouse gas emissions without
+              cutting yield. Field teams and Kisan Advisors work season to season with growers on the ground, while
+              every intervention is logged, geofenced and independently quantified - so the outcomes a partner like
+              Nestle sees in a report like this one are traceable back to a specific farmer, field and season.
+            </p>
+            <p className="mt-4" style={{ fontSize: 15, lineHeight: 1.75, color: C.ink }}>
+              This project ran across the Varni and Chandur blocks of Nizamabad district, Telangana, over Rabi 2026,
+              delivering the results set out in the sections above.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="lg:col-span-2">
+          <div className="p-7 md:p-8 rounded-lg h-full" style={{ background: C.ink }}>
+            <Eyebrow color={C.husk}>Get in touch</Eyebrow>
+            <h3 className="ch-display mt-3 text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
+              ClearHarvest, Grow Indigo
+            </h3>
+            <div className="mt-6">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="flex items-baseline justify-between gap-4 py-3"
+                style={{ borderBottom: "1px solid rgba(255,255,255,.15)", textDecoration: "none" }}
+              >
+                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>EMAIL</span>
+                <span style={{ fontSize: 15, color: C.leaf, fontWeight: 700, textAlign: "right" }}>{CONTACT.email}</span>
+              </a>
+              <a
+                href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
+                className="flex items-baseline justify-between gap-4 py-3"
+                style={{ textDecoration: "none" }}
+              >
+                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>PHONE</span>
+                <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.phone}</span>
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+/* ----------------------------------------------------------------------------
    21 · CLOSING - bibliography, data notes, sign-off
 ---------------------------------------------------------------------------- */
 const BIBLIOGRAPHY = [
@@ -3198,7 +2750,7 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of 679.13 kg CO₂e/MT (51%) is measured against ABC's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 24.54 kg CO₂e/MT.",
+  "Headline GHG reduction of 679.13 kg CO₂e/MT (51%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 24.54 kg CO₂e/MT.",
   "Quantification also yields 703.68 kg CO₂e/MT (~53%) excluding nursery emissions and 666.87 kg CO₂e/MT (~50%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
   "Water use of ~1,788 litres/kg is derived from the ~45% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 419 enrolled, 309 fields mapped and geofenced, 249 completing procurement, of whom 16 were sampled for quantification.",
@@ -3297,6 +2849,7 @@ export default function ClearHarvestReport() {
         <EconomicsSection />
         <SourcingSection />
         <EvidenceSection />
+        <AboutSection />
       </main>
 
       <Closing />
