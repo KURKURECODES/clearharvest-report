@@ -112,6 +112,10 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
   const markers = useRef([]);
   const [ready, setReady] = useState(false);
   const popup = useRef(null);
+  // map event handlers are bound once on load; this ref gives them a live
+  // read of the current level without re-binding on every level change
+  const levelRef = useRef(level);
+  useEffect(() => { levelRef.current = level; }, [level]);
 
   /* --- init ------------------------------------------------------------- */
   useEffect(() => {
@@ -177,9 +181,23 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
         filter: ["==", ["get", "village"], ""],
         paint: { "line-color": "#ffffff", "line-width": 1 } });
 
-      /* click targets */
-      m.on("click", "tg-fill", () => onPickState());
-      m.on("mouseenter", "tg-fill", () => (m.getCanvas().style.cursor = "pointer"));
+      /* click targets
+         MapLibre dispatches a click to every layer under the pointer, so the
+         Telangana fill (which stays in the scene, dimmed, at every level)
+         would otherwise fire underneath a field click and fly the camera back
+         out. Guard: only accept the state click at the two levels where it
+         means anything, and bail if a field is under the cursor. */
+      m.on("click", "tg-fill", (e) => {
+        if (levelRef.current !== "india" && levelRef.current !== "telangana") return;
+        const overField = m.queryRenderedFeatures(e.point, { layers: ["fld-fill"] });
+        if (overField.length) return;
+        onPickState();
+      });
+      m.on("mouseenter", "tg-fill", () => {
+        if (levelRef.current === "india" || levelRef.current === "telangana") {
+          m.getCanvas().style.cursor = "pointer";
+        }
+      });
       m.on("mouseleave", "tg-fill", () => (m.getCanvas().style.cursor = ""));
 
       let hovered = null;
@@ -207,7 +225,18 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
         onHoverField(null);
         popup.current.remove();
       });
-      m.on("click", "fld-fill", (e) => onPickField(e.features[0].properties.id));
+      /* clicking bare map (not on a parcel) clears the pin */
+      m.on("click", (e) => {
+        if (levelRef.current !== "village") return;
+        if (m.queryRenderedFeatures(e.point, { layers: ["fld-fill"] }).length) return;
+        onPickField(null);
+      });
+
+      m.on("click", "fld-fill", (e) => {
+        e.preventDefault();                       // don't let it reach tg-fill
+        e.originalEvent.stopPropagation();
+        onPickField(e.features[0].properties.id); // pins it - camera does NOT move
+      });
 
       setReady(true);
     });
@@ -226,13 +255,15 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
     m.setPaintProperty("nz-line", "line-opacity", showDistrict ? 1 : 0);
     m.setPaintProperty("tg-fill", "fill-opacity", level === "india" ? 0.34 : level === "telangana" ? 0.22 : 0.1);
 
+    // all 309 fields render as soon as you're at district level or deeper -
+    // not only after clicking a village pin - so panning/zooming manually
+    // into any village shows its parcels immediately.
+    m.setFilter("fld-fill", showDistrict ? true : ["==", ["get", "village"], ""]);
+    m.setFilter("fld-line", showDistrict ? true : ["==", ["get", "village"], ""]);
+
     if (level === "village" && village) {
-      m.setFilter("fld-fill", ["==", ["get", "village"], village]);
-      m.setFilter("fld-line", ["==", ["get", "village"], village]);
       m.fitBounds(fcBounds(villageFC(village)), { padding: 70, duration: 1800, essential: true });
     } else {
-      m.setFilter("fld-fill", ["==", ["get", "village"], ""]);
-      m.setFilter("fld-line", ["==", ["get", "village"], ""]);
       const cam = CAMERA[level] || CAMERA.india;
       m.fitBounds(cam.bounds, { padding: cam.padding, duration: 1800, essential: true });
     }
@@ -338,7 +369,8 @@ function Crumbs({ level, village, onGo }) {
 
 function Panel({ level, village, field, hoverField }) {
   const v = VILLAGES.find((x) => x.key === village);
-  const f = featById(field || hoverField);
+  // hover previews the field; the pinned (clicked) field persists once the pointer leaves
+  const f = featById(hoverField || field);
 
   let body;
   if (level === "village" && f) {
@@ -346,8 +378,13 @@ function Panel({ level, village, field, hoverField }) {
     body = (
       <motion.div key={p.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.28, ease: EASE }}>
-        <div style={{ fontFamily: FONT_DATA, fontSize: 11, color: C.husk, letterSpacing: ".18em", fontWeight: 600 }}>
+        <div className="flex items-center gap-2" style={{ fontFamily: FONT_DATA, fontSize: 11, color: C.husk, letterSpacing: ".18em", fontWeight: 600 }}>
           FARMER FIELD - KML POLYGON
+          {field === p.id && (
+            <span style={{ background: C.husk, color: C.ink, borderRadius: 3, padding: "1px 5px", fontSize: 9, letterSpacing: ".1em" }}>
+              PINNED
+            </span>
+          )}
         </div>
         <h3 className="mt-4" style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem", lineHeight: 1.1 }}>{p.farmer}</h3>
         <div className="mt-5">
