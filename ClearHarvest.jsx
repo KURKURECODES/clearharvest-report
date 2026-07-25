@@ -2537,13 +2537,13 @@ function TestimonialCard({ t, index }) {
           </div>
         )}
 
-        {/* language chip */}
-        <div className="absolute top-3 left-3 ch-data px-2 py-1 rounded" style={{ fontSize: 9, letterSpacing: ".1em", background: "rgba(0,0,0,.55)", color: "#fff" }}>
+        {/* language chip - pointer-events-none so it never steals clicks off the native video controls beneath it */}
+        <div className="absolute top-3 left-3 ch-data px-2 py-1 rounded" style={{ fontSize: 9, letterSpacing: ".1em", background: "rgba(0,0,0,.55)", color: "#fff", pointerEvents: "none" }}>
           TELUGU · తెలుగు
         </div>
 
-        {/* burned-in subtitle bar: Telugu source above, English translation below */}
-        <div className="absolute left-0 right-0 bottom-0 px-4 pt-8 pb-3" style={{ background: "linear-gradient(transparent, rgba(0,0,0,.9))" }}>
+        {/* burned-in subtitle bar: Telugu source above, English translation below - pointer-events-none for the same reason */}
+        <div className="absolute left-0 right-0 bottom-0 px-4 pt-8 pb-3" style={{ background: "linear-gradient(transparent, rgba(0,0,0,.9))", pointerEvents: "none" }}>
           <div style={{ fontSize: 12.5, color: "rgba(255,255,255,.72)", lineHeight: 1.55 }}>{t.te}</div>
           <div className="mt-1.5" style={{ fontSize: 13.5, color: "#fff", fontWeight: 500, lineHeight: 1.5 }}>{t.en}</div>
         </div>
