@@ -42,6 +42,20 @@ import {
 } from "recharts";
 import "maplibre-gl/dist/maplibre-gl.css";
 import LocationSection from "./ClearHarvestMap.jsx";
+import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
+import growIndigoLogo from "./src/assets/gilogo1.png";
+import photoVlm1 from "./src/assets/vlm1.jpg";
+import photoVlm2 from "./src/assets/vlm2.jpg";
+import photoVlm3 from "./src/assets/vlm3.jpg";
+import photoDobs from "./src/assets/dobs.jpg";
+import photoCls from "./src/assets/cls.jpg";
+import photoDob2 from "./src/assets/dob2.jpg";
+import photoDobs3 from "./src/assets/dobs3.jpg";
+import photoDobs4 from "./src/assets/dobs4.jpg";
+import photoKickoff from "./src/assets/pko.jpg";
+import photoMedia9 from "./src/assets/media9.jpg";
+import photoMedia11 from "./src/assets/media11.jpg";
+import photoMedia13 from "./src/assets/media13.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -512,10 +526,10 @@ function TopBar() {
       }}
     >
       <div className="flex items-center gap-4 px-5 md:px-10" style={{ height: 58 }}>
-        {/* ClearHarvest mark - real logo drops into LogoSlot via `src` */}
+        {/* Grow Indigo mark, left */}
         <Magnetic strength={0.2}>
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">
-            <LogoSlot name="ClearHarvest" light height={26} />
+            <LogoSlot name="Grow Indigo" src={growIndigoLogo} light height={26} />
           </button>
         </Magnetic>
 
@@ -542,9 +556,9 @@ function TopBar() {
           </nav>
         </LayoutGroup>
 
-        {/* Grow Indigo mark, mirrored right */}
+        {/* ClearHarvest mark, mirrored right */}
         <div className="ml-auto md:ml-0">
-          <LogoSlot name="Grow Indigo" align="right" light height={26} />
+          <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light height={26} />
         </div>
       </div>
       <div style={{ height: 2, background: "rgba(255,255,255,.12)" }}>
@@ -624,13 +638,13 @@ function Hero() {
       </svg>
 
       <div className="hero-content relative px-5 md:px-10 pb-16 md:pb-24 pt-32 mx-auto w-full ch-scrub" style={{ maxWidth: 1180 }}>
-        {/* letterhead lockup: ClearHarvest left, Grow Indigo mirrored right */}
+        {/* letterhead lockup: Grow Indigo left, ClearHarvest mirrored right */}
         <div className="hero-eyebrow">
           <div style={{ maxWidth: 560 }}>
             <LogoLockup light height={38} />
           </div>
           <div className="mt-8">
-            <Eyebrow color={C.husk}>Nizamabad, Telangana · 23 villages · 309 mapped fields</Eyebrow>
+            <Eyebrow color={C.husk}>Nizamabad, Telangana · 11 villages · 326 mapped fields</Eyebrow>
           </div>
         </div>
 
@@ -682,11 +696,11 @@ function Hero() {
    GSAP ticks each number; framer handles the tilt and hover lift.
 ---------------------------------------------------------------------------- */
 const HEADLINES = [
-  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 23 villages", tone: C.field },
+  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
   { value: 51, suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
   { value: 45, prefix: "~", suffix: "%", label: "Water saved", note: "3,250 → ~1,788 litres per kg paddy", tone: C.water },
-  { value: 600, suffix: "", label: "Acres baled", note: "double the 300-acre CRM target", tone: C.husk },
+  { value: 833, suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
   { value: 26, suffix: "%", label: "Less nitrogen", note: "48 → 35.6 kg N/acre vs PJTSAU dose", tone: C.clay },
 ];
 
@@ -695,8 +709,8 @@ const TICKER = [
   "51% below Nestle baseline",
   "~45% water saved",
   "26% less nitrogen",
-  "600 acres baled",
-  "23 villages",
+  "833 acres baled",
+  "11 villages",
   "16 farmers sampled & audited",
 ];
 
@@ -853,7 +867,7 @@ const INTERVENTIONS = [
     key: "crm",
     tag: "Theme 3 · Residue",
     title: "Crop Residue Management",
-    kicker: "600 acres baled against a 300-acre target",
+    kicker: "833 acres baled against a 300-acre target",
     color: C.husk,
     icon: (
       <path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-6h6v6" stroke="currentColor" strokeWidth="1.8" fill="none" />
@@ -867,7 +881,7 @@ const INTERVENTIONS = [
     ],
     benefits: [
       "New income stream from selling baled residue to gaushalas",
-      "Target exceeded - 100% growth over the original 300-acre plan",
+      "Target exceeded - 178% growth over the original 300-acre plan",
       "Higher soil organic matter; organic carbon retained rather than burnt",
       "Biomass reused as livestock feed, compost and bioenergy",
       "Reduced air pollution and fire risk across the project villages",
@@ -2060,7 +2074,7 @@ const EVIDENCE = [
   { n: 5, title: "Nestle team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
   { n: 6, title: "AWD pipes during monitoring", scene: "pipe", place: "Ghanpur, Telangana, India", coords: "18.573399°N 77.927099°E", when: "Thu, 05/02/2026 12:00 PM GMT +05:30", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 7, title: "Harvest in action", scene: "harvest", place: "Bhavanipet, Telangana, India", coords: "18.580134°N 77.925124°E", when: "Mon, 23/03/2026 09:33 AM GMT +05:30", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
-  { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt - 600 acres against a 300-acre target." },
+  { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
   { n: 9, title: "Grains ready to be transported", scene: "grain", place: "Nizamabad, Telangana, India", coords: "18.522364°N 77.868633°E", when: "Mon, 20/04/2026 07:16 AM GMT +05:30", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
   { n: 10, title: "Procurement form and receipt", scene: "form", place: "Varni, Nizamabad", coords: "Vehicle AP29TB1278 · Paddy 36,750 kg net", when: "12-04-2026", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
 ];
@@ -2257,64 +2271,93 @@ const SEQUENCE = [
   {
     n: "01", title: "Programme kick-off", tag: "Mobilisation", color: C.field,
     body: "ClearHarvest and Grow Indigo aligned on scope, geography and reporting obligations, then stood up the delivery team - PMU, RBM/Agronomist, TBM and the Kisan Advisors who would carry the programme village to village.",
-    meta: "Varni & Chandur blocks · 23 villages identified",
+    meta: "Varni & Chandur blocks · 11 villages identified",
+    photo: photoKickoff,
   },
   {
     n: "02", title: "First village-level meeting", tag: "VLM 1", color: C.water,
     body: "Farmers were introduced to the programme in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would and would not require of them. Enrolment was voluntary throughout.",
     meta: "Telugu-language sessions · leaflets distributed",
+    photo: photoVlm1,
   },
   {
     n: "03", title: "Distribution of biologicals", tag: "Inputs", color: C.leaf,
     body: "Every enrolled farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost, alongside an AWD field pipe. Each handover was photographed and logged against the farmer's record.",
     meta: "6 kg Oorjit + 20 kg Grow Phos + 1 AWD pipe per acre",
+    photo: photoDobs,
   },
   {
     n: "04", title: "Second village-level meeting", tag: "VLM 2", color: C.water,
     body: "A working session rather than an introduction: live demonstration of AWD pipe installation, correct placement in the bund, and how to read the fall in water depth. Biological-team members walked through application timing.",
     meta: "Hands-on demonstration · pipe installation",
+    photo: photoVlm2,
   },
   {
     n: "05", title: "Consent letter signing", tag: "Governance", color: C.clay,
     body: "Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting. Consent is what makes the traceability claim defensible - and it stayed revocable.",
     meta: "Signed consent retained in the audit pack",
+    photo: photoCls,
   },
   {
     n: "06", title: "Third village-level meeting", tag: "VLM 3", color: C.water,
     body: "Mid-season review at crop stage: nutrient splits, weed and pest pressure, and troubleshooting for farmers whose fields were drying faster or slower than the schedule expected.",
     meta: "Crop-stage review · nutrient split guidance",
+    photo: photoVlm3,
   },
   {
     n: "07", title: "Fourth village-level meeting", tag: "VLM 4", color: C.water,
     body: "Pre-harvest planning: residue handling, baling logistics, and what would be required at procurement. Farmers who had not previously baled were connected to balers and to local gaushalas as buyers.",
     meta: "Residue planning · procurement briefing",
+    icon: <path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 11a2.5 2.5 0 1 0 0-5M21 20c0-2.5-1.8-4.6-4-5.4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
   },
   {
     n: "08", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
     body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event.",
     meta: "Manual measurement · farmer diaries · FieldKhata",
+    icon: <path d="M8 3h8M9 3v13a3 3 0 0 0 6 0V3M9 9h6" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
   },
   {
     n: "09", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
     body: "Low-emission paddy moved from farm to Nestle's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
+    icon: <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7v-6zM7.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" />,
   },
   {
     n: "10", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
-    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it, then sold it to nearby cowsheds and gaushalas. 600 acres were baled against an original target of 300 - a 100% overshoot.",
-    meta: "600 acres baled · zero open field burning",
+    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it, then sold it to nearby cowsheds and gaushalas. 833 acres were baled against an original target of 300 - a 178% overshoot.",
+    meta: "833 acres baled · zero open field burning",
+    icon: <><ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" strokeWidth="1.6" fill="none" /><path d="M5 6v12a7 3 0 0 0 14 0V6" stroke="currentColor" strokeWidth="1.6" fill="none" /></>,
   },
   {
     n: "11", title: "Third-party audit", tag: "Assurance", color: C.field,
     body: "One Peterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail - testing whether the reductions claimed are attributable to the fields that produced them.",
     meta: "Independent verification · One Peterson",
+    icon: <><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" /><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /></>,
   },
   {
     n: "12", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
     body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 679.13 kg CO₂e/MT reduced, 51% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform V3.0 · 16 farmers sampled",
+    icon: <path d="M4 20V10M10 20V4M16 20v-7M4 20h16" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
   },
 ];
+
+/** Duotone stand-in for steps with no photograph on file - keeps the
+ *  two-column rhythm of the timeline (a real photo one side, a themed mark
+ *  the other) instead of leaving a gap or shrinking the card to fill it. */
+function IconPanel({ icon, color, label }) {
+  return (
+    <div
+      className="relative overflow-hidden rounded flex flex-col items-center justify-center gap-3"
+      style={{ aspectRatio: "16 / 10", background: `linear-gradient(135deg, ${color}14, ${color}05)`, border: `1px solid ${color}2A` }}
+    >
+      <span style={{ width: 52, height: 52, borderRadius: 99, background: color, display: "grid", placeItems: "center" }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" style={{ color: "#fff" }}>{icon}</svg>
+      </span>
+      <div className="ch-data" style={{ fontSize: 10, color, letterSpacing: ".12em" }}>{label.toUpperCase()}</div>
+    </div>
+  );
+}
 
 function SequenceNode({ item, i }) {
   const flip = i % 2 === 1;
@@ -2338,9 +2381,13 @@ function SequenceNode({ item, i }) {
         </div>
       </motion.div>
 
-      {/* photo slot opposite the card */}
+      {/* photo slot opposite the card - a themed icon panel when no photograph is on file */}
       <div className={flip ? "md:col-start-1 md:row-start-1" : "md:col-start-2"}>
-        <PhotoSlot label={`Photo · ${item.title}`} ratio="16 / 10" />
+        {item.photo ? (
+          <PhotoSlot label={`Photo · ${item.title}`} ratio="16 / 10" src={item.photo} alt={item.title} />
+        ) : (
+          <IconPanel icon={item.icon} color={item.color} label={item.tag} />
+        )}
       </div>
 
       {/* the node marker on the rail */}
@@ -2540,11 +2587,11 @@ const GALLERY = {
     label: "Village-level meetings",
     blurb: "Four VLMs across the project period. Demonstrations on AWD pipe installation, Oorjit and Grow Phos application, and residue management - with biological-team members present at every session to answer product questions directly.",
     shots: [
-      { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" } },
-      { label: "Field team presenting to farmers", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511154°N 77.940617°E", when: "Tue, 16/12/2025 10:03 AM" } },
-      { label: "AWD pipe demonstration", stamp: null },
-      { label: "Leaflet distribution", stamp: null },
-      { label: "Farmer Q&A session", stamp: null },
+      { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlm1 },
+      { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoKickoff },
+      { label: "Farmers assembled for VLM, Jalalpur", stamp: null, src: photoMedia9 },
+      { label: "VLM session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509674°N 77.966079°E", when: "Tue, 17/03/2026 10:14 AM" }, src: photoMedia11 },
+      { label: "Farmer Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },
       { label: "Attendance register", stamp: null },
     ],
   },
@@ -2552,11 +2599,11 @@ const GALLERY = {
     label: "Distribution of biologicals",
     blurb: "Each enrolled farmer received 6 kg of Oorjit granules and 20 kg of Grow Phos - adequate for one acre - plus an AWD field pipe, all free of cost. Every handover was photographed and logged against the farmer's record.",
     shots: [
-      { label: "Oorjit and Grow Phos handover", stamp: { place: "Ghanpur, Telangana, India", coords: "18.57334°N 77.930693°E", when: "Thu, 18/12/2025 10:49 AM" } },
-      { label: "Input bags at village collection point", stamp: null },
-      { label: "AWD pipe distribution", stamp: null },
+      { label: "Oorjit and Grow Phos handover, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.57334°N 77.930693°E", when: "Thu, 18/12/2025 10:49 AM" }, src: photoDobs3 },
+      { label: "Input bags at village collection point, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.573345°N 77.930688°E", when: "Thu, 18/12/2025 9:56 AM" }, src: photoDobs },
+      { label: "Oorjit and Grow Phos handover, Jalalpur", stamp: { place: "Jalalpur, Telangana, India", coords: "18.509155°N 77.968163°E", when: "Tue, 16/12/2025 12:11 PM" }, src: photoDob2 },
+      { label: "Input handover, Sangam", stamp: { place: "Nizamabad, Telangana, India", coords: "18.602126°N 77.914212°E", when: "Wed, 24/12/2025 10:37 AM" }, src: photoDobs4 },
       { label: "Application training with farmer", stamp: null },
-      { label: "Farmer receiving inputs", stamp: null },
       { label: "Stock verification by TBM", stamp: null },
     ],
   },
@@ -2568,7 +2615,7 @@ const GALLERY = {
       { label: "Water management log - irrigation dates", stamp: null, tall: true },
       { label: "Re-irrigation interval entries", stamp: null, tall: true },
       { label: "Stakeholder feedback form", stamp: null, tall: true },
-      { label: "Signed consent letter", stamp: null, tall: true },
+      { label: "Signed consent letter", stamp: null, tall: true, src: photoCls },
       { label: "Procurement receipt", stamp: null, tall: true },
     ],
   },
@@ -2619,7 +2666,7 @@ function PhotographySection() {
           <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={vStagger(0.06)} initial="hidden" animate="show">
             {active.shots.map((s) => (
               <motion.div key={s.label} variants={vFadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: EASE }}>
-                <PhotoSlot label={s.label} stamp={s.stamp} tall={s.tall} />
+                <PhotoSlot label={s.label} stamp={s.stamp} tall={s.tall} src={s.src} alt={s.label} />
                 <div className="ch-data mt-2" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.5 }}>{s.label}</div>
               </motion.div>
             ))}
@@ -2632,7 +2679,7 @@ function PhotographySection() {
 
 /* ----------------------------------------------------------------------------
    20 · LOGO LOCKUP
-   Two mirrored slots: ClearHarvest left, Grow Indigo right - the same
+   Two mirrored slots: Grow Indigo left, ClearHarvest right - the same
    arrangement used on the source document's letterhead. Both are placeholders
    sized to a standard horizontal wordmark (roughly 3.6 : 1). Drop a file in
    via `src` and the frame disappears; the spacing does not move.
@@ -2665,9 +2712,9 @@ function LogoSlot({ name, src, align = "left", light = false, height = 34 }) {
 function LogoLockup({ light = false, height = 34, rule = true }) {
   return (
     <div className="flex items-center gap-5 w-full">
-      <LogoSlot name="ClearHarvest" align="left" light={light} height={height} />
+      <LogoSlot name="Grow Indigo" src={growIndigoLogo} align="left" light={light} height={height} />
       {rule && <span style={{ flex: 1, height: 1, background: light ? "rgba(255,255,255,.18)" : C.line }} />}
-      <LogoSlot name="Grow Indigo" align="right" light={light} height={height} />
+      <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light={light} height={height} />
     </div>
   );
 }
@@ -2753,7 +2800,7 @@ const DATA_NOTES = [
   "Headline GHG reduction of 679.13 kg CO₂e/MT (51%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 24.54 kg CO₂e/MT.",
   "Quantification also yields 703.68 kg CO₂e/MT (~53%) excluding nursery emissions and 666.87 kg CO₂e/MT (~50%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
   "Water use of ~1,788 litres/kg is derived from the ~45% saving against the stated ~3,250 litres/kg baseline.",
-  "Farmer counts differ by stage: 419 enrolled, 309 fields mapped and geofenced, 249 completing procurement, of whom 16 were sampled for quantification.",
+  "Farmer counts differ by stage: 419 enrolled, 326 fields mapped and geofenced, 249 completing procurement, of whom 16 were sampled for quantification.",
 ];
 
 function Closing() {
@@ -2792,7 +2839,7 @@ function Closing() {
             </Stagger>
 
             <div className="mt-10 grid grid-cols-3 gap-4">
-              {[["309", "fields mapped"], ["23", "villages"], ["12", "programme milestones"]].map(([v, l]) => (
+              {[["326", "fields mapped"], ["11", "villages"], ["12", "programme milestones"]].map(([v, l]) => (
                 <div key={l}>
                   <div className="ch-display" style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>
                     <Counter value={parseInt(v, 10)} />

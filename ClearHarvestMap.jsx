@@ -430,7 +430,7 @@ function Panel({ level, village, field, hoverField }) {
         </h3>
         <div className="mt-5">
           <Row k="Mapped fields" v={TOTAL_FIELDS} accent={C.leaf} />
-          <Row k="Villages" v={`${VILLAGES.length} of 23`} />
+          <Row k="Villages" v={`${VILLAGES.length} of 11`} />
           <Row k="Blocks" v="Varni & Chandur" />
           <Row k="Emission reduction" v="679.13 kg CO2e/MT" accent={C.leaf} />
         </div>
