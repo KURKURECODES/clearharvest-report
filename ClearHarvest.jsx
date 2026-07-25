@@ -56,6 +56,16 @@ import photoKickoff from "./src/assets/pko.jpg";
 import photoMedia9 from "./src/assets/media9.jpg";
 import photoMedia11 from "./src/assets/media11.jpg";
 import photoMedia13 from "./src/assets/media13.jpg";
+import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
+import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
+import photoBailing from "./src/assets/bailing.jpg";
+import videoTestimonial1 from "./src/assets/testimonial1.mp4";
+import videoTestimonial2 from "./src/assets/testimonial2.mp4";
+import videoTestimonial3 from "./src/assets/testimonial3.mp4";
+import diarySocioEconomic from "./src/assets/diary1.png";
+import diaryWaterLogA from "./src/assets/diary7.png";
+import diaryWaterLogB from "./src/assets/diary8.png";
+import diaryFeedback from "./src/assets/diary11.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -2314,19 +2324,19 @@ const SEQUENCE = [
     n: "08", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
     body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event.",
     meta: "Manual measurement · farmer diaries · FieldKhata",
-    icon: <path d="M8 3h8M9 3v13a3 3 0 0 0 6 0V3M9 9h6" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+    photo: photoAwdMonitoring,
   },
   {
     n: "09", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
     body: "Low-emission paddy moved from farm to Nestle's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
-    icon: <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7v-6zM7.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" />,
+    photo: photoPaddyLoading,
   },
   {
     n: "10", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
     body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it, then sold it to nearby cowsheds and gaushalas. 833 acres were baled against an original target of 300 - a 178% overshoot.",
     meta: "833 acres baled · zero open field burning",
-    icon: <><ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" strokeWidth="1.6" fill="none" /><path d="M5 6v12a7 3 0 0 0 14 0V6" stroke="currentColor" strokeWidth="1.6" fill="none" /></>,
+    photo: photoBailing,
   },
   {
     n: "11", title: "Third-party audit", tag: "Assurance", color: C.field,
@@ -2469,7 +2479,7 @@ const TESTIMONIALS = [
     acres: "9.1 acres",
     te: "నీటి పైపు వాడటం వల్ల ఎప్పుడు నీరు పెట్టాలో స్పష్టంగా తెలుస్తుంది. కరెంటు ఖర్చు తగ్గింది.",
     en: "With the water pipe I can see exactly when the field needs irrigating. My electricity cost has come down.",
-    src: null,
+    src: videoTestimonial1,
   },
   {
     id: "t2",
@@ -2478,7 +2488,7 @@ const TESTIMONIALS = [
     acres: "6.4 acres",
     te: "గ్రో ఫాస్ మరియు ఊర్జిత్ బాగా పనిచేశాయి. యూరియా తక్కువ వాడినా పంట బాగుంది.",
     en: "Grow Phos and Oorjit worked well. Even with less urea, the crop was good.",
-    src: null,
+    src: videoTestimonial2,
   },
   {
     id: "t3",
@@ -2487,7 +2497,7 @@ const TESTIMONIALS = [
     acres: "11.2 acres",
     te: "గడ్డిని కాల్చకుండా బేల్ చేసి గోశాలకు అమ్మాము. పొలం శుభ్రంగా ఉంది, కొంత ఆదాయం కూడా వచ్చింది.",
     en: "Instead of burning the straw we baled it and sold it to the gaushala. The field stayed clean and we earned something too.",
-    src: null,
+    src: videoTestimonial3,
   },
 ];
 
@@ -2607,10 +2617,10 @@ const GALLERY = {
     label: "Farmer diaries",
     blurb: "A dated, handwritten water-management log kept by each farmer: irrigation date, plot ID, method, quantity, duration, water source and re-irrigation interval - alongside a socio-economic profile page. These are the primary records behind the water-saving assessment.",
     shots: [
-      { label: "Socio-economic profile page", stamp: null, tall: true },
-      { label: "Water management log - irrigation dates", stamp: null, tall: true },
-      { label: "Re-irrigation interval entries", stamp: null, tall: true },
-      { label: "Stakeholder feedback form", stamp: null, tall: true },
+      { label: "Socio-economic profile page", stamp: null, tall: true, src: diarySocioEconomic },
+      { label: "Water management log - irrigation dates", stamp: null, tall: true, src: diaryWaterLogA },
+      { label: "Re-irrigation interval entries", stamp: null, tall: true, src: diaryWaterLogB },
+      { label: "Stakeholder feedback form", stamp: null, tall: true, src: diaryFeedback },
       { label: "Signed consent letter", stamp: null, tall: true, src: photoCls },
       { label: "Procurement receipt", stamp: null, tall: true },
     ],
