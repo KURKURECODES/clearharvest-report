@@ -432,7 +432,7 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Mapped fields" v={TOTAL_FIELDS} accent={C.leaf} />
           <Row k="Villages" v={`${VILLAGES.length} of 11`} />
           <Row k="Blocks" v="Varni & Chandur" />
-          <Row k="Emission reduction" v="679.13 kg CO2e/MT" accent={C.leaf} />
+          <Row k="Emission reduction" v="771.47 kg CO2e/MT" accent={C.leaf} />
         </div>
         <p className="mt-5" style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.7)" }}>
           {level === "india"

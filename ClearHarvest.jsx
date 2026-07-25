@@ -698,17 +698,17 @@ function Hero() {
 const HEADLINES = [
   { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
-  { value: 51, suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
-  { value: 45, prefix: "~", suffix: "%", label: "Water saved", note: "3,250 → ~1,788 litres per kg paddy", tone: C.water },
+  { value: 58, suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
+  { value: 67, prefix: "~", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
   { value: 833, suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 26, suffix: "%", label: "Less nitrogen", note: "48 → 35.6 kg N/acre vs PJTSAU dose", tone: C.clay },
+  { value: 9, suffix: "%", label: "Less nitrogen", note: "48 → 43.7 kg N/acre vs PJTSAU dose", tone: C.clay },
 ];
 
 const TICKER = [
-  "679.13 kg CO₂e/MT reduced",
-  "51% below Nestle baseline",
-  "~45% water saved",
-  "26% less nitrogen",
+  "771.47 kg CO₂e/MT reduced",
+  "58% below Nestle baseline",
+  "~67% water saved",
+  "9% less nitrogen",
   "833 acres baled",
   "11 villages",
   "16 farmers sampled & audited",
@@ -829,7 +829,7 @@ const INTERVENTIONS = [
       ["Methane", "Flooded fields are a major methane source; drying limits the anaerobic conditions that create it."],
     ],
     benefits: [
-      "~45% water savings - down to ~1,788 litres per kg of paddy",
+      "~67% water savings - down to ~1,073 litres per kg of paddy",
       "Lower methane emissions through reduced waterlogging",
       "Improved root aeration and nutrient uptake",
       "Enhanced water productivity and groundwater management",
@@ -1324,13 +1324,13 @@ function GovernanceSection() {
 const AWD_BENEFITS = [
   ["Water conservation", C.water, [
     "Reduces irrigation water demand by 30–45% versus continuous flooding without compromising yield",
-    "Project achieved ~45% water savings - ~1,788 litres per kg of paddy against a ~3,250 litre baseline",
+    "Project achieved ~67% water savings - ~1,073 litres per kg of paddy against a ~3,250 litre baseline",
     "Preserves groundwater reserves and reduces pumping load on shared aquifers",
     "Lets irrigation cycles be planned around critical stages: tillering, panicle initiation, milking",
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of rice, a globally significant agricultural emission source",
-    "Project delivered 679.13 kg CO₂e/MT reduction - 51% against Nestle's baseline of 1,325 kg CO₂e/MT",
+    "Project delivered 771.47 kg CO₂e/MT reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1491,19 +1491,19 @@ function BenefitsSection() {
 ---------------------------------------------------------------------------- */
 const EMISSIONS = [
   { name: "Nestle baseline", value: 1325, fill: C.mute, note: "Nestle's declared baseline for rice, kg CO₂e per MT" },
-  { name: "Project · excl. nursery", value: 621.32, fill: C.leaf, note: "703.68 kg CO₂e/MT lower - a ~53% reduction" },
-  { name: "Project · incl. nursery", value: 645.87, fill: C.field, note: "679.13 kg CO₂e/MT lower - 51%, the headline result" },
+  { name: "Project · excl. nursery", value: 540.13, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
+  { name: "Project · incl. nursery", value: 553.53, fill: C.field, note: "771.47 kg CO₂e/MT lower - 58%, the headline result" },
 ];
 
 const NITROGEN = [
   { name: "Farmer practice (BAU)", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
   { name: "PJTSAU recommended", value: 48, fill: C.mute, note: "University-recommended dose for the district" },
-  { name: "Project rate", value: 35.6, fill: C.leaf, note: "26% below the recommended dose · 43% below BAU" },
+  { name: "Project rate", value: 43.7, fill: C.leaf, note: "9% below the recommended dose · 30% below BAU" },
 ];
 
 const WATER = [
   { name: "Conventional flooding", value: 3250, fill: C.mute, note: "Litres of water per kg of paddy under continuous flooding" },
-  { name: "Project (AWD)", value: 1788, fill: C.water, note: "Derived from the ~45% saving reported for the project" },
+  { name: "Project (AWD)", value: 1073, fill: C.water, note: "Derived from the ~67% saving reported for the project" },
 ];
 
 const YIELD = [
@@ -1579,9 +1579,9 @@ function ResultsSection() {
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartFrame
           kicker="Chart 1 · Emissions intensity"
-          title="Half the carbon in every tonne"
+          title="Well over half the carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
-          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 51% uses the corrected nursery emission of 24.54 kg CO₂e/MT."
+          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT."
         >
           <BarChart data={EMISSIONS} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
@@ -1620,7 +1620,7 @@ function ResultsSection() {
           title="Water per kilogram of paddy"
           unit="litres per kg"
           height={230}
-          footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~45% saving reported for AWD adoption."
+          footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption."
         >
           <BarChart data={WATER} layout="vertical" margin={{ top: 4, right: 44, left: 96, bottom: 4 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} horizontal={false} />
@@ -1664,7 +1664,7 @@ function ResultsSection() {
               correction factor because seedlings produce far less biomass than main-field crops.
             </p>
             <Stagger className="mt-5 grid grid-cols-3 gap-3" stagger={0.1}>
-              {[["36.80", "gross nursery"], ["24.54", "after correction"], ["679.13", "net reduction"]].map(([v, l]) => (
+              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.47", "net reduction"]].map(([v, l]) => (
                 <motion.div key={l} variants={vScaleIn} whileHover={{ y: -4 }} className="p-3 rounded" style={{ background: C.paperDim }}>
                   <div className="ch-display" style={{ fontWeight: 800, color: C.field, fontSize: "1.35rem" }}>{v}</div>
                   <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT</div>
@@ -1677,10 +1677,10 @@ function ResultsSection() {
           <div className="p-7 rounded-lg h-full" style={{ background: C.field }}>
             <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
-              Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 35.6 kg N/acre - a 26%
+              Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 43.7 kg N/acre - a 9%
               reduction - driven primarily by Oorjit granules' enhanced fertiliser-use efficiency combined with AWD
               irrigation, and further supported by temporary urea market shortages. Against farmers' business-as-usual
-              62.4 kg N/acre, the project rate is 43% lower.
+              62.4 kg N/acre, the project rate is 30% lower.
             </p>
             <p className="ch-data mt-5 pt-4" style={{ fontSize: 11, lineHeight: 1.7, color: "rgba(255,255,255,.6)", borderTop: "1px solid rgba(255,255,255,.18)" }}>
               Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising system performance,
@@ -1876,7 +1876,7 @@ function SeasonSection() {
    13 · ECONOMICS FOR FARMERS
 ---------------------------------------------------------------------------- */
 const SHORT_TERM = [
-  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~26% reduction per acre in nitrogen fertiliser."],
+  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~9% reduction per acre in nitrogen fertiliser."],
   ["No investment for AWD infrastructure", "AWD pipes were supplied, removing upfront cost and enabling immediate adoption."],
   ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping - direct savings on power and fuel."],
   ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs."],
@@ -1934,15 +1934,15 @@ function EconomicsSection() {
    mapping is demonstrated by the motion rather than asserted by an arrow.
 ---------------------------------------------------------------------------- */
 const LEVERS = [
-  ["Alternate Wetting & Drying", "~45% water savings · CH₄ reduction", 0],
-  ["Oorjit, Grow Phos + CRM", "26% N reduction · no field burning", 2],
+  ["Alternate Wetting & Drying", "~67% water savings · CH₄ reduction", 0],
+  ["Oorjit, Grow Phos + CRM", "9% N reduction · no field burning", 2],
   ["FieldKhata + S3 Sutra", "End-to-end digital audit trail", 3],
   ["Farmer capacity building", "VLMs, KA support, vernacular training", 1],
 ];
 
 const PILLARS = [
   ["Pillar 01", "Climate Action & Net Zero", "AWD reduces methane formation at source; optimised nitrogen lowers N₂O. A direct, verifiable Scope 3 insetting contribution.", C.field],
-  ["Pillar 02", "Water Stewardship & Livelihoods", "~45% water savings free up aquifer capacity; pumping and fertiliser cuts plus straw monetisation lift farm-gate margins.", C.water],
+  ["Pillar 02", "Water Stewardship & Livelihoods", "~67% water savings free up aquifer capacity; pumping and fertiliser cuts plus straw monetisation lift farm-gate margins.", C.water],
   ["Pillar 03", "Land, Forests & Biodiversity", "Oorjit and Grow Phos improve SOC and soil biology; CRM ends open field burning, protecting soil biota and air quality.", C.leaf],
   ["Pillar 04", "Traceability & Human Rights", "FieldKhata and S3 Sutra build a geo-tagged, audit-ready record; the engagement model preserves voluntary participation.", C.husk],
 ];
@@ -2336,7 +2336,7 @@ const SEQUENCE = [
   },
   {
     n: "12", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 679.13 kg CO₂e/MT reduced, 51% against Nestle's baseline, with the methodology and its caveats stated in full.",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.47 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform V3.0 · 16 farmers sampled",
     icon: <path d="M4 20V10M10 20V4M16 20v-7M4 20h16" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
   },
@@ -2793,9 +2793,9 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of 679.13 kg CO₂e/MT (51%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 24.54 kg CO₂e/MT.",
-  "Quantification also yields 703.68 kg CO₂e/MT (~53%) excluding nursery emissions and 666.87 kg CO₂e/MT (~50%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
-  "Water use of ~1,788 litres/kg is derived from the ~45% saving against the stated ~3,250 litres/kg baseline.",
+  "Headline GHG reduction of 771.47 kg CO₂e/MT (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 13.40 kg CO₂e/MT.",
+  "Quantification also yields 784.87 kg CO₂e/MT (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
+  "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 419 enrolled, 326 fields mapped and geofenced, 249 completing procurement, of whom 16 were sampled for quantification.",
 ];
 
