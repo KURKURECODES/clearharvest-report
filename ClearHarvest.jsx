@@ -2308,7 +2308,7 @@ const SEQUENCE = [
     n: "07", title: "Fourth village-level meeting", tag: "VLM 4", color: C.water,
     body: "Pre-harvest planning: residue handling, baling logistics, and what would be required at procurement. Farmers who had not previously baled were connected to balers and to local gaushalas as buyers.",
     meta: "Residue planning · procurement briefing",
-    icon: <path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 11a2.5 2.5 0 1 0 0-5M21 20c0-2.5-1.8-4.6-4-5.4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+    photo: photoMedia11,
   },
   {
     n: "08", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
@@ -2590,9 +2590,7 @@ const GALLERY = {
       { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlm1 },
       { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoKickoff },
       { label: "Farmers assembled for VLM, Jalalpur", stamp: null, src: photoMedia9 },
-      { label: "VLM session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509674°N 77.966079°E", when: "Tue, 17/03/2026 10:14 AM" }, src: photoMedia11 },
       { label: "Farmer Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },
-      { label: "Attendance register", stamp: null },
     ],
   },
   bio: {
@@ -2603,8 +2601,6 @@ const GALLERY = {
       { label: "Input bags at village collection point, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.573345°N 77.930688°E", when: "Thu, 18/12/2025 9:56 AM" }, src: photoDobs },
       { label: "Oorjit and Grow Phos handover, Jalalpur", stamp: { place: "Jalalpur, Telangana, India", coords: "18.509155°N 77.968163°E", when: "Tue, 16/12/2025 12:11 PM" }, src: photoDob2 },
       { label: "Input handover, Sangam", stamp: { place: "Nizamabad, Telangana, India", coords: "18.602126°N 77.914212°E", when: "Wed, 24/12/2025 10:37 AM" }, src: photoDobs4 },
-      { label: "Application training with farmer", stamp: null },
-      { label: "Stock verification by TBM", stamp: null },
     ],
   },
   diary: {
