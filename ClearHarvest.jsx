@@ -754,7 +754,7 @@ function Hero() {
             <LogoLockup light height={38} />
           </div>
           <div className="mt-8">
-            <Eyebrow color={C.husk}>Nizamabad, Telangana · 11 villages · 326 mapped fields</Eyebrow>
+            <Eyebrow color={C.husk}>Nizamabad, Telangana · 11 villages · 300 Farmers</Eyebrow>
           </div>
         </div>
 
