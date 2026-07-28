@@ -988,6 +988,7 @@ const INTERVENTIONS = [
       ["Air quality", "Burning releases particulate matter, CO₂, methane and nitrous oxide."],
       ["Soil biota", "Field fires damage soil life and destroy organic carbon."],
       ["Income", "Baled straw has a buyer - local cowsheds and gaushalas."],
+      ["Farmer readiness", "The baling process itself was explained to farmers during village-level meetings, ahead of harvest."],
     ],
     benefits: [
       "New income stream from selling baled residue to gaushalas",
@@ -1133,10 +1134,9 @@ const ROLES = [
     "GHG emission quantification and water-saving assessments from field-level data",
   ]],
   ["Engineering Team", [
-    "Developed and maintained the digital tools - FieldKhata and S3 Sutra",
-    "Data accuracy, security and seamless flow across platforms",
-    "Troubleshooting, field adoption and technology readiness",
+    "Upgradation and maintained FieldKhata and S3 Sutra",
     "Digital traceability and audit-trail generation from farm to mill",
+    "All other digital tools TBD",
   ]],
 ];
 
@@ -1334,7 +1334,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Who did what, and how it was checked"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to Nestle's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's Business team, keeping the programme aligned to Nestle's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal><OrgChart /></Reveal>
@@ -1417,7 +1417,7 @@ function GovernanceSection() {
         <div className="p-7 rounded-lg" style={{ background: C.ink }}>
           <Eyebrow color={C.husk}>Stakeholder management</Eyebrow>
           <p className="mt-3" style={{ color: "rgba(255,255,255,.8)", lineHeight: 1.75, maxWidth: "80ch" }}>
-            Field teams, scientists, Aishwarya Rice Mills (Nestle's empanelled miller) and Nestle representatives worked in a
+            Field teams, Aishwarya Rice Mills (Nestle's empanelled miller) and Nestle representatives worked in a
             connected framework - enabling timely execution, transparent data flow and high implementation fidelity.
             The TBM and Kisan Advisors supervised the entire procurement process, and the PMU visited fields to ensure
             timely completion.
@@ -1677,6 +1677,54 @@ function ChartFrame({ title, unit, kicker, children, height = 320, footnote }) {
 
 const axisStyle = { fontSize: 11, fill: C.mute, fontFamily: FONT_DATA };
 
+const SEASON_HEADLINE = [
+  {
+    label: "GHG emission reduction", value: 58, prefix: "~", suffix: "%", tone: C.field,
+    detail: [
+      ["771.47", "kg CO₂e/MT reduced · headline (corrected nursery)"],
+      ["784.87", "kg CO₂e/MT reduced · excluding nursery (~59%)"],
+      ["764.78", "kg CO₂e/MT reduced · including gross nursery (~58%)"],
+    ],
+  },
+  { label: "Water savings per MT", value: 67, prefix: "~", suffix: "%", tone: C.water },
+  { label: "Nitrogen use reduction", value: 9, suffix: "%", tone: C.clay },
+];
+
+function SeasonHeadlineResults() {
+  return (
+    <div className="mb-10 md:mb-12">
+      <Eyebrow color={C.husk}>Season headline results</Eyebrow>
+      <div className="grid gap-5 sm:grid-cols-3 mt-4">
+        {SEASON_HEADLINE.map((s) => (
+          <motion.div
+            key={s.label}
+            variants={vFadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            className="p-6 rounded-lg h-full"
+            style={{ background: s.detail ? C.ink : "#fff", border: s.detail ? "none" : `1px solid ${C.line}` }}
+          >
+            <div className="ch-display" style={{ color: s.detail ? "#fff" : s.tone, fontWeight: 800, fontSize: "clamp(2rem,4.4vw,2.6rem)" }}>
+              <Counter value={s.value} prefix={s.prefix || ""} suffix={s.suffix || ""} />
+            </div>
+            <div className="mt-1" style={{ fontWeight: 600, fontSize: 14.5, color: s.detail ? "rgba(255,255,255,.85)" : C.ink }}>{s.label}</div>
+            {s.detail && (
+              <div className="mt-4 space-y-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,.15)" }}>
+                {s.detail.map(([v, l]) => (
+                  <div key={v} className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.6)", lineHeight: 1.5 }}>
+                    <span style={{ color: C.leaf, fontWeight: 700 }}>{v}</span> {l}
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ResultsSection() {
   return (
     <Section id="results" tone="tint">
@@ -1685,6 +1733,8 @@ function ResultsSection() {
         title="Quantified, sampled, audited"
         lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform V3.0 and was reviewed by a third-party auditor."
       />
+
+      <SeasonHeadlineResults />
 
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartFrame
@@ -2380,7 +2430,7 @@ function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", ta
 const SEQUENCE = [
   {
     n: "01", title: "Programme kick-off", tag: "Mobilisation", color: C.field,
-    body: "ClearHarvest and Grow Indigo aligned on scope, geography and reporting obligations, then stood up the delivery team - PMU, RBM/Agronomist, TBM and the Kisan Advisors who would carry the programme village to village.",
+    body: "Nestle' and Grow Indigo aligned on scope, geography and deliverables, then stood up the delivery team - PMU, RBM/Agronomist, TBM and the Kisan Advisors who would carry the programme village to village.",
     meta: "Varni & Chandur blocks · 11 villages identified",
     photo: photoKickoff,
   },
@@ -2391,15 +2441,15 @@ const SEQUENCE = [
     photo: photoVlm1,
   },
   {
-    n: "03", title: "Distribution of biologicals", tag: "Inputs", color: C.leaf,
+    n: "03", title: "Distribution of agri inputs", tag: "Inputs", color: C.leaf,
     body: "Every enrolled farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost, alongside an AWD field pipe. Each handover was photographed and logged against the farmer's record.",
     meta: "6 kg Oorjit + 20 kg Grow Phos + 1 AWD pipe per acre",
     photo: photoDobs,
   },
   {
     n: "04", title: "Second village-level meeting", tag: "VLM 2", color: C.water,
-    body: "A working session rather than an introduction: live demonstration of AWD pipe installation, correct placement in the bund, and how to read the fall in water depth. Biological-team members walked through application timing.",
-    meta: "Hands-on demonstration · pipe installation",
+    body: "A working session rather than an introduction: live demonstration of correct pipe placement in the bund, and how to read the fall in water depth. Biological-team members walked through application timing.",
+    meta: "Hands-on demonstration",
     photo: photoVlm2,
   },
   {
@@ -2434,7 +2484,7 @@ const SEQUENCE = [
   },
   {
     n: "10", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
-    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it, then sold it to nearby cowsheds and gaushalas. 833 acres were baled against an original target of 300 - a 178% overshoot.",
+    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it. 833 acres were baled against an original target of 300 - a 178% overshoot.",
     meta: "833 acres baled · zero open field burning",
     photo: photoBailing,
   },
@@ -2836,57 +2886,34 @@ const CONTACT = {
 function AboutSection() {
   return (
     <Section id="about" tone="tint">
-      <SectionHead
-        index="14"
-        title="About Grow Indigo"
-        lede="Grow Indigo works with farming communities across India to make regenerative practices measurable, financeable and easy to adopt at scale. ClearHarvest is its programme delivery and MRV arm - the same Kisan Advisor network, FieldKhata geofencing and Cool Farm Platform quantification used throughout this report."
-      />
+      <SectionHead index="14" title="About Grow Indigo" />
 
-      <div className="grid gap-6 lg:grid-cols-5 items-start">
-        <Reveal className="lg:col-span-3">
-          <div className="p-7 md:p-8 rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <Eyebrow color={C.husk}>Who we are</Eyebrow>
-            <p className="mt-4" style={{ fontSize: 15, lineHeight: 1.75, color: C.ink }}>
-              Grow Indigo partners with rice, cotton and other row-crop farmers to deploy water-saving irrigation,
-              biological soil inputs and residue management practices that cut greenhouse gas emissions without
-              cutting yield. Field teams and Kisan Advisors work season to season with growers on the ground, while
-              every intervention is logged, geofenced and independently quantified - so the outcomes a partner like
-              Nestle sees in a report like this one are traceable back to a specific farmer, field and season.
-            </p>
-            <p className="mt-4" style={{ fontSize: 15, lineHeight: 1.75, color: C.ink }}>
-              This project ran across the Varni and Chandur blocks of Nizamabad district, Telangana, over Rabi crop
-              season 2025-26, delivering the results set out in the sections above.
-            </p>
+      <Reveal style={{ maxWidth: 420 }}>
+        <div className="p-7 md:p-8 rounded-lg" style={{ background: C.ink }}>
+          <Eyebrow color={C.husk}>Get in touch</Eyebrow>
+          <h3 className="ch-display mt-3 text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
+            ClearHarvest, Grow Indigo
+          </h3>
+          <div className="mt-6">
+            <a
+              href={`mailto:${CONTACT.email}`}
+              className="flex items-baseline justify-between gap-4 py-3"
+              style={{ borderBottom: "1px solid rgba(255,255,255,.15)", textDecoration: "none" }}
+            >
+              <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>EMAIL</span>
+              <span style={{ fontSize: 15, color: C.leaf, fontWeight: 700, textAlign: "right" }}>{CONTACT.email}</span>
+            </a>
+            <a
+              href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
+              className="flex items-baseline justify-between gap-4 py-3"
+              style={{ textDecoration: "none" }}
+            >
+              <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>PHONE</span>
+              <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.phone}</span>
+            </a>
           </div>
-        </Reveal>
-
-        <Reveal delay={0.1} className="lg:col-span-2">
-          <div className="p-7 md:p-8 rounded-lg h-full" style={{ background: C.ink }}>
-            <Eyebrow color={C.husk}>Get in touch</Eyebrow>
-            <h3 className="ch-display mt-3 text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
-              ClearHarvest, Grow Indigo
-            </h3>
-            <div className="mt-6">
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className="flex items-baseline justify-between gap-4 py-3"
-                style={{ borderBottom: "1px solid rgba(255,255,255,.15)", textDecoration: "none" }}
-              >
-                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>EMAIL</span>
-                <span style={{ fontSize: 15, color: C.leaf, fontWeight: 700, textAlign: "right" }}>{CONTACT.email}</span>
-              </a>
-              <a
-                href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
-                className="flex items-baseline justify-between gap-4 py-3"
-                style={{ textDecoration: "none" }}
-              >
-                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>PHONE</span>
-                <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.phone}</span>
-              </a>
-            </div>
-          </div>
-        </Reveal>
-      </div>
+        </div>
+      </Reveal>
     </Section>
   );
 }
