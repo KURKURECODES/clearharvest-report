@@ -265,9 +265,7 @@ function Parallax({ children, speed = -12, className = "", style }) {
 /** GSAP-driven counter. Ticks once, snapped, with an easing that decelerates
  *  into the final value rather than stopping dead. */
 function Counter({ value, decimals = 0, duration = 1.8, className = "", style, prefix = "", suffix = "" }) {
-  const ref = useRef(null);
-  useGsapContext(() => {
-    const node = ref.current;
+  const scope = useGsapContext((self, node) => {
     if (!node) return;
     const obj = { v: 0 };
     const fmt = (n) =>
@@ -282,7 +280,7 @@ function Counter({ value, decimals = 0, duration = 1.8, className = "", style, p
       scrollTrigger: { trigger: node, start: "top 88%", once: true },
     });
   }, [value]);
-  return <span ref={ref} className={className} style={style} />;
+  return <span ref={scope} className={className} style={style} />;
 }
 
 /** Magnetic pointer attraction - springs, so it settles instead of snapping. */
@@ -588,14 +586,6 @@ function TopBar() {
 const VERTICALS = [
   {
     tag: "01",
-    name: "Carbon",
-    sub: "Carbon Farming",
-    tone: C.field,
-    body:
-      "Grow Indigo pioneers India's first science-backed agricultural carbon credit program, designed to directly benefit smallholder farmers. By combining on-ground field data with advanced digital tools like geofencing and satellite imagery, the company establishes precise baselines for greenhouse gas emissions and soil carbon sequestration. This rigorous verification process produces high-integrity Certified Carbon Units, allowing farmers to earn additional income for adopting regenerative practices while actively contributing to global climate mitigation.",
-  },
-  {
-    tag: "02",
     name: "Biologicals",
     sub: "Nature-based crop inputs",
     tone: C.leaf,
@@ -603,8 +593,16 @@ const VERTICALS = [
       "The Biologicals division focuses on unlocking the power of nature to tackle biotic and abiotic crop stresses without harmful chemical reliance. Leveraging in-house research and fermentation technology, Grow Indigo isolates resilient plant and soil microbiomes to develop tailor-made biological products - spanning seed treatments, bio-stimulants, and crop protection. These safe, environmentally friendly agro-inputs optimize resource use, boost crop productivity, and build climate resilience from the roots up.",
   },
   {
+    tag: "02",
+    name: "Carbon - Regen Ag",
+    sub: "Carbon Farming",
+    tone: C.field,
+    body:
+      "Grow Indigo pioneers India's first science-backed agricultural carbon credit program, designed to directly benefit smallholder farmers. By combining on-ground field data with advanced digital tools like geofencing and satellite imagery, the company establishes precise baselines for greenhouse gas emissions and soil carbon sequestration. This rigorous verification process produces high-integrity Certified Carbon Units, allowing farmers to earn additional income for adopting regenerative practices while actively contributing to global climate mitigation.",
+  },
+  {
     tag: "03",
-    name: "Clear Harvest",
+    name: "Carbon - ClearHarvest",
     sub: "Scope 3 insetting",
     tone: C.water,
     body:
@@ -612,11 +610,11 @@ const VERTICALS = [
   },
   {
     tag: "04",
-    name: "International Business",
-    sub: "Global validation",
+    name: "Carbon - Biochar",
+    sub: "Carbon-negative soil amendment",
     tone: C.husk,
     body:
-      "Recognizing that agricultural challenges differ drastically across the globe, the International Business vertical validates Grow Indigo's nature-based solutions across diverse international climates. Through strategic global collaborations and rigorous, real-world field trials outside of India, this division ensures that its microbial blends and agricultural technologies perform under varying agroclimatic conditions. By rejecting one-size-fits-all approaches, they deliver globally trusted, highly customized agricultural strategies that empower farming communities worldwide.",
+      "The Biochar vertical focuses on turning agricultural and organic waste into a highly porous, carbon-rich soil amendment. Instead of allowing crop residues to be burned or left to decompose - which releases harmful methane and carbon dioxide into the atmosphere - the waste is processed using a low-oxygen heating method known as pyrolysis. When added back to agricultural fields, the resulting biochar acts as a powerful carbon sink that locks atmospheric carbon safely in the ground for centuries. Beyond carbon sequestration, biochar significantly enhances soil structure, boosts water retention, and stimulates beneficial microbial activity, offering a zero-waste, nature-based solution that revitalizes degraded lands while mitigating climate change.",
   },
 ];
 
@@ -663,7 +661,7 @@ function CompanyIntro() {
         <Reveal variants={vScaleIn} delay={0.1}>
           <img
             src={growIndigoOverview}
-            alt="Grow Indigo overview - Biologicals, ClearHarvest, Carbon and International Business"
+            alt="Grow Indigo overview - Biologicals, ClearHarvest, Carbon and Biochar"
             className="w-full h-auto rounded-lg"
             style={{ border: "1px solid rgba(255,255,255,.14)", boxShadow: "0 20px 50px -20px rgba(0,0,0,.5)" }}
           />
@@ -1134,7 +1132,7 @@ const ROLES = [
     "Quality checks on KML mapping of farmer fields",
     "GHG emission quantification and water-saving assessments from field-level data",
   ]],
-  ["Engineering Leads", [
+  ["Engineering Team", [
     "Developed and maintained the digital tools - FieldKhata and S3 Sutra",
     "Data accuracy, security and seamless flow across platforms",
     "Troubleshooting, field adoption and technology readiness",

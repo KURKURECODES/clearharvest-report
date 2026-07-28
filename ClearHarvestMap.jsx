@@ -438,7 +438,7 @@ function Panel({ level, village, field, hoverField }) {
           {level === "india"
             ? "Telangana is highlighted below - click the state to drop into Nizamabad district."
             : level === "telangana"
-            ? "Click again to zoom to Nizamabad, where all 309 enrolled fields were geofenced."
+            ? "Click again to zoom to Nizamabad, where all 300 enrolled fields were geofenced."
             : "Open a village pin to see every mapped farmer field."}
         </p>
       </motion.div>
@@ -487,7 +487,7 @@ export default function LocationSection() {
             Every field on the map
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
-            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {TOTAL_FIELDS} enrolled
+            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 300 enrolled
             farmer fields were geofenced as KML boundaries in FieldKhata - click Telangana to drill from the country
             down to a single plot.
           </p>
