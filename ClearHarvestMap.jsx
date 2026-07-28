@@ -52,7 +52,7 @@ import BOUNDARIES from "./boundaries.geo.json";
 import FIELDS_FC from "./fields.geo.json";
 
 /* --- swap this for an India-compliant basemap before publishing in India --- */
-const BASEMAP_STYLE = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
+const BASEMAP_STYLE = "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
 
 const C = {
   ink: "#0A1F16", field: "#0E5B33", leaf: "#4FA65B", water: "#1E88A8",
