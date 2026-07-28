@@ -44,6 +44,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import LocationSection from "./ClearHarvestMap.jsx";
 import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
 import growIndigoLogo from "./src/assets/gilogo1.png";
+import growIndigoOverview from "./src/assets/growindigo-overview.jpg";
 import photoVlm1 from "./src/assets/vlm1.jpg";
 import photoVlm2 from "./src/assets/vlm2.jpg";
 import photoVlm3 from "./src/assets/vlm3.jpg";
@@ -579,6 +580,107 @@ function TopBar() {
 }
 
 /* ----------------------------------------------------------------------------
+   4b · COMPANY INTRO
+   Opens the report proper: who Grow Indigo is, and the four verticals the
+   ClearHarvest programme sits inside of. Pure Reveal/Stagger - no GSAP scrub -
+   so it reads calmly before the Hero takes over the motion budget.
+---------------------------------------------------------------------------- */
+const VERTICALS = [
+  {
+    tag: "01",
+    name: "Carbon",
+    sub: "Carbon Farming",
+    tone: C.field,
+    body:
+      "Grow Indigo pioneers India's first science-backed agricultural carbon credit program, designed to directly benefit smallholder farmers. By combining on-ground field data with advanced digital tools like geofencing and satellite imagery, the company establishes precise baselines for greenhouse gas emissions and soil carbon sequestration. This rigorous verification process produces high-integrity Certified Carbon Units, allowing farmers to earn additional income for adopting regenerative practices while actively contributing to global climate mitigation.",
+  },
+  {
+    tag: "02",
+    name: "Biologicals",
+    sub: "Nature-based crop inputs",
+    tone: C.leaf,
+    body:
+      "The Biologicals division focuses on unlocking the power of nature to tackle biotic and abiotic crop stresses without harmful chemical reliance. Leveraging in-house research and fermentation technology, Grow Indigo isolates resilient plant and soil microbiomes to develop tailor-made biological products - spanning seed treatments, bio-stimulants, and crop protection. These safe, environmentally friendly agro-inputs optimize resource use, boost crop productivity, and build climate resilience from the roots up.",
+  },
+  {
+    tag: "03",
+    name: "Clear Harvest",
+    sub: "Scope 3 insetting",
+    tone: C.water,
+    body:
+      "Clear Harvest is dedicated to helping global brands, particularly in the Food & Beverage and Apparel sectors, minimize their Scope 3 (farm-side) emissions. Rather than relying on traditional carbon offsetting, this vertical champions “insetting” by connecting corporations directly with a network of regenerative agriculture farmers to source sustainable produce. Operating in strict alignment with GHG Protocol and IPCC guidelines, Clear Harvest provides the exact accounting and compliance frameworks companies need to achieve their sustainability targets.",
+  },
+  {
+    tag: "04",
+    name: "International Business",
+    sub: "Global validation",
+    tone: C.husk,
+    body:
+      "Recognizing that agricultural challenges differ drastically across the globe, the International Business vertical validates Grow Indigo's nature-based solutions across diverse international climates. Through strategic global collaborations and rigorous, real-world field trials outside of India, this division ensures that its microbial blends and agricultural technologies perform under varying agroclimatic conditions. By rejecting one-size-fits-all approaches, they deliver globally trusted, highly customized agricultural strategies that empower farming communities worldwide.",
+  },
+];
+
+function VerticalCard({ v }) {
+  return (
+    <motion.div variants={vFadeUp} className="h-full">
+      <motion.div
+        whileHover={{ y: -6 }}
+        transition={{ duration: 0.35, ease: EASE }}
+        className="h-full p-6 md:p-7 rounded-lg"
+        style={{ background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.14)" }}
+      >
+        <div className="flex items-baseline gap-3">
+          <span className="ch-data" style={{ fontSize: 11, color: v.tone, fontWeight: 600 }}>{v.tag}</span>
+          <span style={{ height: 1, width: 22, background: "rgba(255,255,255,.18)" }} />
+          <span className="ch-data" style={{ fontSize: 10, letterSpacing: ".12em", color: "rgba(255,255,255,.5)" }}>{v.sub.toUpperCase()}</span>
+        </div>
+        <h3 className="ch-display mt-3" style={{ fontWeight: 800, fontSize: 22, color: "#fff" }}>{v.name}</h3>
+        <p className="mt-3 text-sm" style={{ color: "rgba(255,255,255,.68)", lineHeight: 1.65 }}>{v.body}</p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function CompanyIntro() {
+  return (
+    <Section id="intro" tone="dark" className="pt-40 md:pt-44">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
+        <div>
+          <Eyebrow color={C.husk}>About Grow Indigo</Eyebrow>
+          <MaskedHeading
+            text="We accelerate ag transformation for a healthy planet."
+            className="ch-display mt-4 text-3xl md:text-5xl"
+            style={{ color: "#fff", fontWeight: 800, maxWidth: "18ch" }}
+          />
+          <Reveal delay={0.15}>
+            <p className="mt-6 text-base md:text-lg" style={{ color: "rgba(255,255,255,.72)", maxWidth: "56ch", lineHeight: 1.7 }}>
+              Grow Indigo builds science-backed, nature-based programmes that make farming more resilient and more
+              rewarding - for farmers, for the corporations that source from them, and for the climate. This report
+              covers ClearHarvest, one of four verticals through which that work reaches the field.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal variants={vScaleIn} delay={0.1}>
+          <img
+            src={growIndigoOverview}
+            alt="Grow Indigo overview - Biologicals, ClearHarvest, Carbon and International Business"
+            className="w-full h-auto rounded-lg"
+            style={{ border: "1px solid rgba(255,255,255,.14)", boxShadow: "0 20px 50px -20px rgba(0,0,0,.5)" }}
+          />
+        </Reveal>
+      </div>
+
+      <Eyebrow color={C.husk}>Our four core verticals</Eyebrow>
+      <Stagger stagger={0.1} className="grid sm:grid-cols-2 gap-5 md:gap-6 mt-5">
+        {VERTICALS.map((v) => (
+          <VerticalCard key={v.name} v={v} />
+        ))}
+      </Stagger>
+    </Section>
+  );
+}
+
+/* ----------------------------------------------------------------------------
    5 · HERO
    One orchestrated GSAP timeline on load - water recedes, the field grows in,
    the headline rises out of its masks. A second scrubbed trigger hands the
@@ -586,7 +688,7 @@ function TopBar() {
 ---------------------------------------------------------------------------- */
 const HERO_LINES = [["Low-Emission"], ["Rice", "Offtake"]];
 const HERO_META = [
-  ["Season", "Rabi 2026"],
+  ["Season", "Rabi crop season 2025-26"],
   ["Programme", "ClearHarvest by Grow Indigo"],
   ["Geography", "Varni & Chandur blocks, Telangana"],
   ["Quantification", "Cool Farm Platform v3.0"],
@@ -672,8 +774,8 @@ function Hero() {
         </h1>
 
         <p className="hero-lede mt-7 text-lg md:text-xl" style={{ color: "rgba(255,255,255,.78)", maxWidth: "56ch", lineHeight: 1.6 }}>
-          Across 1,718 acres in Nizamabad, farmers stopped flooding their fields continuously - and cut the carbon in
-          every tonne of rice by half. Every field mapped, every claim traced.
+          Across 1,718 acres in Nizamabad, farmers stopped flooding their fields continuously - and reduced the
+          Carbon footprint. Every field mapped, every claim traced.
         </p>
 
         <div className="hero-meta mt-10 flex flex-wrap gap-x-10 gap-y-5">
@@ -721,7 +823,7 @@ const TICKER = [
   "9% less nitrogen",
   "833 acres baled",
   "11 villages",
-  "16 farmers sampled & audited",
+  "5 farmers sampled & audited",
 ];
 
 /** Seamless GSAP marquee. Two copies of the strip, x wrapped modulo width. */
@@ -784,7 +886,7 @@ function ImpactStrip() {
               Rice is one of the most water-intensive crops on earth, and traditional flooded cultivation is a
               significant source of methane - while exposing farmers to erratic rainfall, rising temperatures and
               declining groundwater. Against that backdrop the project introduced regenerative interventions focused on{" "}
-              <strong>water</strong>, <strong>soil</strong> and <strong>implementation competencies</strong>.
+              <strong>water</strong>, <strong>soil</strong> and <strong>less use of chemical fertilisers</strong>.
             </p>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "68ch" }}>
               Participating farmers kept their prevailing rice establishment method. The single change at the centre of
@@ -806,7 +908,7 @@ function ImpactStrip() {
                 climate-aligned procurement.
               </p>
               <div className="ch-data mt-6 pt-4" style={{ fontSize: 11, color: "rgba(255,255,255,.55)", borderTop: "1px solid rgba(255,255,255,.15)", lineHeight: 1.7 }}>
-                419 farmers enrolled · 249 completed procurement · 16 sampled for quantification by the square-root method
+                300 farmers enrolled · 139 completed procurement (~3,287 MT) · 5 sampled for quantification by the square-root method
               </div>
             </motion.div>
           </Reveal>
@@ -1583,7 +1685,7 @@ function ResultsSection() {
       <SectionHead
         index="09"
         title="Quantified, sampled, audited"
-        lede="Grow Indigo started the season with 419 farmers; procurement completed for 249, and the square-root sampling method selected 16 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform V3.0 and was reviewed by a third-party auditor."
+        lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform V3.0 and was reviewed by a third-party auditor."
       />
 
       <div className="grid gap-5 lg:grid-cols-2">
@@ -2347,7 +2449,7 @@ const SEQUENCE = [
   {
     n: "12", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
     body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.47 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
-    meta: "Cool Farm Platform V3.0 · 16 farmers sampled",
+    meta: "Cool Farm Platform V3.0 · 5 farmers sampled",
     icon: <path d="M4 20V10M10 20V4M16 20v-7M4 20h16" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
   },
 ];
@@ -2754,8 +2856,8 @@ function AboutSection() {
               Nestle sees in a report like this one are traceable back to a specific farmer, field and season.
             </p>
             <p className="mt-4" style={{ fontSize: 15, lineHeight: 1.75, color: C.ink }}>
-              This project ran across the Varni and Chandur blocks of Nizamabad district, Telangana, over Rabi 2026,
-              delivering the results set out in the sections above.
+              This project ran across the Varni and Chandur blocks of Nizamabad district, Telangana, over Rabi crop
+              season 2025-26, delivering the results set out in the sections above.
             </p>
           </div>
         </Reveal>
@@ -2806,7 +2908,7 @@ const DATA_NOTES = [
   "Headline GHG reduction of 771.47 kg CO₂e/MT (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 13.40 kg CO₂e/MT.",
   "Quantification also yields 784.87 kg CO₂e/MT (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
-  "Farmer counts differ by stage: 419 enrolled, 326 fields mapped and geofenced, 249 completing procurement, of whom 16 were sampled for quantification.",
+  "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
 ];
 
 function Closing() {
@@ -2888,6 +2990,7 @@ export default function ClearHarvestReport() {
       <AwdGauge />
 
       <main>
+        <CompanyIntro />
         <Hero />
         <ImpactStrip />
         <LocationSection />
