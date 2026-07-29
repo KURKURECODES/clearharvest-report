@@ -17,7 +17,7 @@
                           in 2014, since most public datasets still pre-date
                           the split and file it under Andhra Pradesh.
      fields.geo.json      309 farmer fields as real lat/lon polygons.
-                          REPLACE with your FieldKhata KML export - convert
+                          REPLACE with your FieldKhatta app KML export - convert
                           Placemark -> Feature and keep these properties:
                           id, farmer, acres, village, villageName, block,
                           awd, crm.
@@ -142,6 +142,18 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
         properties: {},
         geometry: BOUNDARIES.features.find((f) => f.properties.id === id).geometry,
       });
+
+      /* India-compliance fix: the base style's own country boundary/label
+         layers are OSM-derived and follow the international convention for
+         Jammu & Kashmir (Line of Control, Pakistan/China-administered areas
+         shown outside India) rather than India's official claimed territory.
+         Hide those layers and draw our own full-claim India outline instead. */
+      for (const id of ["boundary_country_outline", "boundary_country_inner", "place_country_1", "place_country_2"]) {
+        if (m.getLayer(id)) m.setLayoutProperty(id, "visibility", "none");
+      }
+      m.addSource("india", { type: "geojson", data: bd("india") });
+      m.addLayer({ id: "india-line", type: "line", source: "india",
+        paint: { "line-color": "#8a97a6", "line-width": 1.3 } }, "boundary_state");
 
       /* Telangana - the clickable state */
       m.addSource("telangana", { type: "geojson", data: bd("telangana") });
@@ -392,11 +404,11 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Area" v={`${p.acres} acres`} accent={C.leaf} />
           <Row k="Village" v={p.villageName} />
           <Row k="Block" v={p.block} />
-          <Row k="AWD pipe" v={p.awd ? "Installed & logged" : "Not enrolled"} accent={p.awd ? C.leaf : "rgba(255,255,255,.5)"} />
+          <Row k="Pani pipe" v={p.awd ? "Installed & logged" : "Not enrolled"} accent={p.awd ? C.leaf : "rgba(255,255,255,.5)"} />
           <Row k="Residue" v={p.crm ? "Baled - no burning" : "Retained in field"} accent={p.crm ? C.husk : undefined} />
         </div>
         <p className="mt-5" style={{ fontFamily: FONT_DATA, fontSize: 10.5, color: "rgba(255,255,255,.45)", lineHeight: 1.7 }}>
-          Boundary captured by the Kisan Advisor in FieldKhata and quality-checked by the scientific team before GHG accounting.
+          Boundary captured by the Kisan Advisor in FieldKhatta app and quality-checked by the scientific team before GHG accounting.
         </p>
       </motion.div>
     );
@@ -413,9 +425,6 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Coordinates" v={`${v.lat.toFixed(4)}°N ${v.lon.toFixed(4)}°E`} />
           <Row k="District" v="Nizamabad, Telangana" />
         </div>
-        <p className="mt-5" style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.7)" }}>
-          Hover any polygon for the farmer's name and area; click to pin it.
-        </p>
       </motion.div>
     );
   } else {
@@ -426,7 +435,7 @@ function Panel({ level, village, field, hoverField }) {
           {LEVEL_LABEL[level].toUpperCase()}
         </div>
         <h3 className="mt-4" style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem", lineHeight: 1.1 }}>
-          {level === "india" ? "Where the rice comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
+          {level === "india" ? "Where the paddy comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
         </h3>
         <div className="mt-5">
           <Row k="Mapped fields" v={TOTAL_FIELDS} accent={C.leaf} />
@@ -434,13 +443,6 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Blocks" v="Varni & Chandur" />
           <Row k="Emission reduction" v="771.47 kg CO2e/MT" accent={C.leaf} />
         </div>
-        <p className="mt-5" style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.7)" }}>
-          {level === "india"
-            ? "Telangana is highlighted below - click the state to drop into Nizamabad district."
-            : level === "telangana"
-            ? "Click again to zoom to Nizamabad, where all 300 enrolled fields were geofenced."
-            : "Open a village pin to see every mapped farmer field."}
-        </p>
       </motion.div>
     );
   }
@@ -488,8 +490,7 @@ export default function LocationSection() {
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
             The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 300 enrolled
-            farmer fields were geofenced as KML boundaries in FieldKhata - click Telangana to drill from the country
-            down to a single plot.
+            farmer fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
 
