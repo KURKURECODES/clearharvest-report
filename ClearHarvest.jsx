@@ -1107,7 +1107,7 @@ const ROLES = [
     "Alignment with Nestle's sustainability and reporting requirements",
     "Smooth execution throughout the programme, including procurement and reporting",
   ]],
-  ["RBM / Agronomist", [
+  ["RBM(Regional Business Manager) / Agronomist", [
     "Led on-ground implementation with TBM and Kisan Advisors",
     "Technical guidance on AWD, IPM, INM and sustainability practices",
     "Farmer trainings on AWD, regenerative practices and use of biologicals",
@@ -1120,6 +1120,7 @@ const ROLES = [
     "Adherence to implementation timelines and technical protocols",
   ]],
   ["Kisan Advisors", [
+    "Single point of contact for farmers",
     "Farmer engagement and mobilisation across project villages",
     "Distributed biologicals and AWD pipes to farmers",
     "KML-based mapping of farmer fields in the app",
