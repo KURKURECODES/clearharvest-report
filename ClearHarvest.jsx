@@ -3015,8 +3015,8 @@ export default function ClearHarvestReport() {
       <AwdGauge />
 
       <main>
-        <CompanyIntro />
         <Hero />
+        <CompanyIntro />
         <ImpactStrip />
         <LocationSection />
         <InterventionsSection />
