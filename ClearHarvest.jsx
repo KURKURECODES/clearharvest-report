@@ -1143,7 +1143,7 @@ const ROLES = [
 const WORKFLOW = [
   ["Kisan Advisor visits the farmer", "On-field engagement and practice verification"],
   ["Capability building on interventions", "Training on AWD, CRM and biological inputs"],
-  ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhata"],
+  ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhata/ODK"],
   ["QC of field-reported data by scientists", "Methodological review and validation"],
   ["Procurement audit trail", "End-to-end record captured in S3 Sutra"],
   ["Third-party audit & report submission", "Independent verification and final delivery"],
@@ -1190,7 +1190,7 @@ function OrgChart() {
           <div>
             {node("Field Operations", null, C.leaf, "#fff", "org-branch")}
             <div className="mt-3 space-y-3">
-              {node("RBM / Agronomist", "Regional field leadership & agronomic guidance", C.paperDim, C.ink, "org-leaf")}
+              {node("RBM(Regional Business Manager) / Agronomist", "Regional field leadership & agronomic guidance", C.paperDim, C.ink, "org-leaf")}
               {node("TBM", "Team management & operational execution", C.paperDim, C.ink, "org-leaf")}
               {node("Kisan Advisors", "Farmer engagement, advisory & hand-holding", C.paperDim, C.ink, "org-leaf")}
             </div>
@@ -1199,7 +1199,7 @@ function OrgChart() {
             {node("Science & Technology", null, C.water, "#fff", "org-branch")}
             <div className="mt-3 space-y-3">
               {node("Quantification Lead", "GHG quantification, data analysis & impact assessment", C.paperDim, C.ink, "org-leaf")}
-              {node("Engineering Lead", "Digital tools, data systems & technology enablement", C.paperDim, C.ink, "org-leaf")}
+              {node("Engineering Team", "Digital tools, data systems & technology enablement", C.paperDim, C.ink, "org-leaf")}
             </div>
           </div>
         </div>
@@ -1349,7 +1349,7 @@ function GovernanceSection() {
           <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "72ch" }}>
             Grow Indigo ran a phygital monitoring system: regular field observation paired with digital capture.
             Farmer information, field boundary geofencing and agronomy records (fertiliser, pesticide use, irrigation
-            method) went into <strong style={{ color: C.ink }}>FieldKhata</strong>; the agronomist and scientific team
+            method) went into <strong style={{ color: C.ink }}>FieldKhata</strong> and other tools; the agronomist and scientific team
             then checked accuracy, completeness and geolocation consistency before anything reached GHG accounting.
             Post-harvest, <strong style={{ color: C.ink }}>S3 Sutra</strong> traced low-emission paddy from farm to
             miller - farmer validation, produce quantities and movement - and a third-party auditor reviewed the
@@ -2037,7 +2037,6 @@ function SeasonSection() {
 ---------------------------------------------------------------------------- */
 const SHORT_TERM = [
   ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~9% reduction per acre in nitrogen fertiliser."],
-  ["No investment for AWD infrastructure", "AWD pipes were supplied, removing upfront cost and enabling immediate adoption."],
   ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping - direct savings on power and fuel."],
   ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs."],
 ];
