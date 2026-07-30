@@ -64,6 +64,7 @@ import photoBailing from "./src/assets/bailing.jpg";
 import videoTestimonial1 from "./src/assets/testimonial1.mp4";
 import videoTestimonial2 from "./src/assets/testimonial2.mp4";
 import videoTestimonial3 from "./src/assets/testimonial3.mp4";
+import photoWaterLevel from "./src/assets/waterlevel.jpg";
 import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
 import diaryWaterLogB from "./src/assets/diary8.png";
@@ -2389,14 +2390,14 @@ function EvidenceSection() {
    and it renders the image instead of the frame, keeping the geotag bar,
    aspect ratio and hover behaviour identical.
 ---------------------------------------------------------------------------- */
-function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", tall = false }) {
+function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", tall = false, objectPosition = "center" }) {
   return (
     <div
       className={`relative overflow-hidden rounded ${className}`}
       style={{ aspectRatio: tall ? "3 / 4" : ratio, background: C.paperDim, border: `1px dashed ${C.line}` }}
     >
       {src ? (
-        <img src={src} alt={alt || label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <img src={src} alt={alt || label} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition }} />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.mute} strokeWidth="1.4" opacity="0.65">
@@ -2465,7 +2466,9 @@ const SEQUENCE = [
     n: "07", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
     body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event.",
     meta: "Manual measurement · farmer diaries · FieldKhatta app",
-    photo: photoAwdMonitoring,
+    photo: photoWaterLevel,
+    ratio: "3 / 4",
+    objectPosition: "top",
   },
   {
     n: "08", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
@@ -2535,7 +2538,13 @@ function SequenceNode({ item, i }) {
       {/* photo slot opposite the card - a themed icon panel when no photograph is on file */}
       <div className={flip ? "md:col-start-1 md:row-start-1" : "md:col-start-2"}>
         {item.photo ? (
-          <PhotoSlot label={`Photo · ${item.title}`} ratio="16 / 10" src={item.photo} alt={item.title} />
+          <PhotoSlot
+            label={`Photo · ${item.title}`}
+            ratio={item.ratio || "16 / 10"}
+            src={item.photo}
+            alt={item.title}
+            objectPosition={item.objectPosition || "center"}
+          />
         ) : (
           <IconPanel icon={item.icon} color={item.color} label={item.tag} />
         )}

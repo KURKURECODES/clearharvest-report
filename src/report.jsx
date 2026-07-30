@@ -45,6 +45,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 import chLogo from "./assets/chlogo1.png";
 import giLogo from "./assets/gilogo1.png";
+import waterLevelImg from "./assets/waterlevel.jpg";
 
 /* ----------------------------------------------------------------------------
    1 · DESIGN TOKENS
@@ -2810,6 +2811,7 @@ const SEQUENCE = [
     n: "08", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
     body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event.",
     meta: "Manual measurement · farmer diaries · FieldKhata",
+    img: waterLevelImg,
   },
   {
     n: "09", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
@@ -2857,7 +2859,7 @@ function SequenceNode({ item, i }) {
 
       {/* photo slot opposite the card */}
       <div className={flip ? "md:col-start-1 md:row-start-1" : "md:col-start-2"}>
-        <PhotoSlot label={`Photo · ${item.title}`} ratio="16 / 10" />
+        <PhotoSlot label={`Photo · ${item.title}`} ratio="16 / 10" src={item.img} />
       </div>
 
       {/* the node marker on the rail */}
