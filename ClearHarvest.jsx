@@ -69,6 +69,7 @@ import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
 import diaryWaterLogB from "./src/assets/diary8.png";
 import diaryFeedback from "./src/assets/diary11.png";
+import photoFtmp from "./src/assets/ftmp.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -2748,7 +2749,7 @@ const GALLERY = {
     blurb: "Four VLMs across the project period. Demonstrations on pani pipe installation, Oorjit and Grow Phos application, and residue management - with biological-team members present at every session to answer product questions directly.",
     shots: [
       { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlmKuni },
-      { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoKickoff },
+      { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoFtmp },
       { label: "Farmers assembled for VLM, Jalalpur", stamp: null, src: photoMedia9 },
       { label: "Farmer Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },
     ],
