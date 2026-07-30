@@ -45,7 +45,6 @@ import LocationSection from "./ClearHarvestMap.jsx";
 import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
 import growIndigoLogo from "./src/assets/gilogo1.png";
 import growIndigoOverview from "./src/assets/growindigo-overview.jpg";
-import photoVlm1 from "./src/assets/vlm1.jpg";
 import photoVlm2 from "./src/assets/vlm2.jpg";
 import photoVlm3 from "./src/assets/vlm3.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
@@ -56,7 +55,9 @@ import photoDobs4 from "./src/assets/dobs4.jpg";
 import photoKickoff from "./src/assets/pko.jpg";
 import photoMedia9 from "./src/assets/media9.jpg";
 import photoMedia11 from "./src/assets/media11.jpg";
+import photoVlm1 from './src/assets/vlm1.jpg'; // or your relative path
 import photoMedia13 from "./src/assets/media13.jpg";
+import photoVlmKuni from './src/assets/vlmkuni.jpg';
 import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
 import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
 import photoBailing from "./src/assets/bailing.jpg";
@@ -2737,7 +2738,7 @@ const GALLERY = {
     label: "Village-level meetings",
     blurb: "Four VLMs across the project period. Demonstrations on pani pipe installation, Oorjit and Grow Phos application, and residue management - with biological-team members present at every session to answer product questions directly.",
     shots: [
-      { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlm1 },
+      { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlmKuni },
       { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoKickoff },
       { label: "Farmers assembled for VLM, Jalalpur", stamp: null, src: photoMedia9 },
       { label: "Farmer Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },

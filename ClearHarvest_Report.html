@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ClearHarvest - Low-Emission Rice Offtake · Project Report</title>
+<style>
+  @page { size: A4; margin: 16mm 16mm 18mm 16mm; }
+  :root{
+    --ink:#0A1F16; --inkSoft:#12291F; --field:#0E5B33; --leaf:#4FA65B;
+    --water:#1E88A8; --waterDeep:#12566B; --husk:#C98A2E; --clay:#8C5A3C;
+    --paper:#EEF3EC; --paperDim:#DFE8DD; --line:#C3D3C1; --mute:#5C7264;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--paper); color:var(--ink);
+    font-family:'Times New Roman', Times, Georgia, 'Liberation Serif', serif; }
+  .display { letter-spacing:-0.02em; line-height:1.02; font-weight:800; }
+  .data { font-variant-numeric: tabular-nums; letter-spacing:.06em; }
+  .eyebrow { font-size:9.5px; text-transform:uppercase; font-weight:700; letter-spacing:.16em; color:var(--husk); }
+  .rule { height:1px; background:var(--line); flex:1; }
+  h1,h2,h3,h4,p,ul,ol { margin:0; padding:0; }
+  section { padding: 6mm 0; }
+  .section-break { page-break-before: always; }
+  .section-flow { page-break-before: auto; }
+  .avoid-break { page-break-inside: avoid; }
+  .wrap { max-width: 100%; }
+
+  .sec-head { margin-bottom: 6mm; page-break-after: avoid; page-break-inside: avoid; }
+  .sec-head .idx-row { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+  .sec-head .idx { color:var(--husk); font-weight:700; font-size:12px; }
+  .sec-head h2 { color:var(--field); font-size:24px; max-width:34ch; }
+  .sec-head.dark h2 { color:#fff; }
+  .sec-head p.lede { margin-top:8px; color:var(--mute); max-width:80ch; font-size:11.5px; line-height:1.6; }
+  .sec-head.dark p.lede { color:rgba(255,255,255,.75); }
+  .sec-head.dark .rule { background:rgba(255,255,255,.2); }
+
+  /* ---- cover ---- */
+  .cover { background: linear-gradient(180deg, #0A1F16 0%, #0E3324 62%, #12566B 100%); color:#fff;
+    padding: 16mm 16mm; height: 263mm; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between;
+    page-break-after: always; }
+  .cover .lockup { display:flex; align-items:center; gap:14px; }
+  .cover .lockup img { height:30px; width:auto; }
+  .cover .lockup .rule { background:rgba(255,255,255,.25); }
+  .cover .tag { margin-top:26px; font-size:10.5px; letter-spacing:.16em; color:var(--husk); font-weight:700; text-transform:uppercase; }
+  .cover h1 { margin-top:14px; font-size:56px; font-weight:800; letter-spacing:-.02em; line-height:1.02; max-width:14ch; }
+  .cover h1 .accent { color:var(--husk); }
+  .cover .lede { margin-top:18px; font-size:15px; line-height:1.6; color:rgba(255,255,255,.82); max-width:56ch; }
+  .cover .meta-grid { margin-top:26px; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:640px; }
+  .cover .meta-grid .k { font-size:9px; letter-spacing:.16em; color:rgba(255,255,255,.5); text-transform:uppercase; }
+  .cover .meta-grid .v { font-size:13.5px; font-weight:600; margin-top:3px; }
+  .cover .footer-note { font-size:9.5px; color:rgba(255,255,255,.45); letter-spacing:.1em; text-transform:uppercase; }
+
+  /* ---- stat cards ---- */
+  .grid { display:grid; gap:8px; }
+  .grid-3 { grid-template-columns:repeat(3,1fr); }
+  .grid-2 { grid-template-columns:repeat(2,1fr); }
+  .grid-4 { grid-template-columns:repeat(4,1fr); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:6px; padding:12px 14px; }
+  .card.tint { background: var(--paperDim); }
+  .card-dark { background:var(--ink); color:#fff; border-radius:6px; padding:14px 16px; }
+  .stat .val { color:var(--field); font-weight:800; font-size:26px; }
+  .stat .label { font-weight:700; font-size:11.5px; margin-top:2px; }
+  .stat .note { font-size:9px; color:var(--mute); margin-top:4px; line-height:1.5; }
+
+  .ticker { background:var(--ink); color:rgba(255,255,255,.8); padding:6px 0; font-size:9px; letter-spacing:.08em;
+    display:flex; flex-wrap:wrap; gap:0; }
+  .ticker span { padding:2px 14px; border-right:1px solid rgba(255,255,255,.15); white-space:nowrap; }
+
+  .tone-tint { background: var(--paperDim); }
+  .tone-dark { background: var(--ink); color:#fff; }
+  .tone-dark .mute-txt { color: rgba(255,255,255,.7); }
+  .pad-x { padding-left:0; padding-right:0; }
+
+  /* interventions */
+  .interv-card { border-top:3px solid var(--accent,var(--field)); background:#fff; border:1px solid var(--line); border-radius:6px; padding:14px; }
+  .interv-card h3 { color:var(--field); font-size:17px; margin-top:8px; }
+  .interv-card .kicker { font-size:10px; color:var(--mute); margin-top:3px; }
+  .interv-card .mech { margin-top:10px; font-size:11px; line-height:1.6; }
+  .interv-card .why-row { margin-top:6px; font-size:10px; }
+  .interv-card .why-row b { color:var(--accent,var(--field)); letter-spacing:.05em; text-transform:uppercase; }
+  .interv-card ul.benefits { margin-top:10px; padding-left:0; list-style:none; }
+  .interv-card ul.benefits li { font-size:10.5px; line-height:1.55; margin-bottom:4px; padding-left:14px; position:relative; }
+  .interv-card ul.benefits li::before { content:"▸"; position:absolute; left:0; color:var(--accent,var(--field)); font-weight:700; }
+
+  /* org chart */
+  .org-node { padding:9px 12px; border-radius:4px; color:#fff; margin-bottom:8px; }
+  .org-node .t { font-weight:700; font-size:11.5px; }
+  .org-node .s { font-size:8.5px; opacity:.8; margin-top:2px; line-height:1.4; }
+  .org-node.light { background:var(--paperDim); color:var(--ink); }
+
+  .role-item { border-top:1px solid var(--line); padding:8px 0; }
+  .role-item:first-child { border-top:none; }
+  .role-item .title { font-weight:700; font-size:11.5px; color:var(--field); }
+  .role-item ul { margin-top:5px; padding-left:14px; }
+  .role-item li { font-size:10px; line-height:1.5; color:var(--mute); margin-bottom:2px; }
+
+  .wf-step { background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 11px; }
+  .wf-step .n { font-size:9px; color:var(--husk); font-weight:700; }
+  .wf-step .t { font-weight:700; font-size:10.5px; margin-top:3px; }
+  .wf-step .s { font-size:9.5px; color:var(--mute); margin-top:3px; line-height:1.4; }
+
+  /* sequence */
+  .seq-item { display:grid; grid-template-columns: 26px 1fr; gap:10px; margin-bottom:10px; page-break-inside:avoid; }
+  .seq-num { width:26px; height:26px; border-radius:99px; color:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; flex-shrink:0; }
+  .seq-body { border:1px solid var(--line); border-left:3px solid var(--accent,var(--field)); border-radius:4px; background:#fff;
+    padding:10px 12px; display:grid; grid-template-columns: 1fr 130px; gap:12px; align-items:center; }
+  .seq-body .txt .tag { font-size:9px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--accent,var(--field)); }
+  .seq-body .txt h4 { color:var(--field); font-size:13.5px; margin-top:4px; }
+  .seq-body .txt p { font-size:10px; line-height:1.55; color:var(--mute); margin-top:4px; }
+  .seq-body .txt .meta { font-size:8.5px; color:var(--accent,var(--field)); margin-top:5px; text-transform:uppercase; letter-spacing:.05em; }
+  .seq-body img { width:130px; height:82px; object-fit:cover; border-radius:3px; display:block; }
+
+  /* photo gallery */
+  .gallery-figure { border-radius:4px; overflow:hidden; border:1px solid var(--line); background:#fff; }
+  .gallery-figure img { width:100%; height:120px; object-fit:cover; display:block; }
+  .gallery-figure .cap { font-size:9px; color:var(--mute); padding:5px 6px; line-height:1.4; }
+  .gallery-tall img { height:170px; }
+
+  .testi-card { border:1px solid var(--line); border-radius:6px; overflow:hidden; background:#fff; }
+  .testi-frame { background:var(--ink); color:#fff; padding:10px 12px; }
+  .testi-frame .te { font-size:9.5px; color:rgba(255,255,255,.6); line-height:1.5; }
+  .testi-frame .en { font-size:10.5px; margin-top:4px; font-weight:600; line-height:1.4; }
+  .testi-foot { display:flex; justify-content:space-between; align-items:center; padding:9px 12px; }
+  .testi-foot .name { font-weight:700; color:var(--field); font-size:11px; }
+  .testi-foot .vil { font-size:9px; color:var(--mute); margin-top:2px; }
+
+  /* benefits */
+  .benefit-tile { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); border-radius:6px; padding:10px 12px; color:#fff; }
+  .benefit-tile .dot { width:8px; height:8px; border-radius:99px; display:inline-block; margin-right:6px; }
+  .benefit-tile h4 { font-size:12px; display:inline; font-weight:700; }
+  .benefit-tile ul { margin-top:6px; padding-left:12px; }
+  .benefit-tile li { font-size:9px; line-height:1.5; color:rgba(255,255,255,.72); margin-bottom:2px; }
+
+  .pinned { background:var(--field); color:#fff; padding:16mm 10mm; text-align:center; border-radius:6px; }
+  .pinned p { font-size:17px; font-weight:600; line-height:1.35; max-width:70ch; margin:10px auto 0; }
+
+  /* charts */
+  .chart-card { background:#fff; border:1px solid var(--line); border-radius:6px; padding:12px 14px; }
+  .chart-card h4 { color:var(--field); font-size:13px; margin-top:6px; }
+  .chart-card .unit { font-size:9px; color:var(--mute); margin-top:2px; }
+  .bars { display:flex; align-items:flex-end; gap:14px; height:110px; margin-top:14px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .bar-col .bar { width:70%; border-radius:3px 3px 0 0; }
+  .bar-col .v { font-size:10px; font-weight:700; margin-bottom:2px; }
+  .bar-col .n { font-size:8px; color:var(--mute); margin-top:5px; text-align:center; line-height:1.3; }
+  .hbars { margin-top:14px; display:flex; flex-direction:column; gap:10px; }
+  .hbar-row .n { font-size:9px; color:var(--mute); margin-bottom:3px; }
+  .hbar-track { background:var(--paperDim); border-radius:3px; height:16px; position:relative; }
+  .hbar-fill { height:16px; border-radius:3px; display:flex; align-items:center; }
+  .hbar-fill .v { font-size:9px; color:#fff; font-weight:700; margin-left:8px; }
+  .footnote { font-size:9px; color:var(--mute); line-height:1.5; margin-top:10px; padding-top:8px; border-top:1px solid var(--line); }
+
+  /* season timeline */
+  .gantt-row { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+  .gantt-label { width:110px; flex-shrink:0; font-size:8.5px; font-weight:700; color:#fff; padding:5px 8px; border-radius:3px; line-height:1.3; }
+  .gantt-track { flex:1; display:grid; grid-template-columns: repeat(8,1fr); gap:2px; }
+  .gantt-bar { color:#fff; font-size:7.5px; padding:4px 4px; border-radius:2px; white-space:nowrap; overflow:hidden; }
+  .months { display:flex; gap:6px; margin-top:4px; }
+  .months div { width:110px; flex-shrink:0; }
+  .months .track { flex:1; display:grid; grid-template-columns:repeat(8,1fr); gap:2px; }
+  .months .track span { font-size:8px; color:var(--mute); text-align:center; font-weight:700; }
+
+  .stage-row { border-top:1px solid var(--line); padding:8px 0; }
+  .stage-row:first-child { border-top:none; }
+  .stage-row .st { font-weight:700; color:var(--field); font-size:11.5px; }
+  .stage-row .why { font-size:10.5px; margin-top:2px; }
+  .stage-row .risk { font-size:9px; color:var(--clay); margin-top:3px; }
+
+  /* economics */
+  .econ-item { display:flex; gap:8px; margin-bottom:8px; }
+  .econ-item .chk { color:var(--accent,var(--field)); font-weight:700; }
+  .econ-item .k { font-weight:700; font-size:11px; }
+  .econ-item .v { font-size:10px; color:var(--mute); line-height:1.5; margin-top:1px; }
+
+  /* sourcing */
+  .lever-item, .pillar-item { border:1px solid rgba(255,255,255,.18); border-radius:5px; padding:9px 11px; margin-bottom:7px; background:rgba(255,255,255,.05); }
+  .lever-item .n { font-weight:700; font-size:11px; color:#fff; }
+  .lever-item .s { font-size:9px; color:rgba(255,255,255,.55); margin-top:2px; }
+  .lever-item .arrow { font-size:8.5px; margin-top:4px; letter-spacing:.08em; }
+  .pillar-item .code { font-size:8.5px; letter-spacing:.1em; font-weight:700; }
+  .pillar-item .name { font-weight:700; font-size:11.5px; color:#fff; margin-top:3px; }
+  .pillar-item .contrib { font-size:9.5px; color:rgba(255,255,255,.7); margin-top:3px; line-height:1.5; }
+
+  /* evidence */
+  .evi-card { background:#fff; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .evi-card img, .evi-card .scene { width:100%; height:100px; object-fit:cover; display:block; background:var(--paperDim); }
+  .evi-card .body { padding:8px 10px; }
+  .evi-card .ann { font-size:8.5px; color:var(--husk); font-weight:700; letter-spacing:.08em; }
+  .evi-card .t { font-weight:700; color:var(--field); font-size:10.5px; margin-top:3px; }
+  .evi-card .c { font-size:9px; color:var(--mute); margin-top:3px; line-height:1.45; }
+  .evi-card .geo { font-size:7.5px; color:var(--mute); margin-top:5px; border-top:1px solid var(--line); padding-top:4px; }
+
+  .bib-item { display:flex; gap:8px; margin-bottom:8px; }
+  .bib-item .num { color:var(--husk); font-size:9px; font-weight:700; }
+  .bib-item .cite { font-size:10px; line-height:1.5; color:rgba(255,255,255,.85); }
+  .bib-item .lbl { font-size:8.5px; color:var(--leaf); margin-top:2px; letter-spacing:.05em; }
+  .note-item { display:flex; gap:8px; margin-bottom:6px; font-size:10px; line-height:1.5; color:rgba(255,255,255,.75); }
+  .note-item .b { color:var(--water); }
+
+  .contact-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.15); }
+  .contact-row .k { font-size:9px; letter-spacing:.1em; color:rgba(255,255,255,.5); }
+  .contact-row .v { font-weight:700; font-size:11px; }
+
+  .callout { background:var(--paperDim); border-left:4px solid var(--husk); border-radius:0 6px 6px 0; padding:12px 16px; }
+
+  strong { color: var(--ink); }
+  .tone-dark strong { color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div>
+    <div class="lockup">
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/gilogo1.png" alt="Grow Indigo">
+      <span class="rule"></span>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/chnlogo-removebg.png" alt="ClearHarvest">
+    </div>
+    <div class="tag">Nizamabad, Telangana · 11 villages · 326 mapped fields</div>
+    <h1>Low-Emission Rice<br>Offtake<span class="accent">.</span></h1>
+    <p class="lede">Across 1,718 acres in Nizamabad, farmers stopped flooding their fields continuously - and cut the carbon in every tonne of rice by half. Every field mapped, every claim traced.</p>
+    <div class="meta-grid">
+      <div><div class="k">Season</div><div class="v">Rabi 2026</div></div>
+      <div><div class="k">Programme</div><div class="v">ClearHarvest by Grow Indigo</div></div>
+      <div><div class="k">Geography</div><div class="v">Varni &amp; Chandur blocks, Telangana</div></div>
+      <div><div class="k">Quantification</div><div class="v">Cool Farm Platform v3.0</div></div>
+    </div>
+  </div>
+  <div class="footer-note">Low-Emission Rice Offtake · Nizamabad, Telangana · Rabi 2026 - Project Report (PDF Edition)</div>
+</div>
+
+<!-- ============ 01 SUMMARY ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">01</span><span class="rule"></span></div>
+    <h2>What the season delivered</h2>
+    <p class="lede">The Low-Emission Rice Offtake project promoted Alternate Wetting &amp; Drying (AWD)–based regenerative practices that cut greenhouse gas emissions, improved water-use efficiency and strengthened long-term soil health - verified farm to mill.</p>
+  </div>
+
+  <div class="grid grid-3 avoid-break">
+    <div class="card stat"><div class="val">300</div><div class="label">Paddy farmers</div><div class="note">enrolled across 11 villages</div></div>
+    <div class="card stat"><div class="val">1,718</div><div class="label">Acres under AWD</div><div class="note">Varni &amp; Chandur blocks, Nizamabad</div></div>
+    <div class="card stat"><div class="val" style="color:var(--leaf)">~58%</div><div class="label">GHG reduction</div><div class="note">vs Nestlé baseline of 1,325 kg CO₂e/MT</div></div>
+    <div class="card stat"><div class="val" style="color:var(--water)">~67%</div><div class="label">Water saved</div><div class="note">3,250 → ~1,073 litres per kg paddy</div></div>
+    <div class="card stat"><div class="val" style="color:var(--husk)">833</div><div class="label">Acres baled</div><div class="note">nearly 3x the 300-acre CRM target</div></div>
+    <div class="card stat"><div class="val" style="color:var(--clay)">9%</div><div class="label">Less nitrogen</div><div class="note">48 → 43.7 kg N/acre vs PJTSAU dose - less use of chemical fertilisers.</div></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:12px; grid-template-columns: 1.6fr 1fr;">
+    <div>
+      <h3 style="color:var(--field); font-size:16px;">Why this project exists</h3>
+      <p style="margin-top:6px; font-size:11px; line-height:1.65;">Rice is one of the most water-intensive crops on earth, and traditional flooded cultivation is a significant source of methane - while exposing farmers to erratic rainfall, rising temperatures and declining groundwater. Against that backdrop the project introduced regenerative interventions focused on <strong>water</strong>, <strong>soil</strong> and <strong>implementation competencies</strong>.</p>
+      <p style="margin-top:8px; font-size:11px; line-height:1.65; color:var(--mute);">Participating farmers kept their prevailing rice establishment method. The single change at the centre of the programme was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to conserve water and suppress methane formation. Everything else - biologicals, residue management, digital traceability - was built around making that change stick and making it auditable.</p>
+      <p style="margin-top:8px; font-size:11px; line-height:1.65; color:var(--mute);">The sections that follow set out how each of those interventions was delivered, governed and verified, and what they added up to across the season.</p>
+    </div>
+    <div class="card-dark">
+      <div class="eyebrow">Our claim to Nestlé, in one line</div>
+      <p style="margin-top:8px; font-size:14px; font-weight:600; line-height:1.3;">A scalable, farmer-centric model for low-emission rice that is transparent, traceable and ready for climate-aligned procurement.</p>
+      <div class="data" style="margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,.15); font-size:9px; color:rgba(255,255,255,.6); line-height:1.6;">300 farmers enrolled · 139 completed procurement · 5 sampled for quantification by the square-root method</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 LOCATION ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">02</span><span class="rule"></span></div>
+    <h2>Every field on the map</h2>
+    <p class="lede">The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 309 enrolled farmer fields were geofenced as KML boundaries in FieldKhata - connected to a single app.</p>
+  </div>
+  <div class="grid grid-2" style="grid-template-columns: 1fr 1fr;">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">Villages mapped</div>
+      <table style="width:100%; margin-top:8px; border-collapse:collapse; font-size:10.5px;">
+        <thead><tr style="text-align:left; color:var(--mute);"><th style="padding:4px 0;">Village</th><th>Block</th><th>Coordinates</th></tr></thead>
+        <tbody>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:5px 0;">Ghanpur</td><td>Chandur</td><td class="data">18.5734°N 77.9271°E</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:5px 0;">Sangam</td><td>Chandur</td><td class="data">18.6038°N 77.9121°E</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:5px 0;">Kunipoor</td><td>Varni</td><td class="data">18.5111°N 77.9406°E</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:5px 0;">Srinagar</td><td>Varni</td><td class="data">18.5371°N 77.9253°E</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:5px 0;">Bhavanipet</td><td>Chandur</td><td class="data">18.5801°N 77.9251°E</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:8px; font-size:9.5px; color:var(--mute);">Plus 6 additional villages in the two blocks - 11 in total.</p>
+    </div>
+    <div class="card-dark">
+      <div class="eyebrow">Where the rice comes from</div>
+      <div class="data" style="margin-top:8px; display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.15); padding:6px 0; font-size:10px;"><span style="color:rgba(255,255,255,.5)">MAPPED FIELDS</span><b style="color:var(--leaf)">326</b></div>
+      <div class="data" style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.15); padding:6px 0; font-size:10px;"><span style="color:rgba(255,255,255,.5)">VILLAGES</span><b>11</b></div>
+      <div class="data" style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,.15); padding:6px 0; font-size:10px;"><span style="color:rgba(255,255,255,.5)">BLOCKS</span><b>Varni &amp; Chandur</b></div>
+      <div class="data" style="display:flex; justify-content:space-between; padding:6px 0; font-size:10px;"><span style="color:rgba(255,255,255,.5)">EMISSION REDUCTION</span><b style="color:var(--leaf)">771.47 kg CO₂e/MT</b></div>
+      <p style="margin-top:10px; font-size:10px; line-height:1.6; color:rgba(255,255,255,.7)">Every farmer field was captured as a KML polygon in FieldKhata - boundary, farmer name, acreage, AWD status and CRM status - then quality-checked by the scientific team before entering GHG accounting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 INTERVENTIONS ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">03</span><span class="rule"></span></div>
+    <h2>Three interventions, one system</h2>
+    <p class="lede">Water, soil and residue were addressed together - each supported by the same field team, the same digital record and the same farmer.</p>
+  </div>
+  <div class="grid grid-3">
+    <div class="interv-card" style="--accent:var(--water)">
+      <div class="eyebrow" style="color:var(--water)">Theme 1 · Water</div>
+      <h3>Alternate Wetting &amp; Drying</h3>
+      <div class="kicker">1 perforated field pipe per acre, read by hand</div>
+      <p class="mech">AWD replaces continuous flooding with a controlled cycle of irrigation and drying. A perforated field water tube is sunk into each acre; irrigation is scheduled by watching the water level fall inside the tube rather than by calendar habit. Kisan Advisors measured levels manually through the season, so farmers learned to read the pipe themselves.</p>
+      <ul class="benefits">
+        <li>~67% water savings - down to ~1,073 litres per kg of paddy</li>
+        <li>Lower methane emissions through reduced waterlogging</li>
+        <li>Improved root aeration and nutrient uptake</li>
+        <li>Enhanced water productivity and groundwater management</li>
+        <li>Decreased weed pressure in certain field conditions</li>
+        <li>Healthier soil structure - less prolonged saturation stress</li>
+        <li>Farmer-friendly monitoring via a simple tube</li>
+        <li>Climate resilience where irrigation is scarce</li>
+      </ul>
+    </div>
+    <div class="interv-card" style="--accent:var(--leaf)">
+      <div class="eyebrow" style="color:var(--leaf)">Theme 2 · Soil</div>
+      <h3>Oorjit &amp; Grow Phos</h3>
+      <div class="kicker">6 kg + 20 kg per acre, supplied free of cost</div>
+      <p class="mech">An advanced microbial NPK consortium biofertiliser: nitrogen-fixing, phosphorus-solubilising and potash-mobilising bacteria enriched with naturally derived soil minerals. Every farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - plus training on correct application.</p>
+      <ul class="benefits">
+        <li>Steady biologically-driven N-P-K supply; up to 20% less synthetic fertiliser dependence</li>
+        <li>Improved soil structure - aeration, moisture retention, root penetration</li>
+        <li>Lower urea requirement, subject to soil condition, crop stage and agronomic advice</li>
+        <li>Consistent vegetative growth and quality grain formation</li>
+        <li>Lower disease incidence and better long-term soil health</li>
+      </ul>
+    </div>
+    <div class="interv-card" style="--accent:var(--husk)">
+      <div class="eyebrow" style="color:var(--husk)">Theme 3 · Residue</div>
+      <h3>Crop Residue Management</h3>
+      <div class="kicker">833 acres baled against a 300-acre target</div>
+      <p class="mech">CRM was implemented to eliminate open field burning. Selected farmers were supported in baling and bundling rice residues immediately after harvest. The baling process itself was explained to farmers during village-level meetings, ahead of harvest. Where residues are baled and removed, the gains are cleaner fields, avoided burning and productive biomass use.</p>
+      <ul class="benefits">
+        <li>New income stream from selling baled residue to gaushalas</li>
+        <li>Target exceeded - 178% growth over the original 300-acre plan</li>
+        <li>Higher soil organic matter; organic carbon retained rather than burnt</li>
+        <li>Biomass reused as livestock feed, compost and bioenergy</li>
+        <li>Reduced air pollution and fire risk across the project villages</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 GOVERNANCE ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">04</span><span class="rule"></span></div>
+    <h2>Who did what, and how it was checked</h2>
+    <p class="lede">Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to Nestlé's sustainability objectives and reporting requirements.</p>
+  </div>
+  <div class="grid grid-2" style="grid-template-columns:1fr 1fr;">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">ClearHarvest team structure</div>
+      <div style="margin-top:10px;">
+        <div class="org-node" style="background:var(--field); text-align:center;"><div class="t">Business team</div><div class="s">Project Management Unit · timely execution against milestones</div></div>
+        <div class="grid grid-2" style="margin-top:8px;">
+          <div>
+            <div class="org-node" style="background:var(--leaf); text-align:center;"><div class="t">Field Operations</div></div>
+            <div class="org-node light"><div class="t" style="font-size:10px;">RBM / Agronomist</div><div class="s">Regional field leadership &amp; agronomic guidance</div></div>
+            <div class="org-node light"><div class="t" style="font-size:10px;">TBM</div><div class="s">Team management &amp; operational execution</div></div>
+            <div class="org-node light"><div class="t" style="font-size:10px;">Kisan Advisors</div><div class="s">Farmer engagement, advisory &amp; hand-holding</div></div>
+          </div>
+          <div>
+            <div class="org-node" style="background:var(--water); text-align:center;"><div class="t">Science &amp; Technology</div></div>
+            <div class="org-node light"><div class="t" style="font-size:10px;">Quantification Lead</div><div class="s">GHG quantification, data analysis &amp; impact assessment</div></div>
+            <div class="org-node light"><div class="t" style="font-size:10px;">Engineering Lead</div><div class="s">Digital tools, data systems &amp; technology enablement</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">Functional responsibility mapping</div>
+      <div style="margin-top:8px;">
+        <div class="role-item"><div class="title">Project Management Unit</div><ul><li>Strategic supervision and governance</li><li>Alignment with Nestlé's sustainability and reporting requirements</li><li>Smooth execution including procurement and reporting</li></ul></div>
+        <div class="role-item"><div class="title">RBM / Agronomist</div><ul><li>Led on-ground implementation with TBM and Kisan Advisors</li><li>Technical guidance on AWD, IPM, INM and sustainability practices</li><li>Quality assurance of field data and practice verification</li></ul></div>
+        <div class="role-item"><div class="title">TBM (Territory Business Manager)</div><ul><li>Supervised Kisan Advisors daily</li><li>Coordination during procurement with the miller</li><li>Implementation of AWD, CRM, nutrient management and biologicals</li></ul></div>
+        <div class="role-item"><div class="title">Kisan Advisors <span style="color:var(--mute); font-weight:400;">(SPOC for Farmers)</span></div><ul><li>Distributed biologicals and AWD pipes to farmers</li><li>KML-based mapping of farmer fields in the app</li><li>Manual measurement of water level in fields</li></ul></div>
+        <div class="role-item"><div class="title">Scientists</div><ul><li>Reviewed and validated field data for methodological accuracy</li><li>GHG emission quantification and water-saving assessments</li></ul></div>
+        <div class="role-item"><div class="title">Engineering Leads</div><ul><li>Developed and maintained FieldKhata and S3 Sutra</li><li>Digital traceability and audit-trail generation from farm to mill</li><li>All other digital tools TBD</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;">
+    <h3 style="color:var(--field); font-size:15px;">Monitoring, measurement and traceability</h3>
+    <p style="margin-top:6px; font-size:11px; line-height:1.65; color:var(--mute);">Grow Indigo ran a phygital monitoring system: regular field observation paired with digital capture. Farmer information, field boundary geofencing and agronomy records went into <strong>FieldKhata</strong>; the agronomist and scientific team then checked accuracy, completeness and geolocation consistency before anything reached GHG accounting. Post-harvest, <strong>S3 Sutra</strong> traced low-emission paddy from farm to miller, and a third-party auditor reviewed the evidence and digital records.</p>
+    <div class="grid grid-3" style="margin-top:10px;">
+      <div class="wf-step"><div class="n">STEP 1</div><div class="t">Kisan Advisor visits the farmer</div><div class="s">On-field engagement and practice verification</div></div>
+      <div class="wf-step"><div class="n">STEP 2</div><div class="t">Capability building on interventions</div><div class="s">Training on AWD, CRM and biological inputs</div></div>
+      <div class="wf-step"><div class="n">STEP 3</div><div class="t">Data capture on agronomic practices</div><div class="s">AWD and CRM logged in FieldKhata</div></div>
+      <div class="wf-step"><div class="n">STEP 4</div><div class="t">QC of field-reported data by scientists</div><div class="s">Methodological review and validation</div></div>
+      <div class="wf-step"><div class="n">STEP 5</div><div class="t">Procurement audit trail</div><div class="s">End-to-end record captured in S3 Sutra</div></div>
+      <div class="wf-step"><div class="n">STEP 6</div><div class="t">Third-party audit &amp; report submission</div><div class="s">Independent verification and final delivery</div></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:14px; grid-template-columns:1fr 1fr;">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">Theme 4 · Four IPM principles, applied in the field</div>
+      <div style="margin-top:8px; font-size:10.5px; line-height:1.55;">
+        <p><strong>Cultural control.</strong> Timely agronomic operations, field sanitation, balanced nutrition, weed management and AWD-based water management.</p>
+        <p style="margin-top:6px;"><strong>Mechanical &amp; physical.</strong> Removal of infected plant parts, cleaning of field bunds, physical suppression of weeds and pest habitats.</p>
+        <p style="margin-top:6px;"><strong>Biological control.</strong> Biological inputs and practices that improved soil and crop health and encouraged beneficial organisms.</p>
+        <p style="margin-top:6px;"><strong>Chemical control.</strong> Recommended only when pest or disease pressure required it - correct pesticide, dosage and crop stage.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">A high-touch, phygital extension model</div>
+      <div style="margin-top:8px; font-size:10.5px; line-height:1.55; color:var(--mute);">
+        <p><strong style="color:var(--ink)">Integrated Nutrient Management.</strong> Combined farmer practice, crop-stage requirements, biological inputs, soil condition and split fertiliser application.</p>
+        <p style="margin-top:6px;"><strong style="color:var(--ink)">Field visits.</strong> Kisan Advisors visited from transplanting to harvest for one-on-one support and verification.</p>
+        <p style="margin-top:6px;"><strong style="color:var(--ink)">Village-level meetings.</strong> Held four times, with live demonstrations of AWD, biological application and residue management.</p>
+        <p style="margin-top:6px;"><strong style="color:var(--ink)">Always-on channels.</strong> Vernacular video and weekly WhatsApp messages in Telugu, including pest advisories naming the Kisan Advisor to call.</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-dark" style="margin-top:12px;">
+    <div class="eyebrow">Stakeholder management</div>
+    <p style="margin-top:6px; font-size:10.5px; line-height:1.6; color:rgba(255,255,255,.8);">Field teams, scientists, Aishwarya Rice Mills (Nestlé's empanelled miller) and Nestlé representatives worked in a connected framework - enabling timely execution, transparent data flow and high implementation fidelity. The TBM and Kisan Advisors supervised the entire procurement process, and the PMU visited fields to ensure timely completion.</p>
+  </div>
+</section>
+
+<!-- ============ 05 SEQUENCE ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">05</span><span class="rule"></span></div>
+    <h2>How the season ran, start to finish</h2>
+    <p class="lede">Met Nestlé - the PMU visited fields to ensure timely execution throughout the season.</p>
+    <p class="lede" style="margin-top:6px;">Twelve steps from kick-off to audited report. Each one produced a record - a photograph, a signed form, a diary entry or a digital log - and those records are what the quantification ultimately rests on.</p>
+  </div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--field)">01</div>
+    <div class="seq-body" style="--accent:var(--field)"><div class="txt"><div class="tag">Mobilisation</div><h4>Programme kick-off</h4><p>ClearHarvest and Grow Indigo aligned on scope, geography and reporting obligations, then stood up the delivery team.</p><div class="meta">Varni &amp; Chandur blocks · 11 villages identified</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/pko.jpg" alt="Programme kick-off"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--water)">02</div>
+    <div class="seq-body" style="--accent:var(--water)"><div class="txt"><div class="tag">VLM 1</div><h4>First village-level meeting</h4><p>Farmers were introduced to the programme in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would require.</p><div class="meta">Telugu-language sessions · leaflets distributed</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/vlm1.jpg" alt="First VLM"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--leaf)">03</div>
+    <div class="seq-body" style="--accent:var(--leaf)"><div class="txt"><div class="tag">Inputs</div><h4>Distribution of biologicals</h4><p>Every enrolled farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos, free of cost, alongside an AWD field pipe.</p><div class="meta">6 kg Oorjit + 20 kg Grow Phos + 1 AWD pipe per acre</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/dobs.jpg" alt="Distribution of biologicals"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--water)">04</div>
+    <div class="seq-body" style="--accent:var(--water)"><div class="txt"><div class="tag">VLM 2</div><h4>Second village-level meeting</h4><p>A working session: live demonstration of AWD pipe installation, correct placement, and how to read the fall in water depth.</p><div class="meta">Hands-on demonstration · pipe installation</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/vlm2.jpg" alt="Second VLM"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--clay)">05</div>
+    <div class="seq-body" style="--accent:var(--clay)"><div class="txt"><div class="tag">Governance</div><h4>Consent letter signing</h4><p>Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting.</p><div class="meta">Signed consent retained in the audit pack</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/cls.jpg" alt="Consent letter signing"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--water)">06</div>
+    <div class="seq-body" style="--accent:var(--water)"><div class="txt"><div class="tag">VLM 3</div><h4>Third village-level meeting</h4><p>Mid-season review at crop stage: nutrient splits, weed and pest pressure, and troubleshooting for drying fields.</p><div class="meta">Crop-stage review · nutrient split guidance</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/vlm3.jpg" alt="Third VLM"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--water)">07</div>
+    <div class="seq-body" style="--accent:var(--water)"><div class="txt"><div class="tag">VLM 4</div><h4>Fourth village-level meeting</h4><p>Pre-harvest planning: residue handling, baling logistics, and procurement requirements.</p><div class="meta">Residue planning · procurement briefing</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/media11.jpg" alt="Fourth VLM"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--waterDeep)">08</div>
+    <div class="seq-body" style="--accent:var(--waterDeep)"><div class="txt"><div class="tag">Continuous</div><h4>Regular water-level monitoring</h4><p>The spine of the whole intervention. Kisan Advisors measured water depth through the season and farmers maintained dated diaries.</p><div class="meta">Manual measurement · farmer diaries · FieldKhata</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/awd-monitoring.jpg" alt="Water-level monitoring"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--husk)">09</div>
+    <div class="seq-body" style="--accent:var(--husk)"><div class="txt"><div class="tag">Procurement</div><h4>Delivery to Aishwarya Rice Mills</h4><p>Low-emission paddy moved from farm to Nestlé's empanelled miller under a documented chain, all captured in S3 Sutra.</p><div class="meta">Farm-to-mill audit trail in S3 Sutra</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/paddy-loading.jpg" alt="Delivery to mill"></div></div>
+
+  <div class="seq-item"><div class="seq-num" style="background:var(--husk)">10</div>
+    <div class="seq-body" style="--accent:var(--husk)"><div class="txt"><div class="tag">CRM</div><h4>Residue baled, not burnt</h4><p>Farmers baled and bundled paddy straw immediately after harvest instead of burning it, then sold it to gaushalas. 833 acres baled against a 300-acre target.</p><div class="meta">833 acres baled · zero open field burning</div></div>
+      <img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/bailing.jpg" alt="Residue baled"></div></div>
+
+  <div class="grid grid-2" style="margin-top:6px;">
+    <div class="card avoid-break">
+      <div class="eyebrow" style="color:var(--field)">Assurance</div>
+      <h4 style="color:var(--field); font-size:12.5px; margin-top:5px;">11 · Third-party audit</h4>
+      <p style="font-size:10px; line-height:1.55; color:var(--mute); margin-top:4px;">One Peterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail. Check through remote sensing as well.</p>
+      <div style="font-size:9px; color:var(--field); margin-top:5px;">INDEPENDENT VERIFICATION · ONE PETERSON · REMOTE SENSING</div>
+    </div>
+    <div class="card avoid-break">
+      <div class="eyebrow" style="color:var(--leaf)">Delivery</div>
+      <h4 style="color:var(--field); font-size:12.5px; margin-top:5px;">12 · Quantification &amp; reporting</h4>
+      <p style="font-size:10px; line-height:1.55; color:var(--mute); margin-top:4px;">Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.47 kg CO₂e/MT reduced, ~58% against Nestlé's baseline.</p>
+      <div style="font-size:9px; color:var(--leaf); margin-top:5px;">COOL FARM PLATFORM V3.0 · 5 FARMERS SAMPLED</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 TESTIMONIALS ============ -->
+<section class="section-flow">
+  <div class="callout">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">06</span><span class="rule"></span></div>
+    <h2>In the farmers' words</h2>
+    <p class="lede">Recorded on-field in Telugu during the season. English translation runs alongside so the original stays first and the translation supports it.</p>
+  </div>
+  <div class="grid grid-3">
+    <div class="testi-card">
+      <div class="testi-frame"><div class="te">"నీటి పైపు వాడటం వల్ల ఎప్పుడు నీరు పెట్టాలో స్పష్టంగా తెలుస్తుంది. కరెంటు ఖర్చు తగ్గింది."</div><div class="en">"With the water pipe I can see exactly when the field needs irrigating. My electricity cost has come down."</div></div>
+      <div class="testi-foot"><div><div class="name">Kolluri Gangaram</div><div class="vil">GHANPUR · 9.1 ACRES</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-frame"><div class="te">"గ్రో ఫాస్ మరియు ఊర్జిత్ బాగా పనిచేశాయి. యూరియా తక్కువ వాడినా పంట బాగుంది."</div><div class="en">"Grow Phos and Oorjit worked well. Even with less urea, the crop was good."</div></div>
+      <div class="testi-foot"><div><div class="name">Mekala Narsimha</div><div class="vil">KUNIPOOR · 6.4 ACRES</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-frame"><div class="te">"గడ్డిని కాల్చకుండా బేల్ చేసి గోశాలకు అమ్మాము. పొలం శుభ్రంగా ఉంది, కొంత ఆదాయం కూడా వచ్చింది."</div><div class="en">"Instead of burning the straw we baled it and sold it to the gaushala. The field stayed clean and we earned something too."</div></div>
+      <div class="testi-foot"><div><div class="name">Bandari Ashok</div><div class="vil">SRINAGAR · 11.2 ACRES</div></div></div>
+    </div>
+  </div>
+  <p style="margin-top:10px; font-size:9.5px; color:var(--mute); background:#fff; padding:8px 10px; border-radius:4px; line-height:1.6;">Translations were checked against the recordings by the field team. Where a farmer used a local term with no direct English equivalent, the subtitle keeps the sense rather than the literal words.</p>
+  </div>
+</section>
+
+<!-- ============ 07 PHOTOGRAPHY ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">07</span><span class="rule"></span></div>
+    <h2>What the field team documented</h2>
+    <p class="lede">Photographic and paper evidence collected through the season, geo-tagged and dated at capture.</p>
+  </div>
+
+  <h3 style="font-size:12.5px; color:var(--field); margin-bottom:6px;">Village-level meetings</h3>
+  <div class="grid grid-4 avoid-break">
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/vlm1.jpg" alt=""><div class="cap">VLM in progress - Kunipoor</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/pko.jpg" alt=""><div class="cap">Field team presenting, Jalalpur</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/media9.jpg" alt=""><div class="cap">Farmers assembled for VLM</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/media13.jpg" alt=""><div class="cap">Farmer Q&amp;A, Varni block</div></figure>
+  </div>
+
+  <h3 style="font-size:12.5px; color:var(--field); margin:14px 0 6px;">GrowIndigo: Agri Inputs</h3>
+  <div class="grid grid-4 avoid-break">
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/dobs3.jpg" alt=""><div class="cap">Oorjit &amp; Grow Phos handover, Ghanpur</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/dobs.jpg" alt=""><div class="cap">Input bags at collection point</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/dob2.jpg" alt=""><div class="cap">Handover, Jalalpur</div></figure>
+    <figure class="gallery-figure"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/dobs4.jpg" alt=""><div class="cap">Input handover, Sangam</div></figure>
+  </div>
+
+  <h3 style="font-size:12.5px; color:var(--field); margin:14px 0 6px;">Farmer diaries</h3>
+  <div class="grid grid-4 avoid-break">
+    <figure class="gallery-figure gallery-tall"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/diary1.png" alt=""><div class="cap">Socio-economic profile page</div></figure>
+    <figure class="gallery-figure gallery-tall"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/diary7.png" alt=""><div class="cap">Water management log</div></figure>
+    <figure class="gallery-figure gallery-tall"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/diary8.png" alt=""><div class="cap">Re-irrigation interval entries</div></figure>
+    <figure class="gallery-figure gallery-tall"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/diary11.png" alt=""><div class="cap">Stakeholder feedback form</div></figure>
+  </div>
+</section>
+
+<!-- ============ 08 BENEFITS + PINNED ============ -->
+<section class="section-break tone-dark" style="border-radius:8px; padding:14mm 10mm;">
+  <div class="sec-head dark">
+    <div class="idx-row"><span class="idx">08</span><span class="rule"></span></div>
+    <h2>One practice, eight kinds of return</h2>
+    <p class="lede">AWD is a climate-smart, water-saving rice cultivation practice that delivers measurable environmental, agronomic, economic and social benefits.</p>
+  </div>
+  <div class="grid grid-4">
+    <div class="benefit-tile"><span class="dot" style="background:var(--water)"></span><h4>Water conservation</h4><ul><li>Reduces irrigation demand 30–45% vs continuous flooding</li><li>~67% water savings achieved (~1,073 L/kg)</li><li>Preserves groundwater; reduces pumping load</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:var(--field)"></span><h4>Climate mitigation</h4><ul><li>771.47 kg CO₂e/MT reduction - ~58% vs baseline</li><li>Cuts diesel/electric pumping emissions</li><li>Builds resilience to erratic monsoons</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:var(--clay)"></span><h4>Reduced methane</h4><ul><li>Drying disrupts methanogenic activity</li><li>30–70% CH₄ cut per hectare (IRRI, IPCC AR6)</li><li>Methane ~28× more potent than CO₂ over 100yr</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:var(--leaf)"></span><h4>Soil health</h4><ul><li>Wet–dry cycles improve aeration</li><li>Stronger root systems, better oxygenation</li><li>Builds soil organic carbon over seasons</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:#6B8F3A"></span><h4>Biodiversity</h4><ul><li>Diversifies field micro-habitats</li><li>Protects pollinators, earthworms, predators</li><li>Preserves riparian &amp; wetland ecosystems</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:var(--husk)"></span><h4>Energy savings</h4><ul><li>Fewer irrigation events, less pump runtime</li><li>Lower electricity and diesel use</li><li>Eases peak agricultural electricity demand</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:#B0483C"></span><h4>Human health</h4><ul><li>Less standing water limits mosquito breeding</li><li>Lower nitrate leaching protects wells</li><li>Ending burning improves air quality</li></ul></div>
+    <div class="benefit-tile"><span class="dot" style="background:var(--waterDeep)"></span><h4>Water governance</h4><ul><li>Low-cost tube enables self-managed water use</li><li>Supports village/watershed-level planning</li><li>Creates auditable record for climate finance</li></ul></div>
+  </div>
+  <div class="pinned" style="margin-top:16px;">
+    <div class="eyebrow">The big picture</div>
+    <p>AWD is a single practice with cascading positive impacts - saving water, reducing emissions, improving soils, protecting biodiversity, cutting energy costs, safeguarding health and strengthening community water governance.</p>
+  </div>
+</section>
+
+<!-- ============ 09 RESULTS ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">09</span><span class="rule"></span></div>
+    <h2>Quantified, sampled, audited</h2>
+    <p class="lede">Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform V3.0.</p>
+  </div>
+
+  <div class="card avoid-break" style="border-top:3px solid var(--field); margin-bottom:10px;">
+    <div class="eyebrow" style="color:var(--field)">Season headline results</div>
+    <div class="grid grid-3" style="margin-top:8px;">
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--leaf); font-size:20px;">~58%</div><div style="font-size:9px; color:var(--mute); margin-top:3px;">GHG emission reduction</div></div>
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--water); font-size:20px;">~67%</div><div style="font-size:9px; color:var(--mute); margin-top:3px;">Water savings per MT</div></div>
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--clay); font-size:20px;">9%</div><div style="font-size:9px; color:var(--mute); margin-top:3px;">Nitrogen use reduction</div></div>
+    </div>
+    <div class="grid grid-3" style="margin-top:8px;">
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--field); font-size:16px;">771.47</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">kg CO₂e/MT reduced · headline (corrected nursery)</div></div>
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--field); font-size:16px;">784.87</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">kg CO₂e/MT reduced · excluding nursery (~59%)</div></div>
+      <div class="card tint" style="text-align:center; padding:10px;"><div style="font-weight:800; color:var(--field); font-size:16px;">764.78</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">kg CO₂e/MT reduced · including gross nursery (~58%)</div></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="chart-card avoid-break">
+      <div class="eyebrow">Chart 1 · Emissions intensity</div>
+      <h4>Well over half the carbon in every tonne</h4>
+      <div class="unit">kg CO₂e per MT of paddy</div>
+      <div class="bars">
+        <div class="bar-col"><div class="v">1,325</div><div class="bar" style="height:100%; background:var(--mute)"></div><div class="n">Nestlé baseline</div></div>
+        <div class="bar-col"><div class="v">540.13</div><div class="bar" style="height:40.8%; background:var(--leaf)"></div><div class="n">Project · excl. nursery</div></div>
+        <div class="bar-col"><div class="v">553.53</div><div class="bar" style="height:41.8%; background:var(--field)"></div><div class="n">Project · incl. nursery</div></div>
+      </div>
+      <div class="footnote">Two project figures are shown because quantification runs with and without the nursery stage. The headline ~58% uses the corrected nursery emission of 13.40 kg CO₂e/MT.</div>
+    </div>
+
+    <div class="chart-card avoid-break">
+      <div class="eyebrow">Chart 2 · Nitrogen use</div>
+      <h4>Less urea, same crop</h4>
+      <div class="unit">kg nitrogen per acre</div>
+      <div class="bars">
+        <div class="bar-col"><div class="v">62.4</div><div class="bar" style="height:100%; background:var(--clay)"></div><div class="n">Farmer practice (BAU)</div></div>
+        <div class="bar-col"><div class="v">48</div><div class="bar" style="height:76.9%; background:var(--mute)"></div><div class="n">PJTSAU recommended</div></div>
+        <div class="bar-col"><div class="v">43.7</div><div class="bar" style="height:70%; background:var(--leaf)"></div><div class="n">Project rate</div></div>
+      </div>
+      <div class="footnote">Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages.</div>
+    </div>
+
+    <div class="chart-card avoid-break">
+      <div class="eyebrow">Supporting indicator</div>
+      <h4>Water per kilogram of paddy</h4>
+      <div class="unit">litres per kg</div>
+      <div class="hbars">
+        <div class="hbar-row"><div class="n">Conventional flooding</div><div class="hbar-track"><div class="hbar-fill" style="width:100%; background:var(--mute)"><span class="v">3,250</span></div></div></div>
+        <div class="hbar-row"><div class="n">Project (AWD)</div><div class="hbar-track"><div class="hbar-fill" style="width:33%; background:var(--water)"><span class="v">1,073</span></div></div></div>
+      </div>
+      <div class="footnote">Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption.</div>
+    </div>
+
+    <div class="chart-card avoid-break">
+      <div class="eyebrow">Supporting indicator</div>
+      <h4>Yield, season on season</h4>
+      <div class="unit">MT per acre, average</div>
+      <div class="hbars">
+        <div class="hbar-row"><div class="n">Previous season</div><div class="hbar-track"><div class="hbar-fill" style="width:100%; background:var(--mute)"><span class="v">2.7</span></div></div></div>
+        <div class="hbar-row"><div class="n">Current season</div><div class="hbar-track"><div class="hbar-fill" style="width:92.6%; background:var(--husk)"><span class="v">2.5</span></div></div></div>
+      </div>
+      <div class="footnote">A ~7.4% decline attributed to seasonal factors - irregular monsoon distribution, temporary water stress, high temperatures at flowering, and agronomic variation.</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:12px;">
+    <div class="card avoid-break">
+      <div class="eyebrow">How the nursery stage was handled</div>
+      <p style="font-size:10.5px; line-height:1.6; margin-top:6px; color:var(--mute);">Farmers typically raise seedlings on ~10% of their land for ~21 days. With average landholding at ~9.1 acres, that is ~0.9 acres per farmer. Nursery emissions were estimated over ~0.9 acres × ~21 days, then adjusted by a ~33% correction factor.</p>
+      <div class="grid grid-3" style="margin-top:8px;">
+        <div class="card tint" style="text-align:center; padding:8px;"><div style="font-weight:800; color:var(--field); font-size:16px;">20.09</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">gross nursery</div></div>
+        <div class="card tint" style="text-align:center; padding:8px;"><div style="font-weight:800; color:var(--field); font-size:16px;">13.40</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">after correction</div></div>
+        <div class="card tint" style="text-align:center; padding:8px;"><div style="font-weight:800; color:var(--field); font-size:16px;">771.47</div><div style="font-size:8px; color:var(--mute); margin-top:2px;">net reduction</div></div>
+      </div>
+    </div>
+    <div class="card-dark avoid-break">
+      <div class="eyebrow">Nitrogen use optimisation</div>
+      <p style="font-size:10.5px; line-height:1.6; margin-top:6px; color:rgba(255,255,255,.85);">Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 43.7 kg N/acre - a 9% reduction - driven primarily by Oorjit granules' enhanced fertiliser-use efficiency combined with AWD irrigation. Against farmers' BAU of 62.4 kg N/acre, the project rate is 30% lower.</p>
+      <div class="data" style="margin-top:8px; padding-top:6px; border-top:1px solid rgba(255,255,255,.18); font-size:8.5px; color:rgba(255,255,255,.6); line-height:1.6;">Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising performance (P.V.M. et al., 2025).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 SEASON ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">10</span><span class="rule"></span></div>
+    <h2>A season, operation by operation</h2>
+    <p class="lede">The rice production cycle ran from nursery establishment through transplanting to harvest, with a structured sequence of agronomic operations, regenerative interventions and nutrient applications timed to crop stage.</p>
+  </div>
+
+  <div class="card avoid-break">
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--leaf)">Crop establishment</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:1/span 1; background:var(--leaf)">Nursery planting</div><div class="gantt-bar" style="grid-column:2/span 1; background:var(--leaf)">Transplanting</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--water)">Regen interventions</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:3/span 1; background:var(--water)">Pipe installed</div><div class="gantt-bar" style="grid-column:3/span 3; background:var(--water)">AWD monitoring</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--field)">Nutrition</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:3/span 1; background:var(--field)">1st split</div><div class="gantt-bar" style="grid-column:5/span 1; background:var(--field)">2nd split</div><div class="gantt-bar" style="grid-column:6/span 1; background:var(--field)">3rd split</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--husk)">Harvest</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:6/span 1; background:var(--husk)">Harvest</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--waterDeep)">Field monitoring</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:3/span 5; background:var(--waterDeep)">Data collection - agronomy, fertiliser &amp; water</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--clay)">Farmer engagement</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:3/span 1; background:var(--clay)">1st VLM</div><div class="gantt-bar" style="grid-column:4/span 1; background:var(--clay)">2nd VLM</div><div class="gantt-bar" style="grid-column:5/span 2; background:var(--clay)">3rd &amp; 4th VLM</div></div></div>
+    <div class="gantt-row"><div class="gantt-label" style="background:var(--mute)">Procurement</div><div class="gantt-track"><div class="gantt-bar" style="grid-column:6/span 2; background:var(--mute)">Procurement &amp; traceability</div><div class="gantt-bar" style="grid-column:8/span 1; background:var(--mute)">Audit &amp; report</div></div></div>
+    <div class="months"><div></div><div class="track"><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span></div></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:12px;">
+    <div style="font-size:10.5px; line-height:1.65; color:var(--mute);">
+      <p>Seedlings were transplanted mid-season and, within the first three days, farmers applied a post-emergence herbicide - Bispyribac Sodium 10SC, or Fenoxaprop-p-ethyl 6.7EC + Metsulfuron Methyl 10WP + Chlorimuron Ethyl 10WP - for early weed suppression. Between 10–15 days after transplanting, AWD field pipes were installed and manual water-level measurement began.</p>
+      <p style="margin-top:8px;">At ~15 DAT (tillering), farmers applied the first split of urea and DAP alongside 6 kg/acre of Oorjit granules and 20 kg of Grow Phos. Around ~55 DAT a second herbicide went on where weed pressure required it. The second urea split followed at ~65 DAT (panicle initiation); the third and final split at ~75 DAT supported grain development.</p>
+      <p style="margin-top:8px;">Post-harvest activity began at crop maturity. Procurement and traceability documentation were completed soon after harvest, with GHG quantification and report submission following.</p>
+    </div>
+    <div class="card">
+      <div class="eyebrow" style="color:var(--field)">Critical crop stages for AWD management</div>
+      <div class="stage-row"><div class="st">Tillering</div><div class="why">For effective tiller production</div><div class="risk">RISK IF MISSED: Reduction in effective tillers leads to yield loss</div></div>
+      <div class="stage-row"><div class="st">Panicle to flowering</div><div class="why">For fertile grain formation</div><div class="risk">RISK IF MISSED: More sterile grains - yield loss</div></div>
+      <div class="stage-row"><div class="st">Milking to dough</div><div class="why">For complete grain filling</div><div class="risk">RISK IF MISSED: Less head rice, more broken rice</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 ECONOMICS ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">11</span><span class="rule"></span></div>
+    <h2>What it meant for the farmer</h2>
+    <p class="lede">The project strengthened farm economics through immediate cost savings and longer-term productivity gains from regenerative practice.</p>
+  </div>
+  <div class="grid grid-2">
+    <div class="card" style="border-top:3px solid var(--husk);">
+      <div class="eyebrow" style="color:var(--husk)">Short-term impact</div>
+      <div style="margin-top:8px;">
+        <div class="econ-item" style="--accent:var(--husk)"><span class="chk">✓</span><div><div class="k">Fertiliser cost optimisation</div><div class="v">Oorjit Granules and Grow Phos improved nutrient uptake, supplied free of cost, with a ~9% reduction per acre in nitrogen fertiliser.</div></div></div>
+        <div class="econ-item" style="--accent:var(--husk)"><span class="chk">✓</span><div><div class="k">No investment for AWD infrastructure</div><div class="v">AWD pipes were supplied, removing upfront cost and enabling immediate adoption.</div></div></div>
+        <div class="econ-item" style="--accent:var(--husk)"><span class="chk">✓</span><div><div class="k">Reduced irrigation &amp; energy costs</div><div class="v">Lower irrigation frequency cut electricity and diesel for pumping.</div></div></div>
+        <div class="econ-item" style="--accent:var(--husk)"><span class="chk">✓</span><div><div class="k">Residue monetisation</div><div class="v">CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs.</div></div></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--field);">
+      <div class="eyebrow" style="color:var(--field)">Long-term impact</div>
+      <div style="margin-top:8px;">
+        <div class="econ-item" style="--accent:var(--field)"><span class="chk">✓</span><div><div class="k">Improved soil organic carbon</div><div class="v">Repeated use of biological inputs and AWD raises SOC over time, improving nutrient retention and yield stability.</div></div></div>
+        <div class="econ-item" style="--accent:var(--field)"><span class="chk">✓</span><div><div class="k">Reduced production risk</div><div class="v">Regenerative practices strengthen resilience to water stress, erratic rainfall and pest pressure.</div></div></div>
+        <div class="econ-item" style="--accent:var(--field)"><span class="chk">✓</span><div><div class="k">Stronger market access</div><div class="v">Traceable, low-emission rice opens premium procurement linkages with sustainability-focused buyers like Nestlé.</div></div></div>
+        <div class="econ-item" style="--accent:var(--field)"><span class="chk">✓</span><div><div class="k">Community capacity built</div><div class="v">Knowledge of climate-smart practices stays with farmers, multiplying the benefit across seasons and neighbours.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 SOURCING ============ -->
+<section class="section-break tone-dark" style="border-radius:8px; padding:14mm 10mm;">
+  <div class="sec-head dark">
+    <div class="idx-row"><span class="idx">12</span><span class="rule"></span></div>
+    <h2>Mapped to Nestlé's Responsible Sourcing Standard</h2>
+    <p class="lede">The standard sets out how the supply chain is expected to operate. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestlé's Scope 3 and ESG disclosure obligations.</p>
+  </div>
+  <div class="grid grid-2">
+    <div>
+      <div class="eyebrow" style="color:rgba(255,255,255,.5)">Project levers</div>
+      <div style="margin-top:8px;">
+        <div class="lever-item"><div class="n">Alternate Wetting &amp; Drying</div><div class="s">~67% water savings · CH₄ reduction</div><div class="arrow" style="color:var(--field)">→ PILLAR 01</div></div>
+        <div class="lever-item"><div class="n">Oorjit, Grow Phos + CRM</div><div class="s">9% N reduction · no field burning</div><div class="arrow" style="color:var(--leaf)">→ PILLAR 03</div></div>
+        <div class="lever-item"><div class="n">FieldKhata + S3 Sutra</div><div class="s">End-to-end digital audit trail</div><div class="arrow" style="color:var(--husk)">→ PILLAR 04</div></div>
+        <div class="lever-item"><div class="n">Farmer capacity building</div><div class="s">VLMs, KA support, vernacular training</div><div class="arrow" style="color:var(--water)">→ PILLAR 02</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow" style="color:rgba(255,255,255,.5)">Responsible sourcing pillars</div>
+      <div style="margin-top:8px;">
+        <div class="pillar-item"><div class="code" style="color:var(--field)">PILLAR 01</div><div class="name">Climate Action &amp; Net Zero</div><div class="contrib">AWD reduces methane formation at source; optimised nitrogen lowers N₂O. A direct, verifiable Scope 3 insetting contribution.</div></div>
+        <div class="pillar-item"><div class="code" style="color:var(--water)">PILLAR 02</div><div class="name">Water Stewardship &amp; Livelihoods</div><div class="contrib">~67% water savings free up aquifer capacity; pumping and fertiliser cuts plus straw monetisation lift farm-gate margins.</div></div>
+        <div class="pillar-item"><div class="code" style="color:var(--leaf)">PILLAR 03</div><div class="name">Land, Forests &amp; Biodiversity</div><div class="contrib">Oorjit and Grow Phos improve SOC and soil biology; CRM ends open field burning, protecting soil biota and air quality.</div></div>
+        <div class="pillar-item"><div class="code" style="color:var(--husk)">PILLAR 04</div><div class="name">Traceability &amp; Human Rights</div><div class="contrib">FieldKhata and S3 Sutra build a geo-tagged, audit-ready record; the engagement model preserves voluntary participation.</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14); border-radius:6px; padding:12px 14px;">
+    <div class="eyebrow">Insight</div>
+    <div class="grid grid-3" style="margin-top:8px; font-size:10px; line-height:1.6; color:rgba(255,255,255,.75);">
+      <p>AWD alone delivers eight distinct ESG benefits. That breadth lets Nestlé communicate the work credibly across climate, water, biodiversity and rural-development pillars - without overstating any single claim.</p>
+      <p>Geo-tagged field boundaries, farmer-diary practice records, scientific QC and Cool Farm Platform quantification together produce emission reductions that are field-attributable and third-party verifiable.</p>
+      <p>The programme is a working template for how Responsible Sourcing commitments translate into measurable, defensible field outcomes - scaling climate-aligned procurement across the rice category, and beyond.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 EVIDENCE ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">13</span><span class="rule"></span></div>
+    <h2>Field evidence</h2>
+    <p class="lede">The annexures below document field-level evidence, monitoring data and operational records collected throughout the project period - each one geo-tagged and dated at the point of capture.</p>
+  </div>
+  <div class="grid grid-3">
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/vlm1.jpg" alt=""><div class="body"><div class="ann">ANNEXURE 1</div><div class="t">Village-level meetings with farmers</div><div class="c">Farmers attending a VLM with the field team - four VLMs were held across the project period.</div><div class="geo">Kunipoor, Telangana, India · 18.511113°N 77.940613°E</div></div></div>
+    <div class="evi-card"><div class="scene"></div><div class="body"><div class="ann">ANNEXURE 2</div><div class="t">Stakeholder feedback form</div><div class="c">Bilingual Telugu/English feedback form. Respondent rated the programme in the top band.</div><div class="geo">Ghanpur, Telangana, India · 22-01-26</div></div></div>
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/diary1.png" alt=""><div class="body"><div class="ann">ANNEXURE 3</div><div class="t">Farmer diary</div><div class="c">Socio-economic profile plus dated water-management log for every irrigation event.</div><div class="geo">Ghanpur, Telangana, India · Farmer ID 1f22356e</div></div></div>
+    <div class="evi-card"><div class="scene"></div><div class="body"><div class="ann">ANNEXURE 4</div><div class="t">Feedback form (second respondent)</div><div class="c">Second signed stakeholder feedback record retained in the audit pack.</div><div class="geo">Ghanpur, Telangana, India · 22-01-26</div></div></div>
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/media13.jpg" alt=""><div class="body"><div class="ann">ANNEXURE 5</div><div class="t">Nestlé team field visits</div><div class="c">Nestlé representatives in-field with the Grow Indigo team and participating farmers.</div><div class="geo">Srinagar, Nizamabad, Telangana · 25/05/2026</div></div></div>
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/awd-monitoring.jpg" alt=""><div class="body"><div class="ann">ANNEXURE 6</div><div class="t">AWD pipes during monitoring</div><div class="c">Perforated field tube with the measuring scale in place - water depth read directly against the gauge.</div><div class="geo">Ghanpur, Telangana, India · 05/02/2026</div></div></div>
+    <div class="evi-card"><div class="scene"></div><div class="body"><div class="ann">ANNEXURE 7</div><div class="t">Harvest in action</div><div class="c">Combine harvesting a project plot in the Bodhan–Chandur road cluster.</div><div class="geo">Bhavanipet, Telangana · 23/03/2026</div></div></div>
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/bailing.jpg" alt=""><div class="body"><div class="ann">ANNEXURE 8</div><div class="t">Baled crop residue, geo-tagged</div><div class="c">Straw baled and stacked instead of burnt - 833 acres against a 300-acre target.</div><div class="geo">Ghanpur, Telangana, India · 19/05/2026</div></div></div>
+    <div class="evi-card"><img src="file:///C:/Users/kukre/Desktop/growinigoreport/src/assets/paddy-loading.jpg" alt=""><div class="body"><div class="ann">ANNEXURE 9</div><div class="t">Grains ready to be transported</div><div class="c">Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller.</div><div class="geo">Nizamabad, Telangana · 20/04/2026</div></div></div>
+    <div class="evi-card"><div class="scene"></div><div class="body"><div class="ann">ANNEXURE 10</div><div class="t">Procurement form and receipt</div><div class="c">Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher.</div><div class="geo">Varni, Nizamabad · Vehicle AP29TB1278 · 36,750 kg net</div></div></div>
+  </div>
+</section>
+
+<!-- ============ 14 ABOUT ============ -->
+<section class="section-flow">
+  <div class="sec-head">
+    <div class="idx-row"><span class="idx">14</span><span class="rule"></span></div>
+    <h2>About Grow Indigo</h2>
+    <p class="lede">Grow Indigo works with farming communities across India to make regenerative practices measurable, financeable and easy to adopt at scale. ClearHarvest is its programme delivery and MRV arm.</p>
+  </div>
+  <div class="grid grid-2" style="grid-template-columns: 1.5fr 1fr;">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--husk)">Who we are</div>
+      <p style="margin-top:6px; font-size:11px; line-height:1.65;">Grow Indigo partners with rice, cotton and other row-crop farmers to deploy water-saving irrigation, biological soil inputs and residue management practices that cut greenhouse gas emissions without cutting yield. Field teams and Kisan Advisors work season to season with growers on the ground, while every intervention is logged, geofenced and independently quantified - so the outcomes a partner like Nestlé sees in a report like this one are traceable back to a specific farmer, field and season.</p>
+      <p style="margin-top:8px; font-size:11px; line-height:1.65;">This project ran across the Varni and Chandur blocks of Nizamabad district, Telangana, over Rabi 2026, delivering the results set out in the sections above.</p>
+    </div>
+    <div class="card-dark">
+      <div class="eyebrow">Get in touch</div>
+      <h3 style="color:#fff; font-size:16px; margin-top:6px;">ClearHarvest, Grow Indigo</h3>
+      <div style="margin-top:10px;">
+        <div class="contact-row"><span class="k">EMAIL</span><span class="v" style="color:var(--leaf)">clearharvest@growindigo.co.in</span></div>
+        <div class="contact-row" style="border-bottom:none;"><span class="k">PHONE</span><span class="v">+91 8329049612</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
