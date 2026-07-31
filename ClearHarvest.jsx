@@ -594,7 +594,7 @@ const VERTICALS = [
     sub: "Nature-based crop inputs",
     tone: C.leaf,
     body:
-      "The Biologicals division focuses on unlocking the power of nature to tackle biotic and abiotic crop stresses without harmful chemical reliance. Leveraging in-house research and fermentation technology, Grow Indigo isolates resilient plant and soil microbiomes to develop tailor-made biological products - spanning seed treatments, bio-stimulants, and crop protection. These safe, environmentally friendly agro-inputs optimize resource use, boost crop productivity, and build climate resilience from the roots up.",
+      "Grow Indigo Biologicals offers world class innovative Biological and safe Agri input formulations improving farmers livelihood by adopting Sustainable, regenerative and climate resilient agriculture. Product offerings are for complete crop duration from Seed Treatment to soil enrichment to better Plant/ Crop Growth to crop protection to quality Harvest. We're not just keeping up; we're staying ahead, shaping a future where every leaf, stem, and harvest is a testament to our commitment to solution-driven excellence.",
   },
   {
     tag: "02",
@@ -602,11 +602,11 @@ const VERTICALS = [
     sub: "Carbon Farming",
     tone: C.field,
     body:
-      "Grow Indigo pioneers India's first science-backed agricultural carbon credit program, designed to directly benefit smallholder farmers. By combining on-ground field data with advanced digital tools like geofencing and satellite imagery, the company establishes precise baselines for greenhouse gas emissions and soil carbon sequestration. This rigorous verification process produces high-integrity Certified Carbon Units, allowing farmers to earn additional income for adopting regenerative practices while actively contributing to global climate mitigation.",
+      "Introducing India's first science-backed agricultural carbon credit program, benefiting smallholder farmers, this unique initiative promotes sustainability and environmental stewardship in agriculture. Unlocking nature's power, we tackle biotic and abiotic stresses in agriculture; our sustainable strategy involves using resilient plant and soil microbiomes for enhanced crop resilience. Furthermore, with our combined expertise of biologicals and carbon accounting, we help food & beverages and apparel companies reduce farm-side/scope 3 emissions to achieve their sustainability targets.",
   },
   {
     tag: "03",
-    name: "Carbon - ClearHarvest",
+    name: "ClearHarvest",
     sub: "Scope 3 insetting",
     tone: C.water,
     body:
@@ -614,11 +614,11 @@ const VERTICALS = [
   },
   {
     tag: "04",
-    name: "Carbon - Biochar",
+    name: "Biochar",
     sub: "Carbon-negative soil amendment",
     tone: C.husk,
     body:
-      "The Biochar vertical focuses on turning agricultural and organic waste into a highly porous, carbon-rich soil amendment. Instead of allowing crop residues to be burned or left to decompose - which releases harmful methane and carbon dioxide into the atmosphere - the waste is processed using a low-oxygen heating method known as pyrolysis. When added back to agricultural fields, the resulting biochar acts as a powerful carbon sink that locks atmospheric carbon safely in the ground for centuries. Beyond carbon sequestration, biochar significantly enhances soil structure, boosts water retention, and stimulates beneficial microbial activity, offering a zero-waste, nature-based solution that revitalizes degraded lands while mitigating climate change.",
+      "Biochar is Grow Indigo's climate technology solution focused on converting agricultural crop residue into high quality biochar through pyrolysis. The biochar is applied directly to soil and incorporated into biochar based biofertilizers to improve soil health, nutrient retention, water holding capacity and crop productivity. The solution helps eliminate crop residue burning, sequesters carbon for the long term, and supports the generation of high integrity carbon removal credits. By creating value from agricultural waste, Grow Indigo promotes a circular economy while delivering environmental benefits, enhancing farmer livelihoods, and supporting sustainable agriculture.",
   },
 ];
 
