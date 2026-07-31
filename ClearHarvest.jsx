@@ -48,6 +48,7 @@ import growIndigoOverview from "./src/assets/growindigo-overview.jpg";
 import photoVlm2 from "./src/assets/vlm2.jpg";
 import photoVlm3 from "./src/assets/vlm3.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
+import photoBd2 from "./src/assets/bd2.png";
 import photoCls from "./src/assets/cls.jpg";
 import photoDob2 from "./src/assets/dob2.jpg";
 import photoDobs3 from "./src/assets/dobs3.jpg";
@@ -814,14 +815,14 @@ const HEADLINES = [
   { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 9, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "48 → 43.7 kg N/acre vs recommended dose - less use of chemical fertilisers", tone: C.clay },
+  { value: 11, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "62.4 → 55.4 kg N/acre vs BAU - less use of chemical fertilisers", tone: C.clay },
 ];
 
 const TICKER = [
   "771.47 kg CO₂e/MT reduced",
   "~ 58% below Nestle baseline",
   "~ 67% water saved",
-  "~ 9% less nitrogen",
+  "~ 11% less nitrogen",
   "~ 833 acres baled",
   "11 villages",
   "Collected sampled farmers for calculation",
@@ -1602,13 +1603,13 @@ function BenefitsSection() {
 const EMISSIONS = [
   { name: "Nestle baseline", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
   { name: "Project · excl. nursery", value: 540.13, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Project · incl. nursery", value: 553.53, fill: C.field, note: "771.47 kg CO₂e/MT lower - 58%, the headline result" },
+  { name: "Project · incl. nursery", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
 ];
 
 const NITROGEN = [
   { name: "Farmer practice (BAU)", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
   { name: "PJTSAU recommended", value: 48, fill: C.mute, note: "University-recommended dose for the district" },
-  { name: "Project rate", value: 43.7, fill: C.leaf, note: "9% below the recommended dose · 30% below BAU" },
+  { name: "Project rate", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
 ];
 
 const WATER = [
@@ -1687,7 +1688,7 @@ const SEASON_HEADLINE = [
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
-  { label: "Nitrogen use reduction", value: 9,prefix: "~ ", suffix: "%", tone: C.clay },
+  { label: "Nitrogen use reduction", value: 11,prefix: "~ ", suffix: "%", tone: C.clay },
 ];
 
 function SeasonHeadlineResults() {
@@ -1818,10 +1819,12 @@ function ResultsSection() {
           <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
             <Eyebrow>How the nursery stage was handled</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute }}>
-              Farmers typically raise seedlings on ~10% of their land for ~21 days. With average landholding in the
-              project at ~9.1 acres, that is ~0.9 acres per farmer. Methane emissions during cultivation are calculated
-              per day, so nursery emissions were estimated over ~0.9 acres × ~21 days, then adjusted by a ~33%
-              correction factor because seedlings produce far less biomass than main-field crops.
+              For the nursery stage, farmers typically raise seedlings on ~10% of their total land area for an average
+              duration of ~21 days. Given that average landholding in the project is ~6.3 acres, the nursery area is
+              ~0.63 acres per farmer. Methane emissions during cultivation are calculated on a per-day basis, and
+              nursery emissions are estimated for ~0.63 acres × ~21 days. A ~33% correction factor is applied to
+              reflect lower methane generation in nurseries, as seedlings produce significantly less biomass than
+              main-field crops.
             </p>
             <Stagger className="mt-5 grid grid-cols-3 gap-3" stagger={0.1}>
               {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.47", "net reduction"]].map(([v, l]) => (
@@ -1837,10 +1840,9 @@ function ResultsSection() {
           <div className="p-7 rounded-lg h-full" style={{ background: C.field }}>
             <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
-              Application fell from the university-recommended 48 kg N/acre (PJTSAU) to 43.7 kg N/acre - a 9%
-              reduction - driven primarily by Oorjit granules' enhanced fertiliser-use efficiency combined with AWD
-              irrigation, and further supported by temporary urea market shortages. Against farmers' business-as-usual
-              62.4 kg N/acre, the project rate is 30% lower.
+              Nitrogen application rate was reduced from the farmers' business-as-usual practice of 62.4 kg N/acre in
+              the region to 55.4 kg N/acre - a 11% reduction. This was driven primarily by Oorjit granules' enhanced
+              fertilizer-use efficiency, combined with AWD irrigation.
             </p>
             <p className="ch-data mt-5 pt-4" style={{ fontSize: 11, lineHeight: 1.7, color: "rgba(255,255,255,.6)", borderTop: "1px solid rgba(255,255,255,.18)" }}>
               Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising system performance,
@@ -1986,16 +1988,16 @@ function SeasonSection() {
       <div className="grid gap-6 lg:grid-cols-2 mt-10">
         <Stagger className="space-y-4" stagger={0.1} style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute }}>
           <motion.p variants={vFadeUp}>
-            Seedlings were transplanted mid-season and, within the first three days, farmers applied a post-emergence
-            herbicide - Bispyribac Sodium 10SC, or Fenoxaprop-p-ethyl 6.7EC + Metsulfuron Methyl 10WP + Chlorimuron
-            Ethyl 10WP - for early weed suppression. Between 10–15 days after transplanting, pani pipes were
-            installed across all project plots and manual water-level measurement began.
+            Seedlings were transplanted mid-season, farmers applied a post-emergence herbicide - Bispyribac Sodium
+            10SC, or Triafamone + Ethoxysulfuron, 20% + 10% WG, or Pretilachlor 50% EC or Pyrazosulfuron-ethyl 70%
+            WDG - for early weed suppression. Between 10–15 days after transplanting, pani pipes were installed
+            across all project plots and manual water-level measurement began.
           </motion.p>
           <motion.p variants={vFadeUp}>
             At ~15 DAT (tillering), farmers applied the first split of urea and DAP alongside 6 kg/acre of Oorjit
             granules and 20 kg of Grow Phos, with support from Grow Indigo's field team. Around ~55 DAT a second
-            herbicide went on where weed pressure required it. The second urea split followed at ~65 DAT (panicle
-            initiation), typically with fungicide and insecticide; the third and final split at ~75 DAT supported grain
+            herbicide went on where weed pressure required it. The second urea split followed at ~35-65 DAT,
+            typically with fungicide and insecticide; the third and final split at ~75 DAT supported grain
             development.
           </motion.p>
           <motion.p variants={vFadeUp}>
@@ -2036,7 +2038,7 @@ function SeasonSection() {
    13 · ECONOMICS FOR FARMERS
 ---------------------------------------------------------------------------- */
 const SHORT_TERM = [
-  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~9% reduction per acre in nitrogen fertiliser."],
+  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~11% reduction per acre in nitrogen fertiliser."],
   ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping - direct savings on power and fuel."],
   ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs."],
 ];
@@ -2094,7 +2096,7 @@ function EconomicsSection() {
 ---------------------------------------------------------------------------- */
 const LEVERS = [
   ["Alternate Wetting & Drying", "~67% water savings · CH₄ reduction", 0],
-  ["Oorjit, Grow Phos + CRM", "9% N reduction · no field burning", 2],
+  ["Oorjit, Grow Phos + CRM", "11% N reduction · no field burning", 2],
   ["FieldKhatta + S3 Sutra", "End-to-end digital audit trail", 3],
   ["Farmer capacity building", "VLMs, KA support, vernacular training", 1],
 ];
@@ -2443,7 +2445,9 @@ const SEQUENCE = [
     n: "03", title: "Consent Letter Signing and Distribution of Biological agri inputs", tag: "Inputs", color: C.leaf,
     body: "Every enrolled farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost.Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting",
     meta: "6 kg Oorjit + 20 kg Grow Phos + 1 pani pipe per acre",
-    photo: photoDobs,
+    photo: photoBd2,
+    ratio: "3 / 4",
+    objectPosition: "center 20%",
   },
   {
     n: "04", title: "Second village-level meeting", tag: "VLM 2", color: C.water,
@@ -2482,6 +2486,7 @@ const SEQUENCE = [
     body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it. 833 acres were baled against an original target of 300 - a 178% overshoot.",
     meta: "833 acres baled · zero open field burning",
     photo: photoBailing,
+    objectPosition: "center 20%",
   },
   {
     n: "10", title: "Third-party audit", tag: "Assurance", color: C.field,
