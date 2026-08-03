@@ -49,6 +49,16 @@ import photoVlm2 from "./src/assets/vlm2.jpg";
 import photoVlm3 from "./src/assets/3vlm.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
 import photoBd2 from "./src/assets/bd2.png";
+import a1 from "./src/assets/a1.png";
+import a2 from "./src/assets/a2.png";
+import a3 from "./src/assets/a3.png";
+import a4 from "./src/assets/a4.png";
+import a5 from "./src/assets/a5.png";
+import a6 from "./src/assets/a6.png";
+import a7 from "./src/assets/a7.png";
+import a8 from "./src/assets/a8.png";
+import a9 from "./src/assets/a9.png";
+import a10 from "./src/assets/a10.png";
 import photoCls from "./src/assets/cls.jpg";
 import photoDob2 from "./src/assets/dob2.jpg";
 import photoDobs3 from "./src/assets/dobs3.jpg";
@@ -63,6 +73,7 @@ import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
 import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
 import photoDam from "./src/assets/dam.jpg";
 import photoTpa from "./src/assets/tpa.jpeg";
+import photoSsimp from "./src/assets/ssimp.png";
 import rs1 from "./src/assets/rs1.png";
 import rs2 from "./src/assets/rs2.png";
 import rs3 from "./src/assets/rs3.png";
@@ -1767,7 +1778,7 @@ function waterfallLabelContent(data) {
 }
 
 const WATERFALL_PCT = {
-  "Reduction, excl. nursery": "58%",
+  "Reduction": "58%",
   "Reduction to project rate": "11%",
 };
 
@@ -1810,8 +1821,7 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 
 const EMISSIONS_WATERFALL = buildWaterfall([
   { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
-  { name: "Reduction, excl. nursery", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Nursery stage", type: "delta", value: 20.09, fill: C.husk, note: "Nursery-stage emissions added back" },
+  { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
   { name: "Project, incl. nursery", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
 ]);
 
@@ -2428,121 +2438,21 @@ function SourcingSection() {
 
 /* ----------------------------------------------------------------------------
    15 · FIELD EVIDENCE (Annexures 1–10)
-   Cards reveal in batched rows; the geotag stamp lifts in on hover. Swap
-   <EvidenceScene/> for an <img src> and the stamp still sits correctly.
+   Cards reveal in batched rows. Photos already carry a baked-in geotag
+   stamp; scans use "contain" so no part of the document is cropped off.
 ---------------------------------------------------------------------------- */
 const EVIDENCE = [
-  { n: 1, title: "Village-level meetings with farmers", scene: "meeting", place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM GMT +05:30", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
-  { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
-  { n: 3, title: "Farmer diary", scene: "form", place: "Ghanpur, Telangana, India", coords: "Farmer ID 1f22356e", when: "Rabi 2026", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
-  { n: 4, title: "Feedback form (second respondent)", scene: "form", place: "Ghanpur, Telangana, India", coords: "Stakeholder feedback", when: "22-01-26", caption: "Second signed stakeholder feedback record retained in the audit pack." },
-  { n: 5, title: "Nestle team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
-  { n: 6, title: "Pani pipes during monitoring", scene: "pipe", place: "Ghanpur, Telangana, India", coords: "18.573399°N 77.927099°E", when: "Thu, 05/02/2026 12:00 PM GMT +05:30", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
-  { n: 7, title: "Harvest in action", scene: "harvest", place: "Bhavanipet, Telangana, India", coords: "18.580134°N 77.925124°E", when: "Mon, 23/03/2026 09:33 AM GMT +05:30", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
-  { n: 8, title: "Baled crop residue, geo-tagged", scene: "bales", place: "Ghanpur, Telangana, India", coords: "18.569495°N 77.937344°E", when: "Tue, 19/05/2026 10:49 AM GMT +05:30", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
-  { n: 9, title: "Grains ready to be transported", scene: "grain", place: "Nizamabad, Telangana, India", coords: "18.522364°N 77.868633°E", when: "Mon, 20/04/2026 07:16 AM GMT +05:30", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 10, title: "Procurement form and receipt", scene: "form", place: "Varni, Nizamabad", coords: "Vehicle AP29TB1278 · Paddy 36,750 kg net", when: "12-04-2026", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 1, title: "Village-level meetings with farmers", img: a1, fit: "cover", position: "center 22%", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
+  { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
+  { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
+  { n: 4, title: "Feedback form (second respondent)", img: a4, fit: "contain", caption: "Second signed stakeholder feedback record retained in the audit pack." },
+  { n: 5, title: "Nestle team field visits", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 6, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
+  { n: 7, title: "Harvest in action", img: a7, fit: "cover", position: "center 58%", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
+  { n: 8, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
+  { n: 9, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
+  { n: 10, title: "Procurement form and receipt", img: a10, fit: "contain", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
 ];
-
-function EvidenceScene({ kind }) {
-  const base = { width: "100%", height: 168, display: "block" };
-  const scenes = {
-    meeting: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#123B2A" />
-        <rect y="110" width="320" height="58" fill="#0C2A1E" />
-        {Array.from({ length: 16 }).map((_, i) => (
-          <g key={i}>
-            <circle cx={30 + (i % 8) * 36} cy={112 + Math.floor(i / 8) * 26} r="8" fill={i % 3 ? "#2E6B4C" : "#3C7F5A"} />
-            <rect x={22 + (i % 8) * 36} y={122 + Math.floor(i / 8) * 26} width="16" height="18" rx="4" fill={i % 2 ? "#245A40" : "#2E6B4C"} />
-          </g>
-        ))}
-        <rect x="120" y="34" width="90" height="52" rx="3" fill="#EEF3EC" opacity=".9" />
-        <circle cx="76" cy="66" r="11" fill={C.husk} />
-        <rect x="66" y="78" width="20" height="26" rx="5" fill={C.husk} opacity=".8" />
-      </svg>
-    ),
-    pipe: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#16452F" />
-        {Array.from({ length: 22 }).map((_, i) => (
-          <path key={i} d={`M${8 + i * 15} 168 q6 -60 2 -92`} stroke={C.leaf} strokeWidth="2" fill="none" opacity=".55" />
-        ))}
-        <ellipse cx="160" cy="104" rx="58" ry="26" fill="#E8EDE6" />
-        <ellipse cx="160" cy="104" rx="44" ry="18" fill="#2E4A3C" />
-        <rect x="150" y="34" width="20" height="76" rx="3" fill="#fff" opacity=".92" />
-        {Array.from({ length: 8 }).map((_, i) => (
-          <line key={i} x1="152" y1={44 + i * 9} x2="162" y2={44 + i * 9} stroke={C.mute} strokeWidth="1" />
-        ))}
-        <rect x="150" y="88" width="20" height="22" fill={C.water} opacity=".7" />
-      </svg>
-    ),
-    bales: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#D9C089" />
-        <rect y="128" width="320" height="40" fill="#C7AC76" />
-        {[[30, 96], [86, 96], [142, 96], [58, 62], [114, 62], [86, 28]].map(([x, y], i) => (
-          <g key={i}>
-            <rect x={x} y={y} width="52" height="32" rx="3" fill="#E3CF9C" stroke="#B79B64" />
-            <line x1={x + 14} y1={y} x2={x + 14} y2={y + 32} stroke="#B79B64" />
-            <line x1={x + 36} y1={y} x2={x + 36} y2={y + 32} stroke="#B79B64" />
-          </g>
-        ))}
-        <rect x="228" y="60" width="60" height="72" rx="4" fill="#5B8FB0" opacity=".6" />
-      </svg>
-    ),
-    harvest: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#CBB55E" />
-        <rect y="0" width="320" height="52" fill="#9FBBA0" />
-        {Array.from({ length: 40 }).map((_, i) => (
-          <path key={i} d={`M${4 + i * 8} 168 q3 -30 0 -46`} stroke="#B79A3E" strokeWidth="2" fill="none" opacity=".7" />
-        ))}
-        <rect x="180" y="40" width="76" height="34" rx="4" fill="#B0483C" />
-        <rect x="248" y="50" width="26" height="24" rx="3" fill="#8E3A31" />
-        <circle cx="200" cy="78" r="9" fill="#3A3A3A" />
-        <circle cx="240" cy="78" r="9" fill="#3A3A3A" />
-      </svg>
-    ),
-    grain: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#B99A6B" />
-        <rect y="112" width="320" height="56" fill="#A98A5D" />
-        <path d="M100 132 q60 -74 120 0 z" fill="#E0C98F" />
-        <path d="M40 136 q34 -40 68 0 z" fill="#D8BE80" />
-        {[[24, 108], [46, 108], [268, 106], [288, 106]].map(([x, y], i) => (
-          <rect key={i} x={x} y={y} width="18" height="30" rx="3" fill="#8E7448" />
-        ))}
-      </svg>
-    ),
-    team: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#8FA98A" />
-        <rect y="96" width="320" height="72" fill="#7A6B4F" />
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <g key={i}>
-            <circle cx={38 + i * 50} cy="66" r="12" fill="#E8D5B5" />
-            <rect x={26 + i * 50} y="82" width="24" height="46" rx="7" fill={[C.field, "#2E6B4C", "#E8EDE6", "#1E88A8", C.field, "#E8EDE6"][i]} />
-          </g>
-        ))}
-      </svg>
-    ),
-    form: (
-      <svg viewBox="0 0 320 168" style={base}>
-        <rect width="320" height="168" fill="#E9E6DC" />
-        <rect x="34" y="14" width="252" height="140" fill="#FBFAF6" stroke="#CFC9B8" />
-        <rect x="52" y="30" width="120" height="8" rx="2" fill={C.field} opacity=".7" />
-        <rect x="52" y="48" width="80" height="5" rx="2" fill="#B9B3A2" />
-        {Array.from({ length: 7 }).map((_, i) => (
-          <rect key={i} x="52" y={68 + i * 12} width={i % 3 === 0 ? 200 : 152} height="4" rx="2" fill="#D5CFC0" />
-        ))}
-        <rect x="196" y="118" width="60" height="22" rx="2" fill="none" stroke="#B9B3A2" />
-        <path d="M204 134 q12 -14 24 -4 t18 -6" stroke={C.ink} strokeWidth="1.4" fill="none" />
-      </svg>
-    ),
-  };
-  return scenes[kind] || scenes.form;
-}
 
 function EvidenceSection() {
   const grid = useBatchReveal(".evi-card", { stagger: 0.07 });
@@ -2565,17 +2475,17 @@ function EvidenceSection() {
             whileHover="hov"
             variants={{ rest: { y: 0 }, hov: { y: -6 } }}
           >
-              <div className="relative overflow-hidden">
-                <motion.div variants={{ rest: { scale: 1 }, hov: { scale: 1.06 } }} transition={{ duration: 0.6, ease: EASE }}>
-                  <EvidenceScene kind={e.scene} />
-                </motion.div>
+              <div className="relative overflow-hidden" style={{ height: 168, background: e.fit === "contain" ? C.paperDim : undefined }}>
                 <motion.div
-                  className="absolute left-0 right-0 bottom-0 px-3 py-2"
-                  style={{ background: "linear-gradient(transparent, rgba(0,0,0,.78))" }}
-                  variants={{ rest: { y: 0 }, hov: { y: -2 } }}
-                  transition={{ duration: 0.35, ease: EASE }}
+                  variants={{ rest: { scale: 1 }, hov: { scale: e.fit === "contain" ? 1 : 1.06 } }}
+                  transition={{ duration: 0.6, ease: EASE }}
+                  style={{ width: "100%", height: "100%" }}
                 >
-                  <GeoStamp place={e.place} coords={e.coords} when={e.when} />
+                  <img
+                    src={e.img}
+                    alt={e.title}
+                    style={{ width: "100%", height: "100%", objectFit: e.fit, objectPosition: e.position || "center", display: "block" }}
+                  />
                 </motion.div>
               </div>
               <div className="p-5">
@@ -2597,14 +2507,14 @@ function EvidenceSection() {
    and it renders the image instead of the frame, keeping the geotag bar,
    aspect ratio and hover behaviour identical.
 ---------------------------------------------------------------------------- */
-function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", tall = false, objectPosition = "center" }) {
+function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", tall = false, objectPosition = "center", fit = "cover" }) {
   return (
     <div
       className={`relative overflow-hidden rounded ${className}`}
       style={{ aspectRatio: tall ? "3 / 4" : ratio, background: C.paperDim, border: `1px dashed ${C.line}` }}
     >
       {src ? (
-        <img src={src} alt={alt || label} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition }} />
+        <img src={src} alt={alt || label} style={{ width: "100%", height: "100%", objectFit: fit, objectPosition }} />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={C.mute} strokeWidth="1.4" opacity="0.65">
@@ -2703,7 +2613,9 @@ const SEQUENCE = [
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
     body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.47 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform V3.0 · 5 farmers sampled",
-    icon: <path d="M4 20V10M10 20V4M16 20v-7M4 20h16" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+    photo: photoSsimp,
+    ratio: "3 / 4",
+    fit: "contain",
   },
 ];
 
@@ -2755,6 +2667,7 @@ function SequenceNode({ item, i }) {
             src={item.photo}
             alt={item.title}
             objectPosition={item.objectPosition || "center"}
+            fit={item.fit || "cover"}
           />
         ) : (
           <IconPanel icon={item.icon} color={item.color} label={item.tag} />
