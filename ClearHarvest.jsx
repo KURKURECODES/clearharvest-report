@@ -1177,6 +1177,25 @@ const WORKFLOW = [
   ["Third-party audit & report submission", "Independent verification and final delivery"],
 ];
 
+const REMOTE_SENSING = [
+  [
+    "Field Boundary Correction",
+    "An in-house integrated QGIS-database system performs online quality checking and correction of geotagged field polygons. Polygons are automatically assigned to a QC team, where field boundaries are verified and corrected and non-agricultural areas are removed to ensure accurate delineation of agricultural fields. Quality assurance runs through three levels of verification, with final checking done via a high-precision statistical quality-control method for positional and boundary accuracy. Polygons meeting all criteria are designated as \"good\" polygons.",
+  ],
+  [
+    "Crop Classification / Validation",
+    "A comprehensive crop inventory is built by distinguishing and mapping crop types using multi-temporal, multi-source satellite imagery and ground-truth observations. The process starts with a reliable database of field polygons, then selects high-quality (\"good\") polygons representing homogeneous fields. Field surveys collect ground-truth data on crops such as rice, cotton, sugarcane, wheat and mustard, which trains and validates a Random Forest machine-learning model. Multi-date Sentinel-1 SAR and Sentinel-2 multispectral imagery supply complementary temporal, structural and spectral information for accurate crop discrimination. Multi-temporal observations (e.g., December 2024 to February 2025) capture distinct phenological and harvest patterns - active wheat vs. harvested potato - improving classification accuracy. The validated crop map serves as a quality-assured layer for all subsequent analyses.",
+  ],
+  [
+    "Crop Sowing Practice Validation",
+    "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programmes. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
+  ],
+  [
+    "Crop Residue Burning Detection",
+    "Post-harvest residue burning, common after rice harvest, contributes to air pollution, greenhouse-gas emissions, nutrient loss and soil degradation, making timely detection essential. Burning is monitored by integrating satellite imagery, crop-classification outputs and cloud-based processing in Google Earth Engine (GEE). Multi-temporal post-harvest imagery is processed with spectral indices that enhance contrast between burned and unburned surfaces. The burned-area map is overlaid on the field-boundary database, and burned pixels within each rice field are aggregated to estimate total burned area and the percentage of each field affected - identifying partially and completely burned fields and building spatially explicit inventories. Ground-truth and field-survey data validate the detected burn scars and the reliability of the estimates.",
+  ],
+];
+
 function OrgChart() {
   // the tree assembles top-down: PMU, connector, then each branch in turn
   const scope = useGsapContext((self, el) => {
@@ -1306,46 +1325,83 @@ function RoleAccordion() {
   );
 }
 
-function WorkflowStepper() {
-  const [hover, setHover] = useState(null);
-  const grid = useBatchReveal(".wf-step", { stagger: 0.06 });
+const WF_ICONS = [
+  <path key="a" d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 14.2c2.9.4 5.5 2.7 5.5 5.8" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+  <path key="b" d="M12 2a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6v.5h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 2zM9.5 19h5M10 22h4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+  <path key="c" d="M6 2h9l5 5v15H6zM15 2v5h5M9 12h6M9 16h6M9 8h2" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+  <path key="d" d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" strokeLinecap="round" />,
+  <path key="e" d="M3 6h6l2 2h10v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" />,
+  <path key="f" d="M4 20V10M10 20V4M16 20v-7M4 20h16" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />,
+];
+
+function WFArrow({ dir = "right" }) {
+  const rotate = { right: 0, left: 180, down: 90 }[dir];
   return (
-    <LayoutGroup id="workflow">
-      <div ref={grid} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {WORKFLOW.map(([title, sub], i) => {
-          const on = hover === i;
-          return (
-            <motion.div
-              key={title}
-              className="wf-step relative p-5 rounded"
-              onHoverStart={() => setHover(i)}
-              onHoverEnd={() => setHover(null)}
-              animate={{ y: on ? -4 : 0 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              style={{ background: "#fff", border: `1px solid ${on ? C.field : C.line}` }}
-            >
-              {on && (
-                <motion.span
-                  layoutId="wf-fill"
-                  className="absolute inset-0 rounded"
-                  style={{ background: C.field }}
-                  transition={{ type: "spring", stiffness: 320, damping: 32 }}
-                />
-              )}
-              <div className="relative">
-                <div className="ch-data" style={{ fontSize: 11, fontWeight: 600, color: C.husk }}>STEP {i + 1}</div>
-                <motion.div className="mt-2" animate={{ color: on ? "#fff" : C.ink }} style={{ fontWeight: 600, fontSize: 14.5 }}>
-                  {title}
-                </motion.div>
-                <motion.div className="mt-1.5" animate={{ color: on ? "rgba(255,255,255,.72)" : C.mute }} style={{ fontSize: 12.5, lineHeight: 1.6 }}>
-                  {sub}
-                </motion.div>
-              </div>
-            </motion.div>
-          );
-        })}
+    <svg width="22" height="22" viewBox="0 0 24 24" style={{ color: C.field, transform: `rotate(${rotate}deg)` }}>
+      <path d="M4 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function WFCard({ n, icon, title, sub }) {
+  return (
+    <div className="wf-node rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}`, padding: "12px 14px", height: "100%" }}>
+      <div className="flex items-start justify-between">
+        <div className="flex items-center justify-center rounded-full" style={{ width: 22, height: 22, background: C.field, color: "#fff", fontWeight: 700, fontSize: 11.5, flexShrink: 0 }}>
+          {n}
+        </div>
+        <svg width="17" height="17" viewBox="0 0 24 24" style={{ color: C.field, opacity: 0.55 }}>{icon}</svg>
       </div>
-    </LayoutGroup>
+      <div className="mt-2" style={{ fontWeight: 700, fontSize: 12.5, lineHeight: 1.3, color: C.ink }}>{title}</div>
+      <div className="mt-1.5" style={{ width: 22, height: 2, background: C.husk }} />
+      <div className="mt-1.5" style={{ fontSize: 11, lineHeight: 1.5, color: C.mute }}>{sub}</div>
+    </div>
+  );
+}
+
+const WF_ROW_STYLE = { display: "grid", gridTemplateColumns: "1fr 24px 1fr 24px 1fr", columnGap: 8, alignItems: "stretch" };
+const WF_CONNECTOR_STYLE = { display: "grid", gridTemplateColumns: "1fr 24px 1fr 24px 1fr", columnGap: 8, margin: "2px 0" };
+const WF_ARROW_CELL = { display: "flex", alignItems: "center", justifyContent: "center" };
+
+function WorkflowStepper() {
+  const grid = useBatchReveal(".wf-node", { stagger: 0.06 });
+  const step = (i) => <WFCard n={i + 1} icon={WF_ICONS[i]} title={WORKFLOW[i][0]} sub={WORKFLOW[i][1]} />;
+  return (
+    <div className="rounded-lg p-6 md:p-8" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
+      <div className="text-center">
+        <div className="ch-data" style={{ fontSize: 13, fontWeight: 700, color: C.field, letterSpacing: 0.6 }}>
+          MONITORING, TRACEABILITY &amp; ASSURANCE WORKFLOW
+        </div>
+        <div className="mt-1.5" style={{ fontSize: 12.5, color: C.mute, fontStyle: "italic" }}>
+          From farmer engagement to third-party audit - the operational backbone of the programme
+        </div>
+      </div>
+
+      <div ref={grid} className="mt-8" style={{ overflowX: "auto" }}>
+        <div style={{ minWidth: 560 }}>
+          <div style={WF_ROW_STYLE}>
+            {step(0)}
+            <div style={WF_ARROW_CELL}><WFArrow dir="right" /></div>
+            {step(1)}
+            <div style={WF_ARROW_CELL}><WFArrow dir="right" /></div>
+            {step(2)}
+          </div>
+
+          <div style={WF_CONNECTOR_STYLE}>
+            <div /><div /><div /><div />
+            <div style={WF_ARROW_CELL}><WFArrow dir="down" /></div>
+          </div>
+
+          <div style={WF_ROW_STYLE}>
+            {step(5)}
+            <div style={WF_ARROW_CELL}><WFArrow dir="left" /></div>
+            {step(4)}
+            <div style={WF_ARROW_CELL}><WFArrow dir="left" /></div>
+            {step(3)}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1365,19 +1421,72 @@ function GovernanceSection() {
       <div className="mt-16">
         <Reveal>
           <h3 className="ch-display text-2xl md:text-3xl" style={{ color: C.field, fontWeight: 700 }}>
-            Monitoring, measurement and traceability
+            Monitoring, reporting and verification
           </h3>
-          <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "72ch" }}>
-            Grow Indigo ran a phygital monitoring system: regular field observation paired with digital capture.
-            Farmer information, field boundary geofencing and agronomy records (fertiliser, pesticide use, irrigation
-            method) went into <strong style={{ color: C.ink }}>FieldKhatta app</strong> and other digital tools; the agronomist and scientific team
-            then checked accuracy, completeness and geolocation consistency before anything reached GHG accounting.
-            Post-harvest, <strong style={{ color: C.ink }}>S3 Sutra</strong> traced low-emission paddy from farm to
-            miller - farmer validation, produce quantities and movement - and a third-party auditor reviewed the
-            evidence and digital records.
-          </p>
         </Reveal>
-        <div className="mt-7"><WorkflowStepper /></div>
+
+        <div className="mt-10 grid gap-10">
+          <Reveal>
+            <Eyebrow>Subtopic 1</Eyebrow>
+            <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
+              Monitoring and measurement
+            </h4>
+            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
+              Grow Indigo implemented a structured, phygital monitoring system that combined regular field-level
+              observations with digital data capture to ensure accuracy, traceability and strong verification.
+              Throughout the season, Kisan Advisors conducted periodic field visits to monitor crop growth, AWD
+              adoption, verify nutrient applications and update farmer diaries. Farmer information, field boundary
+              geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
+              the <strong style={{ color: C.ink }}>FieldKhata application</strong>. The agronomist and scientific
+              team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
+              consistency to ensure reliable inputs for GHG accounting. Post-harvest and during procurement,{" "}
+              <strong style={{ color: C.ink }}>S3 Sutra</strong> enabled traceability of low-emission paddy.
+            </p>
+            <div className="mt-7"><WorkflowStepper /></div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <Eyebrow>Subtopic 2</Eyebrow>
+            <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
+              Remote Sensing
+            </h4>
+            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
+              Role of Remote Sensing and GIS - summary of how satellite imagery and geospatial analysis underpin
+              field verification, crop and practice classification, and residue-burning detection.
+            </p>
+            <Stagger className="mt-6 grid gap-5 md:grid-cols-2" stagger={0.08}>
+              {REMOTE_SENSING.map(([title, body], i) => (
+                <motion.div
+                  key={title}
+                  variants={vFadeUp}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3, ease: EASE }}
+                  className="rounded-lg h-full"
+                  style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}`, padding: "20px 22px" }}
+                >
+                  <div className="flex items-baseline gap-3">
+                    <span className="ch-data" style={{ fontSize: 12, color: C.field, fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
+                    <h5 style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>{title}</h5>
+                  </div>
+                  <p className="mt-3" style={{ lineHeight: 1.75, fontSize: 13.5, color: C.mute }}>{body}</p>
+                </motion.div>
+              ))}
+            </Stagger>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <Eyebrow>Subtopic 3</Eyebrow>
+            <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
+              Verification
+            </h4>
+            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
+              GHG quantification was carried out post-harvest using the{" "}
+              <strong style={{ color: C.ink }}>Cool Farm Platform V3.0 (CFP)</strong>. A third-party auditor
+              subsequently reviewed the evidence and digital records, with a full digital audit trail maintained
+              in <strong style={{ color: C.ink }}>S3 Sutra</strong>.
+            </p>
+          </Reveal>
+        </div>
       </div>
 
       <div className="mt-16 grid gap-6">
