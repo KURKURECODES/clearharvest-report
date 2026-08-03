@@ -1915,7 +1915,7 @@ function ResultsSection() {
           kicker="Chart 2 · Nitrogen use"
           title="Less urea, same crop"
           unit="kg nitrogen per acre"
-          footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages. Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising performance (P.V.M. et al., 2025)."
+          footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages."
         >
           <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
@@ -2003,10 +2003,6 @@ function ResultsSection() {
               Nitrogen application rate was reduced from the farmers' business-as-usual practice of 62.4 kg N/acre in
               the region to 55.4 kg N/acre - a 11% reduction. This was driven primarily by Oorjit granules' enhanced
               fertilizer-use efficiency, combined with AWD irrigation.
-            </p>
-            <p className="ch-data mt-5 pt-4" style={{ fontSize: 11, lineHeight: 1.7, color: "rgba(255,255,255,.6)", borderTop: "1px solid rgba(255,255,255,.18)" }}>
-              Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising system performance,
-              due to improved nitrogen-use efficiency (P.V.M. et al., 2025).
             </p>
           </div>
         </Reveal>
