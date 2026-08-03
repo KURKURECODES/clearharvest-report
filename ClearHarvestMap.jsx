@@ -489,7 +489,7 @@ export default function LocationSection() {
             Every field on the map
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
-            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 300 enrolled
+            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 326 enrolled
             farmer fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
