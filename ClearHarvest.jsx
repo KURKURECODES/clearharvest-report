@@ -63,6 +63,11 @@ import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
 import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
 import photoDam from "./src/assets/dam.jpg";
 import photoTpa from "./src/assets/tpa.jpeg";
+import rs1 from "./src/assets/rs1.png";
+import rs2 from "./src/assets/rs2.png";
+import rs3 from "./src/assets/rs3.png";
+import rs4 from "./src/assets/rs4.png";
+import rs5 from "./src/assets/rs5.png";
 import photoBailing from "./src/assets/bailing.jpg";
 import videoTestimonial1 from "./src/assets/testimonial1.mp4";
 import videoTestimonial2 from "./src/assets/testimonial2.mp4";
@@ -1181,18 +1186,22 @@ const REMOTE_SENSING = [
   [
     "Field Boundary Correction",
     "An in-house integrated QGIS-database system performs online quality checking and correction of geotagged field polygons. Polygons are automatically assigned to a QC team, where field boundaries are verified and corrected and non-agricultural areas are removed to ensure accurate delineation of agricultural fields. Quality assurance runs through three levels of verification, with final checking done via a high-precision statistical quality-control method for positional and boundary accuracy. Polygons meeting all criteria are designated as \"good\" polygons.",
+    rs1,
   ],
   [
     "Crop Classification / Validation",
     "A comprehensive crop inventory is built by distinguishing and mapping crop types using multi-temporal, multi-source satellite imagery and ground-truth observations. The process starts with a reliable database of field polygons, then selects high-quality (\"good\") polygons representing homogeneous fields. Field surveys collect ground-truth data on crops such as rice, cotton, sugarcane, wheat and mustard, which trains and validates a Random Forest machine-learning model. Multi-date Sentinel-1 SAR and Sentinel-2 multispectral imagery supply complementary temporal, structural and spectral information for accurate crop discrimination. Multi-temporal observations (e.g., December 2024 to February 2025) capture distinct phenological and harvest patterns - active wheat vs. harvested potato - improving classification accuracy. The validated crop map serves as a quality-assured layer for all subsequent analyses.",
+    rs2,
   ],
   [
     "Crop Sowing Practice Validation",
     "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programmes. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
+    rs3,
   ],
   [
     "Crop Residue Burning Detection",
     "Post-harvest residue burning, common after rice harvest, contributes to air pollution, greenhouse-gas emissions, nutrient loss and soil degradation, making timely detection essential. Burning is monitored by integrating satellite imagery, crop-classification outputs and cloud-based processing in Google Earth Engine (GEE). Multi-temporal post-harvest imagery is processed with spectral indices that enhance contrast between burned and unburned surfaces. The burned-area map is overlaid on the field-boundary database, and burned pixels within each rice field are aggregated to estimate total burned area and the percentage of each field affected - identifying partially and completely burned fields and building spatially explicit inventories. Ground-truth and field-survey data validate the detected burn scars and the reliability of the estimates.",
+    rs4,
   ],
 ];
 
@@ -1455,23 +1464,39 @@ function GovernanceSection() {
               field verification, crop and practice classification, and residue-burning detection.
             </p>
             <Stagger className="mt-6 grid gap-5 md:grid-cols-2" stagger={0.08}>
-              {REMOTE_SENSING.map(([title, body], i) => (
+              {REMOTE_SENSING.map(([title, body, img], i) => (
                 <motion.div
                   key={title}
                   variants={vFadeUp}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.3, ease: EASE }}
-                  className="rounded-lg h-full"
-                  style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}`, padding: "20px 22px" }}
+                  className="rounded-lg h-full overflow-hidden"
+                  style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}` }}
                 >
-                  <div className="flex items-baseline gap-3">
-                    <span className="ch-data" style={{ fontSize: 12, color: C.field, fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
-                    <h5 style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>{title}</h5>
+                  <div style={{ background: C.paperDim, aspectRatio: "16 / 10" }}>
+                    <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                   </div>
-                  <p className="mt-3" style={{ lineHeight: 1.75, fontSize: 13.5, color: C.mute }}>{body}</p>
+                  <div style={{ padding: "20px 22px" }}>
+                    <div className="flex items-baseline gap-3">
+                      <span className="ch-data" style={{ fontSize: 12, color: C.field, fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
+                      <h5 style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>{title}</h5>
+                    </div>
+                    <p className="mt-3" style={{ lineHeight: 1.75, fontSize: 13.5, color: C.mute }}>{body}</p>
+                  </div>
                 </motion.div>
               ))}
             </Stagger>
+
+            <Reveal delay={0.15}>
+              <div className="mt-6 rounded-lg overflow-hidden" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
+                <div style={{ background: C.paperDim, aspectRatio: "16 / 9" }}>
+                  <img src={rs5} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                </div>
+                <div style={{ padding: "16px 22px" }}>
+                  <div style={{ fontSize: 12.5, color: C.mute }}>Rice residue-burning detection, monitored in Google Earth Engine</div>
+                </div>
+              </div>
+            </Reveal>
           </Reveal>
 
           <Reveal delay={0.2}>
