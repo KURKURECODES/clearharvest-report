@@ -61,6 +61,8 @@ import photoMedia13 from "./src/assets/media13.jpg";
 import photoVlmKuni from './src/assets/vlmkuni.jpg';
 import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
 import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
+import photoDam from "./src/assets/dam.jpg";
+import photoTpa from "./src/assets/tpa.jpeg";
 import photoBailing from "./src/assets/bailing.jpg";
 import videoTestimonial1 from "./src/assets/testimonial1.mp4";
 import videoTestimonial2 from "./src/assets/testimonial2.mp4";
@@ -2481,7 +2483,8 @@ const SEQUENCE = [
     n: "08", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
     body: "Low-emission paddy moved from farm to Nestle's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
-    photo: photoPaddyLoading,
+    photo: photoDam,
+    objectPosition: "center 15%",
   },
   {
     n: "09", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
@@ -2494,7 +2497,7 @@ const SEQUENCE = [
     n: "10", title: "Third-party audit", tag: "Assurance", color: C.field,
     body: "One Peterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail - testing whether the reductions claimed are attributable to the fields that produced them.",
     meta: "Independent verification · One Peterson",
-    icon: <><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinejoin="round" /><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /></>,
+    photo: photoTpa,
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
