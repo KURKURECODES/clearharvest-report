@@ -438,7 +438,7 @@ function Panel({ level, village, field, hoverField }) {
           {level === "india" ? "Where the paddy comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
         </h3>
         <div className="mt-5">
-          <Row k="Mapped fields" v={300} accent={C.leaf} />
+          <Row k="Mapped fields" v={326} accent={C.leaf} />
           <Row k="Villages" v={`${VILLAGES.length} of 11`} />
           <Row k="Blocks" v="Varni & Chandur" />
           <Row k="Emission reduction" v="771.47 kg CO2e/MT" accent={C.leaf} />
