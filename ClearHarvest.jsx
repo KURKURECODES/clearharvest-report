@@ -1025,7 +1025,7 @@ const INTERVENTIONS = [
     mechanism:
       "Regular monitoring by Kisan Advisors kept crop-protection decisions tied to actual field conditions rather than routine pesticide application.",
     why: [],
-    benefits: IPM.map(([k, v]) => `${k} — ${v}`),
+    benefits: IPM.map(([k, v]) => `${k} - ${v}`),
   },
 ];
 
