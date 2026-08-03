@@ -46,7 +46,7 @@ import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
 import growIndigoLogo from "./src/assets/gilogo1.png";
 import growIndigoOverview from "./src/assets/growindigo-overview.jpg";
 import photoVlm2 from "./src/assets/vlm2.jpg";
-import photoVlm3 from "./src/assets/vlm3.jpg";
+import photoVlm3 from "./src/assets/3vlm.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
 import photoBd2 from "./src/assets/bd2.png";
 import photoCls from "./src/assets/cls.jpg";
@@ -56,7 +56,7 @@ import photoDobs4 from "./src/assets/dobs4.jpg";
 import photoKickoff from "./src/assets/pko.jpg";
 import photoMedia9 from "./src/assets/media9.jpg";
 import photoMedia11 from "./src/assets/media11.jpg";
-import photoVlm1 from './src/assets/vlm1.jpg'; // or your relative path
+import photoVlm1 from './src/assets/1vlm.jpg'; // or your relative path
 import photoMedia13 from "./src/assets/media13.jpg";
 import photoVlmKuni from './src/assets/vlmkuni.jpg';
 import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
@@ -69,6 +69,8 @@ import photoWaterLevel from "./src/assets/waterlevel.jpg";
 import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
 import diaryWaterLogB from "./src/assets/diary8.png";
+
+
 import diaryFeedback from "./src/assets/diary11.png";
 import photoFtmp from "./src/assets/ftmp.jpg";
 
