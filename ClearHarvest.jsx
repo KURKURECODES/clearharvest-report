@@ -929,6 +929,13 @@ function ImpactStrip() {
    Hover opens the mechanism drawer (framer height auto + staggered children);
    the card itself tilts and lifts. Tap does the same on touch.
 ---------------------------------------------------------------------------- */
+const IPM = [
+  ["Cultural control", "Timely agronomic operations, field sanitation, balanced nutrition, weed management and AWD-based water management."],
+  ["Mechanical & physical", "Removal of infected plant parts, cleaning of field bunds, physical suppression of weeds and pest habitats."],
+  ["Biological control", "Biological inputs and practices that improved soil and crop health and encouraged beneficial organisms."],
+  ["Chemical control", "Recommended only when pest or disease pressure required it - correct pesticide, dosage and crop stage."],
+];
+
 const INTERVENTIONS = [
   {
     key: "water",
@@ -1006,6 +1013,20 @@ const INTERVENTIONS = [
       "Reduced air pollution and fire risk across the project villages",
     ],
   },
+  {
+    key: "ipm",
+    tag: "Theme 4 · Programme competencies",
+    title: "Four IPM principles, applied in the field",
+    kicker: "Cultural, mechanical, biological and chemical control",
+    color: C.field,
+    icon: (
+      <><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinejoin="round" /><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" /></>
+    ),
+    mechanism:
+      "Regular monitoring by Kisan Advisors kept crop-protection decisions tied to actual field conditions rather than routine pesticide application.",
+    why: [],
+    benefits: IPM.map(([k, v]) => `${k} — ${v}`),
+  },
 ];
 
 function InterventionCard({ item }) {
@@ -1054,14 +1075,16 @@ function InterventionCard({ item }) {
                 <motion.p variants={vFadeUp} className="mt-5" style={{ lineHeight: 1.7, fontSize: 14.5, color: C.ink }}>
                   {item.mechanism}
                 </motion.p>
-                <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${C.line}` }}>
-                  {item.why.map(([k, v]) => (
-                    <motion.div key={k} variants={vFadeUp} className="mb-2.5">
-                      <span className="ch-data" style={{ fontSize: 11, color: item.color, fontWeight: 600 }}>{k.toUpperCase()}</span>
-                      <span style={{ fontSize: 13.5, color: C.mute, marginLeft: 8 }}>{v}</span>
-                    </motion.div>
-                  ))}
-                </div>
+                {item.why?.length > 0 && (
+                  <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${C.line}` }}>
+                    {item.why.map(([k, v]) => (
+                      <motion.div key={k} variants={vFadeUp} className="mb-2.5">
+                        <span className="ch-data" style={{ fontSize: 11, color: item.color, fontWeight: 600 }}>{k.toUpperCase()}</span>
+                        <span style={{ fontSize: 13.5, color: C.mute, marginLeft: 8 }}>{v}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             </motion.div>
           )}
@@ -1092,10 +1115,10 @@ function InterventionsSection() {
     <Section id="interventions" tone="tint">
       <SectionHead
         index="03"
-        title="Three interventions, one system"
-        lede="Water, soil and residue were addressed together - each supported by the same field team, the same digital record and the same farmer."
+        title="The four themes"
+        lede="Water, soil, residue and crop protection were addressed together - each supported by the same field team, the same digital record and the same farmer."
       />
-      <div ref={grid} className="grid gap-5 lg:grid-cols-3">
+      <div ref={grid} className="grid gap-5 lg:grid-cols-4">
         {INTERVENTIONS.map((it) => <InterventionCard key={it.key} item={it} />)}
       </div>
     </Section>
@@ -1152,13 +1175,6 @@ const WORKFLOW = [
   ["QC of field-reported data by scientists", "Methodological review and validation"],
   ["Procurement audit trail", "End-to-end record captured in S3 Sutra"],
   ["Third-party audit & report submission", "Independent verification and final delivery"],
-];
-
-const IPM = [
-  ["Cultural control", "Timely agronomic operations, field sanitation, balanced nutrition, weed management and AWD-based water management."],
-  ["Mechanical & physical", "Removal of infected plant parts, cleaning of field bunds, physical suppression of weeds and pest habitats."],
-  ["Biological control", "Biological inputs and practices that improved soil and crop health and encouraged beneficial organisms."],
-  ["Chemical control", "Recommended only when pest or disease pressure required it - correct pesticide, dosage and crop stage."],
 ];
 
 function OrgChart() {
@@ -1364,28 +1380,8 @@ function GovernanceSection() {
         <div className="mt-7"><WorkflowStepper /></div>
       </div>
 
-      <div className="mt-16 grid gap-6 lg:grid-cols-2">
+      <div className="mt-16 grid gap-6">
         <Reveal>
-          <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <Eyebrow>Theme 4 · Programme competencies</Eyebrow>
-            <h4 className="ch-display mt-4 text-xl" style={{ color: C.field, fontWeight: 700 }}>
-              Four IPM principles, applied in the field
-            </h4>
-            <Stagger className="mt-5 space-y-4" stagger={0.08}>
-              {IPM.map(([k, v]) => (
-                <motion.div key={k} variants={vFadeUp} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
-                  <div style={{ fontWeight: 600, fontSize: 14, color: C.ink }}>{k}</div>
-                  <div style={{ fontSize: 13.5, lineHeight: 1.65, color: C.mute }}>{v}</div>
-                </motion.div>
-              ))}
-            </Stagger>
-            <p className="ch-data mt-5 pt-4" style={{ fontSize: 11.5, lineHeight: 1.7, color: C.mute, borderTop: `1px solid ${C.line}` }}>
-              Regular monitoring by Kisan Advisors kept crop-protection decisions tied to actual field conditions
-              rather than routine pesticide application.
-            </p>
-          </div>
-        </Reveal>
-        <Reveal delay={0.11}>
           <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
             <Eyebrow>Farmer hand-holding</Eyebrow>
             <h4 className="ch-display mt-4 text-xl" style={{ color: C.field, fontWeight: 700 }}>
@@ -1604,17 +1600,57 @@ function BenefitsSection() {
    11 · RESULTS - Recharts, mounted on viewport entry so their own draw
    animation doubles as the scroll reveal. Tooltips animate through framer.
 ---------------------------------------------------------------------------- */
-const EMISSIONS = [
-  { name: "Nestle baseline", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
-  { name: "Project · excl. nursery", value: 540.13, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Project · incl. nursery", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
-];
+/** Turns a sequence of "total" (absolute) and "delta" (change from the
+ *  running total) steps into floating-bar rows: `base`/`top` mark where the
+ *  segment starts and ends, `height` is its span - so a delta bar hangs
+ *  between the two totals it connects instead of rising from zero. */
+function buildWaterfall(steps) {
+  let cumulative = 0;
+  return steps.map((s) => {
+    if (s.type === "total") {
+      cumulative = s.value;
+      return { ...s, base: 0, height: s.value, top: s.value };
+    }
+    const start = cumulative;
+    cumulative += s.value;
+    const base = Math.min(start, cumulative);
+    const top = Math.max(start, cumulative);
+    return { ...s, base, top, height: top - base };
+  });
+}
 
-const NITROGEN = [
-  { name: "Farmer practice (BAU)", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
-  { name: "PJTSAU recommended", value: 48, fill: C.mute, note: "University-recommended dose for the district" },
-  { name: "Project rate", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
-];
+function waterfallLabel(row) {
+  const n = row.value.toLocaleString("en-IN");
+  return row.type === "delta" && row.value > 0 ? `+${n}` : n;
+}
+
+/** Draws only the [base, top] slice of the bar - recharts positions this
+ *  shape as if it were a full bar for `top`, so we shorten it from the same
+ *  top edge down to `height` px instead of letting it run to the axis. */
+function WaterfallBarShape({ x, y, width, height, payload }) {
+  const pxPerUnit = payload.top > 0 ? height / payload.top : 0;
+  const segHeight = Math.max(payload.height * pxPerUnit, 1);
+  const r = Math.min(4, segHeight / 2, width / 2);
+  return (
+    <path
+      d={`M${x},${y + segHeight} L${x},${y + r} Q${x},${y} ${x + r},${y} L${x + width - r},${y} Q${x + width},${y} ${x + width},${y + r} L${x + width},${y + segHeight} Z`}
+      fill={payload.fill}
+    />
+  );
+}
+
+const EMISSIONS_WATERFALL = buildWaterfall([
+  { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
+  { name: "Reduction, excl. nursery", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
+  { name: "Nursery stage", type: "delta", value: 20.09, fill: C.husk, note: "Nursery-stage emissions added back" },
+  { name: "Project, incl. nursery", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
+]);
+
+const NITROGEN_WATERFALL = buildWaterfall([
+  { name: "Farmer practice (BAU)", type: "total", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
+  { name: "Reduction to project rate", type: "delta", value: -7, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
+  { name: "Project rate", type: "total", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
+]);
 
 const WATER = [
   { name: "Conventional flooding", value: 3250, fill: C.mute, note: "Litres of water per kg of paddy under continuous flooding" },
@@ -1748,15 +1784,20 @@ function ResultsSection() {
           unit="kg CO₂e per MT of paddy"
           footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT."
         >
-          <BarChart data={EMISSIONS} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
+          <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={axisStyle} interval={0} angle={-12} textAnchor="end" height={54} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 1400]} />
             <Tooltip content={<ChartTip unit="kg CO₂e/MT" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
-            <ReferenceLine y={1325} stroke={C.husk} strokeDasharray="4 4" />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]} animationDuration={1400} animationEasing="ease-out">
-              {EMISSIONS.map((e) => <Cell key={e.name} fill={e.fill} />)}
-              <LabelList dataKey="value" position="top" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }} />
+            <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationEasing="ease-out">
+              <LabelList
+                dataKey="top"
+                content={({ x, y, width, index }) => (
+                  <text x={x + width / 2} y={y - 6} textAnchor="middle" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }}>
+                    {waterfallLabel(EMISSIONS_WATERFALL[index])}
+                  </text>
+                )}
+              />
             </Bar>
           </BarChart>
         </ChartFrame>
@@ -1767,15 +1808,21 @@ function ResultsSection() {
           unit="kg nitrogen per acre"
           footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages. Evidence indicates AWD enables a further ~13% nitrogen reduction without compromising performance (P.V.M. et al., 2025)."
         >
-          <BarChart data={NITROGEN} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
+          <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={axisStyle} interval={0} angle={-12} textAnchor="end" height={54} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 70]} />
             <Tooltip content={<ChartTip unit="kg N/acre" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <ReferenceLine y={48} stroke={C.husk} strokeDasharray="4 4" label={{ value: "PJTSAU dose", position: "insideTopRight", style: { fontSize: 10, fill: C.husk, fontFamily: FONT_DATA } }} />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]} animationDuration={1400} animationBegin={200}>
-              {NITROGEN.map((e) => <Cell key={e.name} fill={e.fill} />)}
-              <LabelList dataKey="value" position="top" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }} />
+            <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationBegin={200}>
+              <LabelList
+                dataKey="top"
+                content={({ x, y, width, index }) => (
+                  <text x={x + width / 2} y={y - 6} textAnchor="middle" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }}>
+                    {waterfallLabel(NITROGEN_WATERFALL[index])}
+                  </text>
+                )}
+              />
             </Bar>
           </BarChart>
         </ChartFrame>
