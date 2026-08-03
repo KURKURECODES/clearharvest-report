@@ -1485,7 +1485,7 @@ function GovernanceSection() {
                   style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}` }}
                 >
                   <div style={{ background: C.paperDim, aspectRatio: "16 / 10" }}>
-                    <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                    <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
                   </div>
                   <div style={{ padding: "20px 22px" }}>
                     <div className="flex items-baseline gap-3">
@@ -1501,7 +1501,7 @@ function GovernanceSection() {
             <Reveal delay={0.15}>
               <div className="mt-6 rounded-lg overflow-hidden" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
                 <div style={{ background: C.paperDim, aspectRatio: "16 / 9" }}>
-                  <img src={rs5} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                  <img src={rs5} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
                 </div>
                 <div style={{ padding: "16px 22px" }}>
                   <div style={{ fontSize: 12.5, color: C.mute }}>Rice residue-burning detection, monitored in Google Earth Engine</div>
@@ -2896,7 +2896,7 @@ const GALLERY = {
       { label: "Re-irrigation interval entries", stamp: null, tall: true, src: diaryWaterLogB },
       { label: "Stakeholder feedback form", stamp: null, tall: true, src: diaryFeedback },
       { label: "Signed consent letter", stamp: null, tall: true, src: photoCls },
-      { label: "Procurement receipt", stamp: null, tall: true },
+      { label: "Procurement receipt", stamp: null, tall: true, src: a10 },
     ],
   },
 };
@@ -2946,7 +2946,7 @@ function PhotographySection() {
           <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={vStagger(0.06)} initial="hidden" animate="show">
             {active.shots.map((s) => (
               <motion.div key={s.label} variants={vFadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: EASE }}>
-                <PhotoSlot label={s.label} stamp={s.stamp} tall={s.tall} src={s.src} alt={s.label} />
+                <PhotoSlot label={s.label} stamp={s.stamp} tall={s.tall} src={s.src} alt={s.label} fit="scale-down" />
                 <div className="ch-data mt-2" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.5 }}>{s.label}</div>
               </motion.div>
             ))}
