@@ -1758,6 +1758,41 @@ function waterfallLabel(row) {
   return row.type === "delta" && row.value > 0 ? `+${n}` : n;
 }
 
+function waterfallLabelContent(data) {
+  return ({ x, y, width, index }) => (
+    <text x={x + width / 2} y={y - 6} textAnchor="middle" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }}>
+      {waterfallLabel(data[index])}
+    </text>
+  );
+}
+
+const WATERFALL_PCT = {
+  "Reduction, excl. nursery": "58%",
+  "Reduction to project rate": "11%",
+};
+
+/** Custom XAxis tick: renders the rotated category label as usual, and for
+ *  categories in WATERFALL_PCT, circles a percentage callout beneath it -
+ *  sits under the axis so it reads as an annotation, not a chart value. */
+function waterfallAxisTick({ x, y, payload }) {
+  const pct = WATERFALL_PCT[payload.value];
+  return (
+    <g>
+      <text x={x} y={y + 9} textAnchor="end" transform={`rotate(-12, ${x}, ${y + 9})`} style={{ fontSize: 11, fill: C.mute, fontFamily: FONT_DATA }}>
+        {payload.value}
+      </text>
+      {pct && (
+        <g transform={`translate(${x}, ${y + 40})`}>
+          <circle r={16} fill="none" stroke={C.field} strokeWidth={1.6} />
+          <text textAnchor="middle" dy={4} style={{ fontSize: 11.5, fontWeight: 700, fill: C.field, fontFamily: FONT_DATA }}>
+            {pct}
+          </text>
+        </g>
+      )}
+    </g>
+  );
+}
+
 /** Draws only the [base, top] slice of the bar - recharts positions this
  *  shape as if it were a full bar for `top`, so we shorten it from the same
  *  top edge down to `height` px instead of letting it run to the axis. */
@@ -1916,22 +1951,16 @@ function ResultsSection() {
           kicker="Chart 1 · Emissions intensity"
           title="Well over half the carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
+          height={360}
           footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT."
         >
-          <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
+          <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
-            <XAxis dataKey="name" tick={axisStyle} interval={0} angle={-12} textAnchor="end" height={54} axisLine={{ stroke: C.line }} tickLine={false} />
+            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 1400]} />
             <Tooltip content={<ChartTip unit="kg CO₂e/MT" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationEasing="ease-out">
-              <LabelList
-                dataKey="top"
-                content={({ x, y, width, index }) => (
-                  <text x={x + width / 2} y={y - 6} textAnchor="middle" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }}>
-                    {waterfallLabel(EMISSIONS_WATERFALL[index])}
-                  </text>
-                )}
-              />
+              <LabelList dataKey="top" content={waterfallLabelContent(EMISSIONS_WATERFALL)} />
             </Bar>
           </BarChart>
         </ChartFrame>
@@ -1940,23 +1969,17 @@ function ResultsSection() {
           kicker="Chart 2 · Nitrogen use"
           title="Less urea, same crop"
           unit="kg nitrogen per acre"
+          height={360}
           footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages."
         >
-          <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 34 }}>
+          <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
-            <XAxis dataKey="name" tick={axisStyle} interval={0} angle={-12} textAnchor="end" height={54} axisLine={{ stroke: C.line }} tickLine={false} />
+            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 70]} />
             <Tooltip content={<ChartTip unit="kg N/acre" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <ReferenceLine y={48} stroke={C.husk} strokeDasharray="4 4" label={{ value: "PJTSAU dose", position: "insideTopRight", style: { fontSize: 10, fill: C.husk, fontFamily: FONT_DATA } }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationBegin={200}>
-              <LabelList
-                dataKey="top"
-                content={({ x, y, width, index }) => (
-                  <text x={x + width / 2} y={y - 6} textAnchor="middle" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }}>
-                    {waterfallLabel(NITROGEN_WATERFALL[index])}
-                  </text>
-                )}
-              />
+              <LabelList dataKey="top" content={waterfallLabelContent(NITROGEN_WATERFALL)} />
             </Bar>
           </BarChart>
         </ChartFrame>
