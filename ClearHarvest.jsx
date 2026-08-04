@@ -3116,7 +3116,7 @@ function Closing() {
         <div className="mt-16 pt-10" style={{ borderTop: "1px solid rgba(255,255,255,.15)" }}>
           <LogoLockup light height={40} />
           <div className="ch-data mt-8 text-center" style={{ fontSize: 10.5, color: "rgba(255,255,255,.4)", letterSpacing: ".1em" }}>
-            LOW-EMISSION RICE OFFTAKE · NIZAMABAD, TELANGANA · RABI 2026
+            LOW-EMISSION RICE OFFTAKE · NIZAMABAD, TELANGANA · RABI 2025-2026
           </div>
         </div>
       </div>
