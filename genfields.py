@@ -24,11 +24,11 @@ from shapely.ops import unary_union
 from shapely.affinity import translate
 
 VILLAGES = [
-    ("ghanpur",    "Ghanpur",    77.9271, 18.5734, 78, "Chandur"),
-    ("sangam",     "Sangam",     77.9121, 18.6038, 64, "Chandur"),
-    ("kunipoor",   "Kunipoor",   77.9406, 18.5111, 71, "Varni"),
-    ("srinagar",   "Srinagar",   77.9253, 18.5371, 52, "Varni"),
-    ("bhavanipet", "Bhavanipet", 77.9251, 18.5801, 44, "Chandur"),
+    ("ghanpur",    "Ghanpur",    77.9271, 18.5734, 82, "Chandur"),
+    ("sangam",     "Sangam",     77.9121, 18.6038, 68, "Chandur"),
+    ("kunipoor",   "Kunipoor",   77.9406, 18.5111, 75, "Varni"),
+    ("srinagar",   "Srinagar",   77.9253, 18.5371, 55, "Varni"),
+    ("bhavanipet", "Bhavanipet", 77.9251, 18.5801, 46, "Chandur"),
 ]
 SUR = ["Kolluri","Gundeti","Bandari","Mekala","Pochampally","Nalla","Yerram","Kandula",
        "Bhoomaiah","Sirikonda","Racha","Dharmapuri","Vemula","Jangam","Peddi","Thumma","Gadela"]

@@ -38,7 +38,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Cell, LabelList, ReferenceLine,
+  ResponsiveContainer, LabelList, ReferenceLine,
 } from "recharts";
 import "maplibre-gl/dist/maplibre-gl.css";
 import LocationSection from "./ClearHarvestMap.jsx";
@@ -1765,8 +1765,11 @@ function buildWaterfall(steps) {
 }
 
 function waterfallLabel(row) {
-  const n = row.value.toLocaleString("en-IN");
-  return row.type === "delta" && row.value > 0 ? `+${n}` : n;
+  if (row.type === "delta") {
+    const n = Math.abs(row.value).toLocaleString("en-IN");
+    return row.value > 0 ? `+${n}` : n;
+  }
+  return row.value.toLocaleString("en-IN");
 }
 
 function waterfallLabelContent(data) {
@@ -1780,6 +1783,7 @@ function waterfallLabelContent(data) {
 const WATERFALL_PCT = {
   "Reduction": "58%",
   "Reduction to project rate": "11%",
+  "Saving": "67%",
 };
 
 /** Custom XAxis tick: renders the rotated category label as usual, and for
@@ -1822,7 +1826,7 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 const EMISSIONS_WATERFALL = buildWaterfall([
   { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
   { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Project, incl. nursery", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
+  { name: "Project only", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
@@ -1831,10 +1835,11 @@ const NITROGEN_WATERFALL = buildWaterfall([
   { name: "Project rate", type: "total", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
 ]);
 
-const WATER = [
-  { name: "Conventional flooding", value: 3250, fill: C.mute, note: "Litres of water per kg of paddy under continuous flooding" },
-  { name: "Project (AWD)", value: 1073, fill: C.water, note: "Derived from the ~67% saving reported for the project" },
-];
+const WATER_WATERFALL = buildWaterfall([
+  { name: "Conventional flooding", type: "total", value: 3250, fill: C.mute, note: "Litres of water per kg of paddy under continuous flooding" },
+  { name: "Saving", type: "delta", value: -2177, fill: C.water, note: "2,177 litres/kg lower - the ~67% saving reported for AWD adoption" },
+  { name: "Project (AWD)", type: "total", value: 1073, fill: C.water, note: "Derived from the ~67% saving reported for the project" },
+]);
 
 const YIELD = [
   { name: "Previous season", value: 2.7, fill: C.mute, note: "Average paddy yield, MT" },
@@ -1855,7 +1860,7 @@ function ChartTip({ active, payload, unit }) {
         >
           <div style={{ color: "#fff", fontWeight: 600, fontSize: 13 }}>{payload[0].payload.name}</div>
           <div className="ch-display" style={{ color: payload[0].payload.fill, fontWeight: 800, fontSize: 22, marginTop: 2 }}>
-            {payload[0].payload.value.toLocaleString("en-IN")}{" "}
+            {(payload[0].payload.type === "delta" ? Math.abs(payload[0].payload.value) : payload[0].payload.value).toLocaleString("en-IN")}{" "}
             <span style={{ fontSize: 11, fontWeight: 500 }}>{unit}</span>
           </div>
           <div className="ch-data" style={{ color: "rgba(255,255,255,.62)", fontSize: 10.5, lineHeight: 1.6, marginTop: 6 }}>
@@ -1998,17 +2003,16 @@ function ResultsSection() {
           kicker="Supporting indicator"
           title="Water per kilogram of paddy"
           unit="litres per kg"
-          height={230}
+          height={320}
           footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption."
         >
-          <BarChart data={WATER} layout="vertical" margin={{ top: 4, right: 44, left: 96, bottom: 4 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke={C.line} horizontal={false} />
-            <XAxis type="number" tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
-            <YAxis type="category" dataKey="name" tick={axisStyle} axisLine={false} tickLine={false} width={92} />
+          <BarChart data={WATER_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
+            <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
+            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
+            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
             <Tooltip content={<ChartTip unit="litres/kg" />} cursor={{ fill: "rgba(30,136,168,.07)" }} />
-            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={30} animationDuration={1400}>
-              {WATER.map((e) => <Cell key={e.name} fill={e.fill} />)}
-              <LabelList dataKey="value" position="right" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }} />
+            <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400}>
+              <LabelList dataKey="top" content={waterfallLabelContent(WATER_WATERFALL)} />
             </Bar>
           </BarChart>
         </ChartFrame>
@@ -2946,7 +2950,7 @@ function PhotographySection() {
           <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={vStagger(0.06)} initial="hidden" animate="show">
             {active.shots.map((s) => (
               <motion.div key={s.label} variants={vFadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: EASE }}>
-                <PhotoSlot label={s.label} stamp={s.stamp} tall={s.tall} src={s.src} alt={s.label} fit="scale-down" />
+                <PhotoSlot label={s.label} tall={s.tall} src={s.src} alt={s.label} fit="scale-down" />
                 <div className="ch-data mt-2" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.5 }}>{s.label}</div>
               </motion.div>
             ))}
