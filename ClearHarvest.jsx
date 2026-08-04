@@ -79,6 +79,7 @@ import rs2 from "./src/assets/rs2.png";
 import rs3 from "./src/assets/rs3.png";
 import rs4 from "./src/assets/rs4.png";
 import rs5 from "./src/assets/rs5.png";
+import trac from "./src/assets/trac.png";
 import photoBailing from "./src/assets/bailing.jpg";
 import videoTestimonial1 from "./src/assets/testimonial1.mp4";
 import videoTestimonial2 from "./src/assets/testimonial2.mp4";
@@ -1468,6 +1469,29 @@ function GovernanceSection() {
           <Reveal delay={0.1}>
             <Eyebrow>Subtopic 2</Eyebrow>
             <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
+              Traceability
+            </h4>
+            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
+              Post harvest and during procurement, <strong style={{ color: C.ink }}>S3 Sutra</strong> enabled
+              traceability of low-emission paddy from farm to miller. It captured the complete audit trail,
+              documenting farmer validation, produce quantities, and movement of low-emission paddy. This
+              integrated approach created a robust monitoring and verification system that delivered high-quality
+              data, ensured credible traceability, and supported accurate GHG quantification aligned with
+              Nestlé's reporting requirements.
+            </p>
+            <div className="mt-6 rounded-lg overflow-hidden" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
+              <div style={{ background: C.paperDim, aspectRatio: "16 / 9" }}>
+                <img src={trac} alt="S3 Sutra traceability flow from farmer groups to trading to miller" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
+              </div>
+              <div style={{ padding: "16px 22px" }}>
+                <div style={{ fontSize: 12.5, color: C.mute }}>Farm-to-miller traceability flow, logged in S3 Sutra</div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <Eyebrow>Subtopic 3</Eyebrow>
+            <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
               Remote Sensing
             </h4>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
@@ -1511,7 +1535,7 @@ function GovernanceSection() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <Eyebrow>Subtopic 3</Eyebrow>
+            <Eyebrow>Subtopic 4</Eyebrow>
             <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
               Verification
             </h4>
