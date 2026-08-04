@@ -38,7 +38,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, LabelList, ReferenceLine,
+  ResponsiveContainer, LabelList,
 } from "recharts";
 import "maplibre-gl/dist/maplibre-gl.css";
 import LocationSection from "./ClearHarvestMap.jsx";
@@ -1780,33 +1780,34 @@ function waterfallLabelContent(data) {
   );
 }
 
-const WATERFALL_PCT = {
-  "Reduction": "58%",
-  "Reduction to project rate": "11%",
-  "Saving": "67%",
-};
-
-/** Custom XAxis tick: renders the rotated category label as usual, and for
- *  categories in WATERFALL_PCT, circles a percentage callout beneath it -
- *  sits under the axis so it reads as an annotation, not a chart value. */
-function waterfallAxisTick({ x, y, payload }) {
-  const pct = WATERFALL_PCT[payload.value];
-  return (
-    <g>
-      <text x={x} y={y + 9} textAnchor="end" transform={`rotate(-12, ${x}, ${y + 9})`} style={{ fontSize: 11, fill: C.mute, fontFamily: FONT_DATA }}>
-        {payload.value}
-      </text>
-      {pct && (
-        <g transform={`translate(${x}, ${y + 40})`}>
-          <circle r={16} fill="none" stroke={C.field} strokeWidth={1.6} />
-          <text textAnchor="middle" dy={4} style={{ fontSize: 11.5, fontWeight: 700, fill: C.field, fontFamily: FONT_DATA }}>
-            {pct}
-          </text>
-        </g>
-      )}
-    </g>
-  );
+/** Custom XAxis tick factory: renders the rotated category label as usual, and for
+ *  categories present in the given pct map, circles a percentage callout beneath it -
+ *  sits under the axis so it reads as an annotation, not a chart value. Each chart
+ *  gets its own map since bar names ("Reduction", "Project") repeat across charts. */
+function makeWaterfallAxisTick(pctMap) {
+  return function waterfallAxisTick({ x, y, payload }) {
+    const pct = pctMap[payload.value];
+    return (
+      <g>
+        <text x={x} y={y + 9} textAnchor="end" transform={`rotate(-12, ${x}, ${y + 9})`} style={{ fontSize: 11, fill: C.mute, fontFamily: FONT_DATA }}>
+          {payload.value}
+        </text>
+        {pct && (
+          <g transform={`translate(${x}, ${y + 40})`}>
+            <circle r={16} fill="none" stroke={C.field} strokeWidth={1.6} />
+            <text textAnchor="middle" dy={4} style={{ fontSize: 11.5, fontWeight: 700, fill: C.field, fontFamily: FONT_DATA }}>
+              {pct}
+            </text>
+          </g>
+        )}
+      </g>
+    );
+  };
 }
+
+const EMISSIONS_AXIS_TICK = makeWaterfallAxisTick({ "Reduction": "58%" });
+const NITROGEN_AXIS_TICK = makeWaterfallAxisTick({ "Reduction": "11%" });
+const WATER_AXIS_TICK = makeWaterfallAxisTick({ "Saving": "67%" });
 
 /** Draws only the [base, top] slice of the bar - recharts positions this
  *  shape as if it were a full bar for `top`, so we shorten it from the same
@@ -1826,13 +1827,13 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 const EMISSIONS_WATERFALL = buildWaterfall([
   { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
   { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Project only", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
+  { name: "Project", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
-  { name: "Farmer practice (BAU)", type: "total", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
-  { name: "Reduction to project rate", type: "delta", value: -7, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
-  { name: "Project rate", type: "total", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
+  { name: "Farmer Practice", type: "total", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
+  { name: "Reduction", type: "delta", value: -7, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
+  { name: "Project", type: "total", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
 ]);
 
 const WATER_WATERFALL = buildWaterfall([
@@ -1971,7 +1972,7 @@ function ResultsSection() {
         >
           <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
-            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
+            <XAxis dataKey="name" tick={EMISSIONS_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 1400]} />
             <Tooltip content={<ChartTip unit="kg CO₂e/MT" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationEasing="ease-out">
@@ -1989,10 +1990,9 @@ function ResultsSection() {
         >
           <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
-            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
+            <XAxis dataKey="name" tick={NITROGEN_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 70]} />
             <Tooltip content={<ChartTip unit="kg N/acre" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
-            <ReferenceLine y={48} stroke={C.husk} strokeDasharray="4 4" label={{ value: "PJTSAU dose", position: "insideTopRight", style: { fontSize: 10, fill: C.husk, fontFamily: FONT_DATA } }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationBegin={200}>
               <LabelList dataKey="top" content={waterfallLabelContent(NITROGEN_WATERFALL)} />
             </Bar>
@@ -2000,7 +2000,7 @@ function ResultsSection() {
         </ChartFrame>
 
         <ChartFrame
-          kicker="Supporting indicator"
+          kicker="Chart 3 · Water savings"
           title="Water per kilogram of paddy"
           unit="litres per kg"
           height={320}
@@ -2008,7 +2008,7 @@ function ResultsSection() {
         >
           <BarChart data={WATER_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
-            <XAxis dataKey="name" tick={waterfallAxisTick} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
+            <XAxis dataKey="name" tick={WATER_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
             <Tooltip content={<ChartTip unit="litres/kg" />} cursor={{ fill: "rgba(30,136,168,.07)" }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400}>
@@ -2612,6 +2612,7 @@ const SEQUENCE = [
     body: "One Peterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail - testing whether the reductions claimed are attributable to the fields that produced them.",
     meta: "Independent verification · One Peterson",
     photo: photoTpa,
+    fit: "scale-down",
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
