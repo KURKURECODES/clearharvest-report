@@ -799,7 +799,7 @@ function Hero() {
 
         <p className="hero-lede mt-7 text-lg md:text-xl" style={{ color: "rgba(255,255,255,.78)", maxWidth: "56ch", lineHeight: 1.6 }}>
           Across 1,718 acres in Nizamabad, farmers stopped flooding their fields continuously - and reduced the
-          Carbon footprint. Every field mapped, every claim traced.
+          Carbon footprint. Every field mapped, every claim science backed.
         </p>
 
         <div className="hero-meta mt-10 flex flex-wrap gap-x-10 gap-y-5">
