@@ -2663,8 +2663,8 @@ const SEQUENCE = [
     objectPosition: "top",
   },
   {
-    n: "08", title: "Delivery to Aishwarya Rice Mills", tag: "Procurement", color: C.husk,
-    body: "Low-emission paddy moved from farm to Nestle's empanelled miller under a documented chain: weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - all captured in S3 Sutra.",
+    n: "08", title: "Low Emission Paddy", tag: "Procurement", color: C.husk,
+    body: "Through this program, we facilitated the procurement of over 3,200 metric tonnes of low-emission paddy through Aishwarya Rice Mills. The entire transaction was recorded in our in-house S3 Sutra application, enabling end-to-end traceability and transparent documentation.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
     photo: photoDam,
     objectPosition: "center 15%",
