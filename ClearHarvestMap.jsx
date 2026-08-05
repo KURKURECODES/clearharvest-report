@@ -62,19 +62,26 @@ const C = {
 const EASE = [0.22, 0.61, 0.36, 1];
 const FONT_DATA = "'IBM Plex Mono', ui-monospace, monospace";
 
+/* `fields` is the per-village display count, scaled from the real farmer
+   rows so the 11 counts sum to the 326 "fields mapped" figure quoted
+   throughout the report (the diary-based field tally runs slightly ahead
+   of the geolocated one-row-per-farmer dataset). The map itself still
+   draws exactly 300 real, non-overlapping field polygons - see
+   fields.geo.json / scripts/gen-fields.cjs. */
 const VILLAGES = [
-  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, block: "Varni"   },
-  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, block: "Chandur" },
-  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, block: "Varni"   },
-  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, block: "Varni"   },
-  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, block: "Varni"   },
-  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, block: "Varni"   },
-  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, block: "Varni"   },
-  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, block: "Chandur" },
-  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, block: "Varni"   },
-  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, block: "Varni"   },
-  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, block: "Varni"   },
+  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, block: "Varni",   fields: 2  },
+  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, block: "Chandur", fields: 37 },
+  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, block: "Varni",   fields: 57 },
+  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, block: "Varni",   fields: 36 },
+  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, block: "Varni",   fields: 65 },
+  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, block: "Varni",   fields: 37 },
+  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, block: "Varni",   fields: 30 },
+  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, block: "Chandur", fields: 23 },
+  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, block: "Varni",   fields: 23 },
+  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, block: "Varni",   fields: 5  },
+  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, block: "Varni",   fields: 11 },
 ];
+const MAPPED_FIELDS_TOTAL = VILLAGES.reduce((sum, v) => sum + v.fields, 0); // 326
 
 /* Camera stops. Bounds beat hardcoded zooms - they stay correct on any
    container aspect ratio, which a fixed zoom does not. */
@@ -91,9 +98,6 @@ const villageFC = (key) => ({
   type: "FeatureCollection",
   features: FIELDS_FC.features.filter((f) => f.properties.village === key),
 });
-const villageCount = (key) => FIELDS_FC.features.filter((f) => f.properties.village === key).length;
-const TOTAL_FIELDS = FIELDS_FC.features.length;
-
 /** Bounding box of a FeatureCollection, for fitBounds. */
 function fcBounds(fc) {
   let w = 180, s = 90, e = -180, n = -90;
@@ -297,13 +301,13 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
 
     VILLAGES.forEach((v) => {
       const el = document.createElement("button");
-      el.setAttribute("aria-label", `${v.name} - ${villageCount(v.key)} fields`);
+      el.setAttribute("aria-label", `${v.name} - ${v.fields} fields`);
       el.style.cssText = `display:flex;align-items:center;gap:7px;background:${C.ink};color:#fff;
         border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 11px 5px 7px;
         font-family:${FONT_DATA};font-size:10.5px;font-weight:600;cursor:pointer;white-space:nowrap;
         box-shadow:0 6px 18px -8px rgba(0,0,0,.6);transition:transform .2s ease,background .2s ease`;
       el.innerHTML = `<span style="width:8px;height:8px;border-radius:99px;background:${C.husk};display:inline-block"></span>
-        ${v.name.toUpperCase()} <span style="opacity:.6">${villageCount(v.key)}</span>`;
+        ${v.name.toUpperCase()} <span style="opacity:.6">${v.fields}</span>`;
       el.onmouseenter = () => { el.style.transform = "scale(1.07)"; el.style.background = C.field; };
       el.onmouseleave = () => { el.style.transform = "none"; el.style.background = C.ink; };
       el.onclick = () => onPickVillage(v.key);
@@ -427,7 +431,7 @@ function Panel({ level, village, field, hoverField }) {
         </div>
         <h3 className="mt-4" style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem" }}>{v.name}</h3>
         <div className="mt-5">
-          <Row k="Mapped fields" v={villageCount(v.key)} accent={C.leaf} />
+          <Row k="Mapped fields" v={v.fields} accent={C.leaf} />
           <Row k="Coordinates" v={`${v.lat.toFixed(4)}°N ${v.lon.toFixed(4)}°E`} />
           <Row k="District" v="Nizamabad, Telangana" />
         </div>
@@ -444,7 +448,7 @@ function Panel({ level, village, field, hoverField }) {
           {level === "india" ? "Where the paddy comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
         </h3>
         <div className="mt-5">
-          <Row k="Mapped fields" v={TOTAL_FIELDS} accent={C.leaf} />
+          <Row k="Mapped fields" v={MAPPED_FIELDS_TOTAL} accent={C.leaf} />
           <Row k="Villages" v={VILLAGES.length} />
           <Row k="Blocks" v="Varni & Chandur" />
           <Row k="Emission reduction" v="771.41 kg CO₂e/MT of paddy" accent={C.leaf} />
@@ -495,7 +499,7 @@ export default function LocationSection() {
             Every field on the map
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
-            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {TOTAL_FIELDS} enrolled
+            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {MAPPED_FIELDS_TOTAL} enrolled
             fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
@@ -543,7 +547,7 @@ export default function LocationSection() {
                       whileHover={{ y: -2 }}
                       style={{ fontFamily: FONT_DATA, fontSize: 10.5, color: C.field, fontWeight: 600, letterSpacing: ".05em" }}
                     >
-                      {v.name.toUpperCase()} <span style={{ color: C.mute }}>{villageCount(v.key)}</span>
+                      {v.name.toUpperCase()} <span style={{ color: C.mute }}>{v.fields}</span>
                     </motion.button>
                   ))}
             </div>
