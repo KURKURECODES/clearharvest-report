@@ -441,7 +441,7 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Mapped fields" v={326} accent={C.leaf} />
           <Row k="Villages" v={11} />
           <Row k="Blocks" v="Varni & Chandur" />
-          <Row k="Emission reduction" v="771.41 kg CO2e/MT" accent={C.leaf} />
+          <Row k="Emission reduction" v="771.41 kg CO₂e/MT of paddy" accent={C.leaf} />
         </div>
       </motion.div>
     );
