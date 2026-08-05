@@ -71,7 +71,7 @@ import photoMedia13 from "./src/assets/media13.jpg";
 import photoVlmKuni from './src/assets/vlmkuni.jpg';
 import photoAwdMonitoring from "./src/assets/awd-monitoring.jpg";
 import photoPaddyLoading from "./src/assets/paddy-loading.jpg";
-import photoDam from "./src/assets/dam.jpg";
+import photoLep from "./src/assets/lep.jpeg";
 import photoTpa from "./src/assets/tpa.jpeg";
 import photoSsimp from "./src/assets/ssimp.png";
 import rs1 from "./src/assets/rs1.png";
@@ -511,7 +511,7 @@ const NAV = [
   ["governance", "Governance"], ["sequence", "Sequence"], ["testimonials", "Voices"],
   ["photography", "Photography"], ["benefits", "AWD benefits"], ["results", "Results"],
   ["season", "Season"], ["economics", "Economics"], ["sourcing", "Sourcing"], ["evidence", "Evidence"],
-  ["about", "About"],
+  ["about", "Get in Touch"],
 ];
 
 function TopBar() {
@@ -1647,7 +1647,7 @@ function GovernanceSection() {
 ---------------------------------------------------------------------------- */
 const AWD_BENEFITS = [
   ["Water conservation", C.water, [
-    "Reduces irrigation water demand by 30–45% versus continuous flooding without compromising yield",
+    "Reduces irrigation water demand without compromising yield",
     "Project achieved ~67% water savings - ~1,073 litres per kg of paddy against a ~3,250 litre baseline",
     "Preserves groundwater reserves and reduces pumping load on shared aquifers",
     "Lets irrigation cycles be planned around critical stages: tillering, panicle initiation, milking",
@@ -2049,7 +2049,7 @@ function ResultsSection() {
 
         <ChartFrame
           kicker="Nitrogen use"
-          title="Less urea, same crop"
+          title="Less fertiliser, same crop"
           unit="kg nitrogen per acre"
           height={360}
           footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages."
@@ -2129,8 +2129,8 @@ function ResultsSection() {
             <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
               Nitrogen application rate was reduced from Nestlé's baseline of 78.1 kg N/acre in the region to
-              55.4 kg N/acre - a 29% reduction. This was driven primarily by Oorjit granules' enhanced
-              fertilizer-use efficiency, combined with AWD irrigation.
+              55.4 kg N/acre - a 29% reduction. This was driven primarily by Oorjit granules and Grow Phos'
+              enhanced fertilizer-use efficiency, combined with AWD irrigation.
             </p>
           </div>
         </Reveal>
@@ -2430,10 +2430,10 @@ function SourcingSection() {
                     style={{ border: "1px solid", cursor: "pointer" }}
                   >
                     <motion.div animate={{ color: on ? C.ink : "#fff" }} style={{ fontWeight: 600, fontSize: 15 }}>{name}</motion.div>
-                    <motion.div className="ch-data mt-1" animate={{ color: on ? C.mute : "rgba(255,255,255,.55)" }} style={{ fontSize: 11 }}>{sub}</motion.div>
                     <div className="ch-data mt-2" style={{ fontSize: 10, color: PILLARS[target][3], letterSpacing: ".1em" }}>
                       → {PILLARS[target][0].toUpperCase()}
                     </div>
+                    <motion.div className="ch-data mt-1" animate={{ color: on ? C.mute : "rgba(255,255,255,.55)" }} style={{ fontSize: 11 }}>{sub}</motion.div>
                   </motion.div>
                 );
               })}
@@ -2664,8 +2664,8 @@ const SEQUENCE = [
     n: "08", title: "Low Emission Paddy", tag: "Procurement", color: C.husk,
     body: "Through this program, we facilitated the procurement of over 3,200 metric tonnes of low-emission paddy through Aishwarya Rice Mills. The entire transaction was recorded in our in-house S3 Sutra application, enabling end-to-end traceability and transparent documentation.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
-    photo: photoDam,
-    objectPosition: "center 15%",
+    photo: photoLep,
+    fit: "scale-down",
   },
   {
     n: "09", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
@@ -3078,12 +3078,11 @@ const CONTACT = {
 function AboutSection() {
   return (
     <Section id="about" tone="tint">
-      <SectionHead index="14" title="About Grow Indigo" />
+      <SectionHead index="14" title="Get in Touch" />
 
       <Reveal style={{ maxWidth: 420 }}>
         <div className="p-7 md:p-8 rounded-lg" style={{ background: C.ink }}>
-          <Eyebrow color={C.husk}>Get in touch</Eyebrow>
-          <h3 className="ch-display mt-3 text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
+          <h3 className="ch-display text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
             ClearHarvest, Grow Indigo
           </h3>
           <div className="mt-6">
@@ -3163,13 +3162,19 @@ function Closing() {
               ))}
             </Stagger>
 
-            <div className="mt-10 grid grid-cols-3 gap-4">
-              {[["326", "fields mapped"], ["11", "villages"], ["11", "programme milestones"]].map(([v, l]) => (
-                <div key={l}>
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {[
+                { value: 300, label: "farmers" },
+                { value: 326, label: "fields mapped" },
+                { value: 11, label: "villages" },
+                { value: 3200, suffix: "+", label: "MT procured" },
+                { value: 29, suffix: "%", label: "nitrogen reduction" },
+              ].map(({ value, prefix, suffix, label }) => (
+                <div key={label}>
                   <div className="ch-display" style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>
-                    <Counter value={parseInt(v, 10)} />
+                    <Counter value={value} prefix={prefix || ""} suffix={suffix || ""} />
                   </div>
-                  <div className="ch-data mt-1" style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>{l.toUpperCase()}</div>
+                  <div className="ch-data mt-1" style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>{label.toUpperCase()}</div>
                 </div>
               ))}
             </div>
