@@ -1577,10 +1577,17 @@ function GovernanceSection() {
               Verification
             </h4>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
-              GHG quantification was carried out post-harvest using the{" "}
-              <strong style={{ color: C.ink }}>Cool Farm Platform v3.0 (CFP)</strong>. A third-party auditor
-              subsequently reviewed the evidence and digital records, with a full digital audit trail maintained
-              in <strong style={{ color: C.ink }}>S3 Sutra</strong>.
+              The program delivered measurable reductions in greenhouse gas emissions, water consumption, and
+              fertilizer use through farmers' adoption of regenerative agricultural practices, including Alternate
+              Wetting and Drying (AWD) and improved fertilizer management.
+            </p>
+            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
+              The reported outcomes were evaluated against the approved monitoring methodology through a review of
+              monitoring records, farmer-level data, supporting documentation, and field-level evidence. The
+              verification process assessed the completeness, consistency, accuracy, and traceability of the
+              reported data and cross-checked the results against the established baseline. The project and its
+              reported outcomes were independently verified by the third-party auditor,{" "}
+              <strong style={{ color: C.ink }}>OnePeterson</strong>.
             </p>
           </Reveal>
         </div>
@@ -2671,8 +2678,8 @@ const SEQUENCE = [
   },
   {
     n: "10", title: "Third-party audit", tag: "Assurance", color: C.field,
-    body: "One Peterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail - testing whether the reductions claimed are attributable to the fields that produced them.",
-    meta: "Independent verification · One Peterson",
+    body: "OnePeterson independently reviewed the field evidence and digital records - geo-tagged boundaries, farmer diaries, practice verification and the procurement trail - testing whether the reductions claimed are attributable to the fields that produced them.",
+    meta: "Independent verification · OnePeterson",
     photo: photoTpa,
     fit: "scale-down",
   },
