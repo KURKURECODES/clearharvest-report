@@ -2625,7 +2625,7 @@ const SEQUENCE = [
   {
     n: "03", title: "Consent Letter Signing and Distribution of Biological agri inputs", tag: "Inputs", color: C.leaf,
     body: "Every enrolled farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost.Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting",
-    meta: "6 kg Oorjit + 20 kg Grow Phos + 1 pani pipe per acre",
+    meta: "6 kg of Oorjit and 20 kg of Grow Phos",
     photo: photoBd2,
     ratio: "3 / 4",
     objectPosition: "center 20%",
