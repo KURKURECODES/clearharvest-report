@@ -1077,7 +1077,13 @@ const INTERVENTIONS = [
       </>
     ),
     why: [],
-    benefits: [],
+    benefits: [
+      "Field visits by Kisan Advisors from transplanting to harvest",
+      "Four village-level meetings (VLMs) with live demonstrations",
+      "Biologicals team member present at every VLM",
+      "Vernacular learning videos on Grow Indigo's YouTube channel",
+      "A combined field, group and digital handholding ecosystem",
+    ],
   },
 ];
 
