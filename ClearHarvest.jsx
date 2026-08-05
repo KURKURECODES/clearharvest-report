@@ -834,14 +834,14 @@ function Hero() {
 const HEADLINES = [
   { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 of 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
-  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
+  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT of paddy", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
   { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "78.1 → 55.4 kg N/acre vs Nestlé baseline - less use of chemical fertilisers", tone: C.clay },
 ];
 
 const TICKER = [
-  "771.41 kg CO₂e/MT reduced",
+  "771.41 kg CO₂e/MT of paddy reduced",
   "~ 58% below Nestle baseline",
   "~ 67% water saved",
   "~ 29% less nitrogen",
@@ -1648,7 +1648,7 @@ const AWD_BENEFITS = [
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of paddy, a globally significant agricultural emission source",
-    "Project delivered 771.41 kg CO₂e/MT reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT",
+    "Project delivered 771.41 kg CO₂e/MT of paddy reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT of paddy",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1887,9 +1887,9 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 }
 
 const EMISSIONS_WATERFALL = buildWaterfall([
-  { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT" },
-  { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT lower - a ~59% reduction" },
-  { name: "Project", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT lower - 58%, the headline result" },
+  { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT of paddy" },
+  { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT of paddy lower - a ~59% reduction" },
+  { name: "Project", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT of paddy lower - 58%, the headline result" },
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
@@ -1969,9 +1969,9 @@ const SEASON_HEADLINE = [
   {
     label: "GHG emission reduction", value: 58, prefix: "~ ", suffix: "%", tone: C.field,
     detail: [
-      ["771.41", "kg CO₂e/MT reduced · headline (corrected nursery)"],
-      ["784.87", "kg CO₂e/MT reduced · excluding nursery (~59%)"],
-      ["764.78", "kg CO₂e/MT reduced · including gross nursery (~58%)"],
+      ["771.41", "kg CO₂e/MT of paddy reduced · headline (corrected nursery)"],
+      ["784.87", "kg CO₂e/MT of paddy reduced · excluding nursery (~59%)"],
+      ["764.78", "kg CO₂e/MT of paddy reduced · including gross nursery (~58%)"],
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
@@ -2030,13 +2030,13 @@ function ResultsSection() {
           title="Well over half the carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
           height={360}
-          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT."
+          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT of paddy."
         >
           <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={EMISSIONS_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 1400]} />
-            <Tooltip content={<ChartTip unit="kg CO₂e/MT" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
+            <Tooltip content={<ChartTip unit="kg CO₂e/MT of paddy" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationEasing="ease-out">
               <LabelList dataKey="top" content={waterfallLabelContent(EMISSIONS_WATERFALL)} />
             </Bar>
@@ -2114,7 +2114,7 @@ function ResultsSection() {
               {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.41", "net reduction"]].map(([v, l]) => (
                 <motion.div key={l} variants={vScaleIn} whileHover={{ y: -4 }} className="p-3 rounded" style={{ background: C.paperDim }}>
                   <div className="ch-display" style={{ fontWeight: 800, color: C.field, fontSize: "1.35rem" }}>{v}</div>
-                  <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT</div>
+                  <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT of paddy</div>
                 </motion.div>
               ))}
             </Stagger>
@@ -2678,7 +2678,7 @@ const SEQUENCE = [
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform v3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform v3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT of paddy reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform v3.0 · 5 farmers sampled",
     photo: photoSsimp,
     ratio: "3 / 4",
@@ -3121,8 +3121,8 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of 771.41 kg CO₂e/MT (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 13.40 kg CO₂e/MT.",
-  "Quantification also yields 784.87 kg CO₂e/MT (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
+  "Headline GHG reduction of 771.41 kg CO₂e/MT of paddy (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of 13.40 kg CO₂e/MT of paddy.",
+  "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
 ];
