@@ -1897,9 +1897,9 @@ const EMISSIONS_WATERFALL = buildWaterfall([
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
-  { name: "Nestle Baseline", type: "total", value: 78.1, fill: C.clay, note: "Nestlé's baseline application rate in the project area" },
+  { name: "Nestle Baseline", type: "total", value: 78.1, fill: C.mute, note: "Nestlé's baseline application rate in the project area" },
   { name: "Reduction", type: "delta", value: -22.7, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
-  { name: "Project", type: "total", value: 55.4, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
+  { name: "Project", type: "total", value: 55.4, fill: C.field, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
 ]);
 
 const WATER_WATERFALL = buildWaterfall([
@@ -1979,7 +1979,7 @@ const SEASON_HEADLINE = [
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
-  { label: "Nitrogen use reduction", value: 11,prefix: "~ ", suffix: "%", tone: C.clay },
+  { label: "Nitrogen use reduction", value: 29,prefix: "~ ", suffix: "%", tone: C.clay },
 ];
 
 function SeasonHeadlineResults() {
@@ -2030,7 +2030,7 @@ function ResultsSection() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartFrame
-          kicker="Chart 1 · Emissions intensity"
+          kicker="Emissions intensity"
           title="Well over half the carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
           height={360}
@@ -2048,7 +2048,7 @@ function ResultsSection() {
         </ChartFrame>
 
         <ChartFrame
-          kicker="Chart 2 · Nitrogen use"
+          kicker="Nitrogen use"
           title="Less urea, same crop"
           unit="kg nitrogen per acre"
           height={360}
@@ -2066,7 +2066,7 @@ function ResultsSection() {
         </ChartFrame>
 
         <ChartFrame
-          kicker="Chart 3 · Water savings"
+          kicker="Water savings"
           title="Water per kilogram of paddy"
           unit="litres per kg"
           height={320}
@@ -2088,7 +2088,7 @@ function ResultsSection() {
           title="Yield, season on season"
           unit="MT per acre, average"
           height={230}
-          footnote="A ~7.4% decline attributed to seasonal factors - irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging - alongside agronomic variation in transplanting dates, varietal performance, pest pressure, weed competition, nutrient timing and soil fertility."
+          footnote="A ~7.4% decline attributed to seasonal factors - change in seed variety, irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging."
         >
           <LineChart data={YIELD} margin={{ top: 16, right: 24, left: -18, bottom: 8 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
@@ -2322,7 +2322,7 @@ function SeasonSection() {
    13 · ECONOMICS FOR FARMERS
 ---------------------------------------------------------------------------- */
 const SHORT_TERM = [
-  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~11% reduction per acre in nitrogen fertiliser."],
+  ["Fertiliser cost optimisation", "Oorjit Granules and Grow Phos improved nutrient uptake and reduced reliance on synthetic fertilisers. Supplied free of cost, so farmers saw no added expense and a ~29% reduction per acre in nitrogen fertiliser."],
   ["Reduced irrigation & energy costs", "Lower irrigation frequency cut electricity and diesel for pumping - direct savings on power and fuel."],
   ["Residue monetisation", "CRM support let farmers sell paddy straw to local gaushalas - additional income while avoiding residue-management costs."],
 ];
@@ -2380,7 +2380,7 @@ function EconomicsSection() {
 ---------------------------------------------------------------------------- */
 const LEVERS = [
   ["Alternate Wetting & Drying", "~67% water savings · CH₄ reduction", 0],
-  ["Oorjit, Grow Phos + CRM", "11% N reduction · no field burning", 2],
+  ["Oorjit, Grow Phos + CRM", "29% N reduction · no field burning", 2],
   ["FieldKhatta + S3 Sutra", "End-to-end digital audit trail", 3],
   ["Farmer capacity building", "VLMs, KA support, vernacular training", 1],
 ];
@@ -3123,7 +3123,7 @@ const BIBLIOGRAPHY = [
 
 const DATA_NOTES = [
   "Headline GHG reduction of 771.41 kg CO₂e/MT of paddy (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of 13.40 kg CO₂e/MT of paddy.",
-  "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
+  "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in the emissions intensity chart rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
 ];
