@@ -439,9 +439,9 @@ function Panel({ level, village, field, hoverField }) {
         </h3>
         <div className="mt-5">
           <Row k="Mapped fields" v={326} accent={C.leaf} />
-          <Row k="Villages" v={`${VILLAGES.length} of 11`} />
+          <Row k="Villages" v={11} />
           <Row k="Blocks" v="Varni & Chandur" />
-          <Row k="Emission reduction" v="771.47 kg CO2e/MT" accent={C.leaf} />
+          <Row k="Emission reduction" v="771.41 kg CO2e/MT" accent={C.leaf} />
         </div>
       </motion.div>
     );
@@ -490,7 +490,7 @@ export default function LocationSection() {
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
             The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 326 enrolled
-            farmer fields were geofenced as KML boundaries in FieldKhatta app.
+            fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
 

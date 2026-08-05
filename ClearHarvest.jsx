@@ -129,6 +129,7 @@ function GlobalStyle() {
     <style>{`
       .ch-root { font-family: ${FONT_BODY}; background: ${C.paper}; color: ${C.ink};
         overflow-x: hidden; }
+      .ch-root p { text-align: justify; text-justify: inter-word; }
       .ch-display { font-family: ${FONT_DISPLAY}; letter-spacing: -0.03em; line-height: 0.98; }
       .ch-data { font-family: ${FONT_DATA}; font-variant-numeric: tabular-nums; }
 
@@ -831,21 +832,21 @@ function Hero() {
    GSAP ticks each number; framer handles the tilt and hover lift.
 ---------------------------------------------------------------------------- */
 const HEADLINES = [
-  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
+  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 of 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
   { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 11, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "62.4 → 55.4 kg N/acre vs BAU - less use of chemical fertilisers", tone: C.clay },
+  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "78.1 → 55.4 kg N/acre vs Nestlé baseline - less use of chemical fertilisers", tone: C.clay },
 ];
 
 const TICKER = [
-  "771.47 kg CO₂e/MT reduced",
+  "771.41 kg CO₂e/MT reduced",
   "~ 58% below Nestle baseline",
   "~ 67% water saved",
-  "~ 11% less nitrogen",
+  "~ 29% less nitrogen",
   "~ 833 acres baled",
-  "11 villages",
+  "11 of 11 villages",
   "Collected sampled farmers for calculation",
 ];
 
@@ -946,13 +947,6 @@ function ImpactStrip() {
    Hover opens the mechanism drawer (framer height auto + staggered children);
    the card itself tilts and lifts. Tap does the same on touch.
 ---------------------------------------------------------------------------- */
-const IPM = [
-  ["Cultural control", "Timely agronomic operations, field sanitation, balanced nutrition, weed management and AWD-based water management."],
-  ["Mechanical & physical", "Removal of infected plant parts, cleaning of field bunds, physical suppression of weeds and pest habitats."],
-  ["Biological control", "Biological inputs and practices that improved soil and crop health and encouraged beneficial organisms."],
-  ["Chemical control", "Recommended only when pest or disease pressure required it - correct pesticide, dosage and crop stage."],
-];
-
 const INTERVENTIONS = [
   {
     key: "water",
@@ -985,7 +979,7 @@ const INTERVENTIONS = [
     key: "soil",
     tag: "Theme 2 · Soil",
     title: "Use of Biological Agri inputs",
-    kicker: "6 kg + 20 kg per acre, supplied free of cost",
+    kicker: "6 kg urea and 20 kg phosphorus per acre",
     color: C.leaf,
     icon: (
       <path d="M12 21c0-6 3-10 8-11 0 7-3 11-8 11zM12 21C12 15 9 11 4 10c0 7 3 11 8 11z" fill="currentColor" />
@@ -994,11 +988,10 @@ const INTERVENTIONS = [
       "Oorjit is a unique advanced microbial NPK consortium biofertilizer formulated with nitrogen-fixing, phosphorus-solubilizing, and potash-mobilizing bacteria, enriched with naturally derived soil minerals. Grow Phos is a premium PSB bio fertilizer granules, a natural alternative to DAP/SSP, which enhances germination, root and shoot growth. This combination adds plant-beneficial microbes (PBMs) in the crop rhizosphere, boosting soil biological activity and significantly improving nutrient-use efficiency (NUE). Every farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - plus training on correct application.",
     why: [
       ["Nutrient efficiency", "Biological availability lets the same crop run on less applied nitrogen."],
-      ["Cost", "Inputs were supplied at no cost, so adoption carried no added expense."],
       ["Stacking", "Paired with AWD, better aeration compounds the nutrient-uptake gain."],
     ],
     benefits: [
-      "Steady biologically-driven N-P-K supply; up to 20% less synthetic fertiliser dependence",
+      "Steady biologically driven input supply Up to 20% less dependency on synthetic fertilizer",
       "Improved soil structure - aeration, moisture retention, root penetration",
       "Lower urea requirement, subject to soil condition, crop stage and agronomic advice",
       "Consistent vegetative growth and quality grain formation",
@@ -1033,16 +1026,57 @@ const INTERVENTIONS = [
   {
     key: "ipm",
     tag: "Theme 4 · Programme competencies",
-    title: "Four IPM principles, applied in the field",
-    kicker: "Cultural, mechanical, biological and chemical control",
+    title: "A high-touch, phygital extension model",
+    kicker: "Field visits, village-level meetings and digital learning",
     color: C.field,
     icon: (
       <><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinejoin="round" /><path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" /></>
     ),
-    mechanism:
-      "Regular monitoring by Kisan Advisors kept crop-protection decisions tied to actual field conditions rather than routine pesticide application.",
+    mechanism: (
+      <>
+        <p>
+          Grow Indigo followed a high-touch, phygital extension model to support farmers throughout the cropping
+          cycle. Engagement combined field visits, village-level meetings, and digital learning tools to ensure
+          farmers received timely and practical guidance at every stage.
+        </p>
+        <p style={{ marginTop: 12 }}>
+          Kisan Advisors (KAs) conducted regular field visits from transplanting to harvest. These visits enabled
+          one-on-one support, on-field troubleshooting, and verification of AWD practice, nutrient management, crop
+          protection, and correct application of Oorjit. Farmers received clear recommendations on water levels,
+          fertilizer splits, and implementation steps based on field conditions. Farmers were also supported in
+          post-harvest operations of residue incorporation and baling to avoid burning and promote sustainable
+          residue management.
+        </p>
+        <p style={{ marginTop: 12 }}>
+          Village-level meetings (VLM), held four times during the project period, created opportunities for
+          collective learning. Demonstrations on AWD pipe installation, Oorjit application, and residue management
+          helped farmers understand regenerative ag practices more effectively and encouraged peer learning. In all
+          VLMs, the participation of a Biologicals team member was ensured to explain to farmers the benefits of
+          using biological products, including Oorjit. Leaflets were distributed among farmers to create awareness
+          about various biological products.
+        </p>
+        <p style={{ marginTop: 12 }}>
+          To extend knowledge beyond the field, Grow Indigo also used its digital learning platform, on{" "}
+          <a
+            href="https://www.youtube.com/@growindigoindia"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: C.water, textDecoration: "underline" }}
+          >
+            YouTube
+          </a>{" "}
+          featuring simple, vernacular videos on regenerative agriculture, water-saving methods, soil health, and
+          climate-smart practices. This provided continuous learning support that farmers could access anytime.
+        </p>
+        <p style={{ marginTop: 12 }}>
+          Together, these field interactions, group sessions, and digital resources created a strong handholding
+          ecosystem. The combined approach improved farmer awareness, encouraged consistent adoption of
+          regenerative practices, and strengthened overall implementation quality across the project.
+        </p>
+      </>
+    ),
     why: [],
-    benefits: IPM.map(([k, v]) => `${k} - ${v}`),
+    benefits: [],
   },
 ];
 
@@ -1089,9 +1123,9 @@ function InterventionCard({ item }) {
               style={{ overflow: "hidden" }}
             >
               <motion.div variants={vStagger(0.06, 0.08)} initial="hidden" animate="show">
-                <motion.p variants={vFadeUp} className="mt-5" style={{ lineHeight: 1.7, fontSize: 14.5, color: C.ink }}>
+                <motion.div variants={vFadeUp} className="mt-5" style={{ lineHeight: 1.7, fontSize: 14.5, color: C.ink }}>
                   {item.mechanism}
-                </motion.p>
+                </motion.div>
                 {item.why?.length > 0 && (
                   <div className="mt-5 pt-4" style={{ borderTop: `1px solid ${C.line}` }}>
                     {item.why.map(([k, v]) => (
@@ -1107,7 +1141,7 @@ function InterventionCard({ item }) {
           )}
         </AnimatePresence>
 
-        <ul className="mt-6 space-y-2">
+        <ul className={item.benefits.length ? "mt-6 space-y-2" : ""}>
           {item.benefits.map((b) => (
             <motion.li
               key={b}
@@ -1173,10 +1207,8 @@ const ROLES = [
     "Manual measurement of water level in fields",
   ]],
   ["Scientists", [
-    "Reviewed and validated field data for methodological accuracy",
-    "Scientific oversight on agronomy methodologies and regenerative protocols",
-    "Quality checks on KML mapping of farmer fields",
-    "GHG emission quantification and water-saving assessments from field-level data",
+    "Quality checks in KML mapping of farmer fields, monitoring of field activities verified through remote sensing by the RS team",
+    "GHG emission quantification, water-saving assessment and nitrogen reduction",
   ]],
   ["Engineering Team", [
     "Upgradation and maintainance of  FieldKhatta app and S3 Sutra",
@@ -1187,7 +1219,7 @@ const ROLES = [
 
 const WORKFLOW = [
   ["Kisan Advisor visits the farmer", "On-field engagement and practice verification"],
-  ["Capability building on interventions", "Training on AWD, CRM and biological inputs"],
+  ["Capability building on interventions", "AWD, CRM, Pest management, Fertilizer management giving awareness about using biological inputs"],
   ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhatta/ODK"],
   ["QC of field-reported data by scientists", "Methodological review and validation"],
   ["Procurement audit trail", "End-to-end record captured in S3 Sutra"],
@@ -1431,7 +1463,7 @@ function GovernanceSection() {
     <Section id="governance">
       <SectionHead
         index="04"
-        title="Who did what, and how it was checked"
+        title="Program Governance and Implementation"
         lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest Business team, keeping the programme aligned to Nestle's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
@@ -1442,7 +1474,7 @@ function GovernanceSection() {
       <div className="mt-16">
         <Reveal>
           <h3 className="ch-display text-2xl md:text-3xl" style={{ color: C.field, fontWeight: 700 }}>
-            Monitoring, reporting and verification
+            Monitoring, Reporting and Verification
           </h3>
         </Reveal>
 
@@ -1450,15 +1482,15 @@ function GovernanceSection() {
           <Reveal>
             <Eyebrow>Subtopic 1</Eyebrow>
             <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
-              Monitoring and measurement
+              Monitoring and Measurement
             </h4>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
               Grow Indigo implemented a structured, phygital monitoring system that combined regular field-level
-              observations with digital data capture to ensure accuracy, traceability and strong verification.
+              observations with digital data capture to ensure accuracy, traceability and verification.
               Throughout the season, Kisan Advisors conducted periodic field visits to monitor crop growth, AWD
-              adoption, verify nutrient applications and update farmer diaries. Farmer information, field boundary
+              monitoring, verify nutrient applications and update farmer diaries. Farmer information, field boundary
               geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
-              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>. The agronomist and scientific
+              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>. The agronomist and science
               team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
               consistency to ensure reliable inputs for GHG accounting. Post-harvest and during procurement,{" "}
               <strong style={{ color: C.ink }}>S3 Sutra</strong> enabled traceability of low-emission paddy.
@@ -1484,7 +1516,7 @@ function GovernanceSection() {
                 <img src={trac} alt="S3 Sutra traceability flow from farmer groups to trading to miller" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
               </div>
               <div style={{ padding: "16px 22px" }}>
-                <div style={{ fontSize: 12.5, color: C.mute }}>Farm-to-miller traceability flow, logged in S3 Sutra</div>
+                <div style={{ fontSize: 12.5, color: C.mute }}>Farm-to-miller traceability flow, Node-to-node view</div>
               </div>
             </div>
           </Reveal>
@@ -1610,7 +1642,7 @@ const AWD_BENEFITS = [
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of paddy, a globally significant agricultural emission source",
-    "Project delivered 771.47 kg CO₂e/MT reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT",
+    "Project delivered 771.41 kg CO₂e/MT reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1931,7 +1963,7 @@ const SEASON_HEADLINE = [
   {
     label: "GHG emission reduction", value: 58, prefix: "~ ", suffix: "%", tone: C.field,
     detail: [
-      ["771.47", "kg CO₂e/MT reduced · headline (corrected nursery)"],
+      ["771.41", "kg CO₂e/MT reduced · headline (corrected nursery)"],
       ["784.87", "kg CO₂e/MT reduced · excluding nursery (~59%)"],
       ["764.78", "kg CO₂e/MT reduced · including gross nursery (~58%)"],
     ],
@@ -2073,7 +2105,7 @@ function ResultsSection() {
               main-field crops.
             </p>
             <Stagger className="mt-5 grid grid-cols-3 gap-3" stagger={0.1}>
-              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.47", "net reduction"]].map(([v, l]) => (
+              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.41", "net reduction"]].map(([v, l]) => (
                 <motion.div key={l} variants={vScaleIn} whileHover={{ y: -4 }} className="p-3 rounded" style={{ background: C.paperDim }}>
                   <div className="ch-display" style={{ fontWeight: 800, color: C.field, fontSize: "1.35rem" }}>{v}</div>
                   <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT</div>
@@ -2640,7 +2672,7 @@ const SEQUENCE = [
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.47 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform V3.0 · 5 farmers sampled",
     photo: photoSsimp,
     ratio: "3 / 4",
@@ -3083,7 +3115,7 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of 771.47 kg CO₂e/MT (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 13.40 kg CO₂e/MT.",
+  "Headline GHG reduction of 771.41 kg CO₂e/MT (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT and includes the corrected nursery emission of 13.40 kg CO₂e/MT.",
   "Quantification also yields 784.87 kg CO₂e/MT (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT (~58%) using gross nursery emissions - all three appear in Chart 1 rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
