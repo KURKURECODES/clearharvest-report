@@ -1869,7 +1869,7 @@ function makeWaterfallAxisTick(pctMap) {
 }
 
 const EMISSIONS_AXIS_TICK = makeWaterfallAxisTick({ "Reduction": "58%" });
-const NITROGEN_AXIS_TICK = makeWaterfallAxisTick({ "Reduction": "11%" });
+const NITROGEN_AXIS_TICK = makeWaterfallAxisTick({ "Reduction": "29%" });
 const WATER_AXIS_TICK = makeWaterfallAxisTick({ "Saving": "67%" });
 
 /** Draws only the [base, top] slice of the bar - recharts positions this
@@ -1894,9 +1894,9 @@ const EMISSIONS_WATERFALL = buildWaterfall([
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
-  { name: "Farmer Practice", type: "total", value: 62.4, fill: C.clay, note: "Business-as-usual application in the project area" },
-  { name: "Reduction", type: "delta", value: -7, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
-  { name: "Project", type: "total", value: 55.4, fill: C.leaf, note: "11% below BAU · above the PJTSAU recommended dose" },
+  { name: "Nestle Baseline", type: "total", value: 78.1, fill: C.clay, note: "Nestlé's baseline application rate in the project area" },
+  { name: "Reduction", type: "delta", value: -22.7, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
+  { name: "Project", type: "total", value: 55.4, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
 ]);
 
 const WATER_WATERFALL = buildWaterfall([
@@ -2054,7 +2054,7 @@ function ResultsSection() {
           <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={NITROGEN_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
-            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 70]} />
+            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 85]} />
             <Tooltip content={<ChartTip unit="kg N/acre" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
             <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400} animationBegin={200}>
               <LabelList dataKey="top" content={waterfallLabelContent(NITROGEN_WATERFALL)} />
@@ -2125,8 +2125,8 @@ function ResultsSection() {
           <div className="p-7 rounded-lg h-full" style={{ background: C.field }}>
             <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
-              Nitrogen application rate was reduced from the farmers' business-as-usual practice of 62.4 kg N/acre in
-              the region to 55.4 kg N/acre - a 11% reduction. This was driven primarily by Oorjit granules' enhanced
+              Nitrogen application rate was reduced from Nestlé's baseline of 78.1 kg N/acre in the region to
+              55.4 kg N/acre - a 29% reduction. This was driven primarily by Oorjit granules' enhanced
               fertilizer-use efficiency, combined with AWD irrigation.
             </p>
           </div>
