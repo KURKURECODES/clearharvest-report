@@ -991,7 +991,8 @@ const INTERVENTIONS = [
       ["Stacking", "Paired with AWD, better aeration compounds the nutrient-uptake gain."],
     ],
     benefits: [
-      "Steady biologically driven input supply Up to 20% less dependency on synthetic fertilizer",
+      "Steady biologically driven Nitrogen (N) and Potassium (K) supply through Oorjit; up to 20% less dependency on synthetic fertilizer",
+      "Supply of biologically driven Phosphorous (P) through Grow Phos; up to 30-40% less dependency on Phosphatic chemicals",
       "Improved soil structure - aeration, moisture retention, root penetration",
       "Lower urea requirement, subject to soil condition, crop stage and agronomic advice",
       "Consistent vegetative growth and quality grain formation",
@@ -1219,7 +1220,7 @@ const ROLES = [
 
 const WORKFLOW = [
   ["Kisan Advisor visits the farmer", "On-field engagement and practice verification"],
-  ["Capability building on interventions", "AWD, CRM, Pest management, Fertilizer management giving awareness about using biological inputs"],
+  ["Capability building on interventions", "AWD, CRM, Pest management and Fertilizer management giving awareness about using biological inputs"],
   ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhatta/ODK"],
   ["QC of field-reported data by scientists", "Methodological review and validation"],
   ["Procurement audit trail", "End-to-end record captured in S3 Sutra"],
