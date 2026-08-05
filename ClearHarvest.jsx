@@ -1683,7 +1683,6 @@ const AWD_BENEFITS = [
   ]],
   ["Human health", "#B0483C", [
     "Less standing water limits mosquito breeding sites for malaria, Japanese encephalitis and dengue",
-    "Lower fertiliser leaching protects shallow rural wells from nitrate contamination",
     "Ending residue burning and cutting methane improves regional air quality and respiratory health",
     "Resilient livelihoods reduce rural distress and protect food, income and nutrition security",
   ]],
