@@ -52,10 +52,8 @@ import photoBd2 from "./src/assets/bd2.png";
 import a1 from "./src/assets/a1.png";
 import a2 from "./src/assets/a2.png";
 import a3 from "./src/assets/a3.png";
-import a4 from "./src/assets/a4.png";
 import a5 from "./src/assets/a5.png";
 import a6 from "./src/assets/a6.png";
-import a7 from "./src/assets/a7.png";
 import a8 from "./src/assets/a8.png";
 import a9 from "./src/assets/a9.png";
 import a10 from "./src/assets/a10.png";
@@ -1687,10 +1685,7 @@ const AWD_BENEFITS = [
     "Resilient livelihoods reduce rural distress and protect food, income and nutrition security",
   ]],
   ["Water governance", C.waterDeep, [
-    "A simple, low-cost perforated tube lets farmers measure and manage their own water use",
-    "Enables demand-side governance at village and watershed level, supporting collective irrigation planning",
-    "Builds farmer capability in water-use scheduling as climate variability increases",
-    "Creates a traceable, auditable record of water savings for climate finance and Scope 3 reporting",
+    "Creates a traceable, auditable record of water savings",
   ]],
 ];
 
@@ -2507,7 +2502,7 @@ function SourcingSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   15 · FIELD EVIDENCE (Annexures 1–10)
+   15 · FIELD EVIDENCE (Annexures 1–8)
    Cards reveal in batched rows. Photos already carry a baked-in geotag
    stamp; scans use "contain" so no part of the document is cropped off.
 ---------------------------------------------------------------------------- */
@@ -2515,13 +2510,11 @@ const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", img: a1, fit: "cover", position: "center 22%", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
   { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
-  { n: 4, title: "Feedback form (second respondent)", img: a4, fit: "contain", caption: "Second signed stakeholder feedback record retained in the audit pack." },
-  { n: 5, title: "Nestle team field visits", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
-  { n: 6, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
-  { n: 7, title: "Harvest in action", img: a7, fit: "cover", position: "center 58%", caption: "Combine harvesting a project plot in the Bodhan–Chandur road cluster." },
-  { n: 8, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
-  { n: 9, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 10, title: "Procurement form and receipt", img: a10, fit: "contain", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 4, title: "Nestle team field visits", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 5, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
+  { n: 6, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
+  { n: 7, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
+  { n: 8, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
 ];
 
 function EvidenceSection() {
