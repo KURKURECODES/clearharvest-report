@@ -1174,7 +1174,6 @@ function InterventionsSection() {
       <SectionHead
         index="03"
         title="The four themes"
-        lede="Water, soil, residue and crop protection were addressed together - each supported by the same field team, the same digital record and the same farmer."
       />
       <div ref={grid} className="grid gap-5 lg:grid-cols-4">
         {INTERVENTIONS.map((it) => <InterventionCard key={it.key} item={it} />)}
