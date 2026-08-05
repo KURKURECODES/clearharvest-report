@@ -2926,12 +2926,6 @@ function TestimonialsSection() {
       <div ref={grid} className="grid gap-5 md:grid-cols-3">
         {TESTIMONIALS.map((t, i) => <TestimonialCard key={t.id} t={t} index={i} />)}
       </div>
-      <Reveal delay={0.1} className="mt-5">
-        <div className="ch-data p-4 rounded" style={{ fontSize: 11, color: C.mute, background: C.paperDim, lineHeight: 1.7 }}>
-          Translations were checked against the recordings by the field team. Where a farmer used a local term with no
-          direct English equivalent, the subtitle keeps the sense rather than the literal words.
-        </div>
-      </Reveal>
     </Section>
   );
 }
@@ -2958,9 +2952,9 @@ const GALLERY = {
     blurb: "Each enrolled farmer received 6 kg of Oorjit granules and 20 kg of Grow Phos - adequate for one acre - plus a pani pipe, all free of cost. Every handover was photographed and logged against the farmer's record.",
     shots: [
       { label: "Oorjit and Grow Phos handover, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.57334°N 77.930693°E", when: "Thu, 18/12/2025 10:49 AM" }, src: photoDobs3 },
-      { label: "Input bags at village collection point, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.573345°N 77.930688°E", when: "Thu, 18/12/2025 9:56 AM" }, src: photoDobs },
+      { label: "Oorjit and Grow Phos handover, Ghanpur", stamp: { place: "Ghanpur, Telangana, India", coords: "18.573345°N 77.930688°E", when: "Thu, 18/12/2025 9:56 AM" }, src: photoDobs },
       { label: "Oorjit and Grow Phos handover, Jalalpur", stamp: { place: "Jalalpur, Telangana, India", coords: "18.509155°N 77.968163°E", when: "Tue, 16/12/2025 12:11 PM" }, src: photoDob2 },
-      { label: "Input handover, Sangam", stamp: { place: "Nizamabad, Telangana, India", coords: "18.602126°N 77.914212°E", when: "Wed, 24/12/2025 10:37 AM" }, src: photoDobs4 },
+      { label: "Oorjit and Grow Phos handover, Sangam", stamp: { place: "Nizamabad, Telangana, India", coords: "18.602126°N 77.914212°E", when: "Wed, 24/12/2025 10:37 AM" }, src: photoDobs4 },
     ],
   },
   diary: {
@@ -3020,10 +3014,10 @@ function PhotographySection() {
         >
           <p className="mb-6" style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute, maxWidth: "76ch" }}>{active.blurb}</p>
           <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={vStagger(0.06)} initial="hidden" animate="show">
-            {active.shots.map((s) => (
-              <motion.div key={s.label} variants={vFadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: EASE }}>
+            {active.shots.map((s, i) => (
+              <motion.div key={`${s.label}-${i}`} variants={vFadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: EASE }}>
                 <PhotoSlot label={s.label} tall={s.tall} src={s.src} alt={s.label} fit="scale-down" />
-                <div className="ch-data mt-2" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.5 }}>{s.label}</div>
+                <div className="ch-data mt-2" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.5, textAlign: "center" }}>{s.label}</div>
               </motion.div>
             ))}
           </motion.div>
