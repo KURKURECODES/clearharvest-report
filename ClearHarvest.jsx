@@ -2647,9 +2647,9 @@ const SEQUENCE = [
     photo: photoMedia11,
   },
   {
-    n: "07", title: "Regular water-level monitoring", tag: "Continuous", color: C.waterDeep,
-    body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event.",
-    meta: "Manual measurement · farmer diaries · FieldKhatta app",
+    n: "07", title: "Water level monitoring", tag: "Continuous", color: C.waterDeep,
+    body: "The spine of the whole intervention. Kisan Advisors measured water depth in the AWD tube through the season and farmers maintained dated diaries - irrigation date, method, source and re-irrigation interval for every single event. Water level data was taken for 30 program farmers on a daily basis.",
+    meta: "Manual measurement · farmer diaries",
     photo: photoWaterLevel,
     ratio: "3 / 4",
     objectPosition: "top",
@@ -2787,8 +2787,8 @@ function SequenceSection() {
     <Section id="sequence" tone="tint">
       <SectionHead
         index="05"
-        title="How the season ran, start to finish"
-        lede="Eleven steps from kick-off to audited report. Each one produced a record - a photograph, a signed form, a diary entry or a digital log - and those records are what the quantification ultimately rests on."
+        title="Program journey"
+        lede="From program kick-off to the final audit, each stage generates a verifiable record - such as a photograph, signed form, diary entry, or digital log. Together, these records form the evidence base for the final quantification"
       />
       <div ref={scope} className="relative">
         {/* the rail */}
