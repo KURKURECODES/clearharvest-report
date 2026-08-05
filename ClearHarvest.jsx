@@ -1680,7 +1680,6 @@ const AWD_BENEFITS = [
     "Fewer irrigation events mean less pump runtime - lower electricity and diesel use",
     "Reduced pumping load cuts wear and maintenance on irrigation infrastructure",
     "At national scale, wide AWD adoption can ease peak agricultural electricity demand",
-    "Indirect savings across the supply chain as fertiliser manufacturing and transport fall",
   ]],
   ["Human health", "#B0483C", [
     "Less standing water limits mosquito breeding sites for malaria, Japanese encephalitis and dengue",
