@@ -1580,7 +1580,7 @@ function GovernanceSection() {
             </h4>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
               GHG quantification was carried out post-harvest using the{" "}
-              <strong style={{ color: C.ink }}>Cool Farm Platform V3.0 (CFP)</strong>. A third-party auditor
+              <strong style={{ color: C.ink }}>Cool Farm Platform v3.0 (CFP)</strong>. A third-party auditor
               subsequently reviewed the evidence and digital records, with a full digital audit trail maintained
               in <strong style={{ color: C.ink }}>S3 Sutra</strong>.
             </p>
@@ -2020,7 +2020,7 @@ function ResultsSection() {
       <SectionHead
         index="09"
         title="Quantified, sampled, audited"
-        lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform V3.0 and was reviewed by a third-party auditor."
+        lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform v3.0 and was reviewed by a third-party auditor."
       />
 
       <SeasonHeadlineResults />
@@ -2679,8 +2679,8 @@ const SEQUENCE = [
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform V3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
-    meta: "Cool Farm Platform V3.0 · 5 farmers sampled",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform v3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
+    meta: "Cool Farm Platform v3.0 · 5 farmers sampled",
     photo: photoSsimp,
     ratio: "3 / 4",
     fit: "contain",
