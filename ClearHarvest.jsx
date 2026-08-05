@@ -1246,12 +1246,12 @@ const REMOTE_SENSING = [
   [
     "Crop Sowing Practice Validation",
     "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programmes. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
-    rs3,
+    rs4,
   ],
   [
     "Crop Residue Burning Detection",
     "Post-harvest residue burning, common after rice harvest, contributes to air pollution, greenhouse-gas emissions, nutrient loss and soil degradation, making timely detection essential. Burning is monitored by integrating satellite imagery, crop-classification outputs and cloud-based processing in Google Earth Engine (GEE). Multi-temporal post-harvest imagery is processed with spectral indices that enhance contrast between burned and unburned surfaces. The burned-area map is overlaid on the field-boundary database, and burned pixels within each rice field are aggregated to estimate total burned area and the percentage of each field affected - identifying partially and completely burned fields and building spatially explicit inventories. Ground-truth and field-survey data validate the detected burn scars and the reliability of the estimates.",
-    rs4,
+    rs5,
   ],
 ];
 
@@ -1562,7 +1562,7 @@ function GovernanceSection() {
             <Reveal delay={0.15}>
               <div className="mt-6 rounded-lg overflow-hidden" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
                 <div style={{ background: C.paperDim, aspectRatio: "16 / 9" }}>
-                  <img src={rs5} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
+                  <img src={rs3} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
                 </div>
                 <div style={{ padding: "16px 22px" }}>
                   <div style={{ fontSize: 12.5, color: C.mute }}>Rice residue-burning detection, monitored in Google Earth Engine</div>
