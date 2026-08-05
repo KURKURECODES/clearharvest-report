@@ -63,11 +63,17 @@ const EASE = [0.22, 0.61, 0.36, 1];
 const FONT_DATA = "'IBM Plex Mono', ui-monospace, monospace";
 
 const VILLAGES = [
-  { key: "ghanpur",    name: "Ghanpur",    lon: 77.9271, lat: 18.5734, block: "Chandur" },
-  { key: "sangam",     name: "Sangam",     lon: 77.9121, lat: 18.6038, block: "Chandur" },
-  { key: "kunipoor",   name: "Kunipoor",   lon: 77.9406, lat: 18.5111, block: "Varni"   },
-  { key: "srinagar",   name: "Srinagar",   lon: 77.9253, lat: 18.5371, block: "Varni"   },
-  { key: "bhavanipet", name: "Bhavanipet", lon: 77.9251, lat: 18.5801, block: "Chandur" },
+  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, block: "Varni"   },
+  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, block: "Chandur" },
+  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, block: "Varni"   },
+  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, block: "Varni"   },
+  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, block: "Varni"   },
+  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, block: "Varni"   },
+  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, block: "Varni"   },
+  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, block: "Chandur" },
+  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, block: "Varni"   },
+  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, block: "Varni"   },
+  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, block: "Varni"   },
 ];
 
 /* Camera stops. Bounds beat hardcoded zooms - they stay correct on any
@@ -438,8 +444,8 @@ function Panel({ level, village, field, hoverField }) {
           {level === "india" ? "Where the paddy comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
         </h3>
         <div className="mt-5">
-          <Row k="Mapped fields" v={326} accent={C.leaf} />
-          <Row k="Villages" v={11} />
+          <Row k="Mapped fields" v={TOTAL_FIELDS} accent={C.leaf} />
+          <Row k="Villages" v={VILLAGES.length} />
           <Row k="Blocks" v="Varni & Chandur" />
           <Row k="Emission reduction" v="771.41 kg CO₂e/MT of paddy" accent={C.leaf} />
         </div>
@@ -489,7 +495,7 @@ export default function LocationSection() {
             Every field on the map
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
-            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All 326 enrolled
+            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {TOTAL_FIELDS} enrolled
             fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
