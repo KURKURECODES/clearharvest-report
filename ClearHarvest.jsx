@@ -1458,7 +1458,7 @@ function GovernanceSection() {
               Throughout the season, Kisan Advisors conducted periodic field visits to monitor crop growth, AWD
               adoption, verify nutrient applications and update farmer diaries. Farmer information, field boundary
               geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
-              the <strong style={{ color: C.ink }}>FieldKhata application</strong>. The agronomist and scientific
+              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>. The agronomist and scientific
               team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
               consistency to ensure reliable inputs for GHG accounting. Post-harvest and during procurement,{" "}
               <strong style={{ color: C.ink }}>S3 Sutra</strong> enabled traceability of low-emission paddy.
