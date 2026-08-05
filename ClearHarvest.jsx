@@ -1499,8 +1499,7 @@ function GovernanceSection() {
               geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
               the <strong style={{ color: C.ink }}>FieldKhatta application</strong>. The agronomist and science
               team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
-              consistency to ensure reliable inputs for GHG accounting. Post-harvest and during procurement,{" "}
-              <strong style={{ color: C.ink }}>S3 Sutra</strong> enabled traceability of low-emission paddy.
+              consistency to ensure reliable inputs for GHG accounting.
             </p>
             <div className="mt-7"><WorkflowStepper /></div>
           </Reveal>
