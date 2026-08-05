@@ -2615,7 +2615,7 @@ const SEQUENCE = [
     photo: photoKickoff,
   },
   {
-    n: "02", title: "First village-level meeting", tag: "VLM 1", color: C.water,
+    n: "02", title: "First village-level meeting", tag: "VLM 1", hideTag: true, color: C.water,
     body: "Farmers were introduced to the programme in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would and would not require of them. Enrolment was voluntary throughout.",
     meta: "Telugu-language sessions · leaflets distributed",
     photo: photoVlm1,
@@ -2629,19 +2629,20 @@ const SEQUENCE = [
     objectPosition: "center 20%",
   },
   {
-    n: "04", title: "Second village-level meeting", tag: "VLM 2", color: C.water,
+    n: "04", title: "Second village-level meeting", tag: "VLM 2", hideTag: true, color: C.water,
     body: "A working session rather than an introduction: live demonstration of correct pani pipe placement in the bund, and how to read the fall in water depth. Biological-team members walked through application timing.",
     meta: "Hands-on demonstration",
     photo: photoVlm2,
+    fit: "scale-down",
   },
   {
-    n: "05", title: "Third village-level meeting", tag: "VLM 3", color: C.water,
+    n: "05", title: "Third village-level meeting", tag: "VLM 3", hideTag: true, color: C.water,
     body: "Mid-season review at crop stage: nutrient splits, weed and pest pressure, and troubleshooting for farmers whose fields were drying faster or slower than the schedule expected.",
     meta: "Crop-stage review · nutrient split guidance",
     photo: photoVlm3,
   },
   {
-    n: "06", title: "Fourth village-level meeting", tag: "VLM 4", color: C.water,
+    n: "06", title: "Fourth village-level meeting", tag: "VLM 4", hideTag: true, color: C.water,
     body: "Pre-harvest planning: residue handling, baling logistics, and what would be required at procurement. Farmers who had not previously baled were connected to balers and to local gaushalas as buyers.",
     meta: "Residue planning · procurement briefing",
     photo: photoMedia11,
@@ -2713,9 +2714,11 @@ function SequenceNode({ item, i }) {
         transition={{ duration: 0.3, ease: EASE }}
       >
         <div className="p-6 rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}`, borderLeft: flip ? `3px solid ${item.color}` : undefined, borderRight: flip ? undefined : `3px solid ${item.color}` }}>
-          <div className={`flex items-center gap-3 ${flip ? "" : "md:justify-end"}`}>
-            <Eyebrow color={item.color}>{item.tag}</Eyebrow>
-          </div>
+          {!item.hideTag && (
+            <div className={`flex items-center gap-3 ${flip ? "" : "md:justify-end"}`}>
+              <Eyebrow color={item.color}>{item.tag}</Eyebrow>
+            </div>
+          )}
           <h4 className="ch-display mt-3 text-xl" style={{ color: C.field, fontWeight: 700 }}>{item.title}</h4>
           <p className="mt-3" style={{ fontSize: 13.5, lineHeight: 1.7, color: C.mute }}>{item.body}</p>
           <div className="ch-data mt-4 pt-3" style={{ fontSize: 10.5, color: item.color, lineHeight: 1.6, borderTop: `1px solid ${C.line}` }}>
