@@ -2146,26 +2146,28 @@ const TIMELINE = [
     ["Nursery planting", 1, 1, "Seedlings raised on ~10% of land for ~21 days"],
     ["Transplanting", 2, 1, "Post-emergence herbicide applied within 3 days of transplanting"],
   ]],
-  ["Regen interventions", C.water, [
+  ["Farmer Engagement", C.clay, [
+    ["1st VLM", 3, 1, "Demonstration of pani pipe installation"],
+    ["2nd VLM", 4, 1, "Oorjit and Grow Phos application"],
+    ["3rd & 4th VLM", 5, 2, "Residue management and season review"],
+  ]],
+  ["Regen Interventions", C.water, [
     ["Pani pipe installed", 3, 1, "10–15 days after transplanting, across all project plots"],
     ["AWD monitoring", 3, 3, "Manual water-level measurement guiding every irrigation cycle"],
   ]],
+  ["Field monitoring", C.waterDeep, [["Data collection for agronomy, fertiliser & water", 3, 5, "Captured in FieldKhatta app with geofenced field boundaries"]]],
   ["Nutrition", C.field, [
     ["1st split", 3, 1, "~15 DAT · urea + DAP with 6 kg/acre Oorjit and 20 kg Grow Phos"],
     ["2nd split", 5, 1, "~65 DAT · panicle initiation, typically with fungicide and insecticide"],
     ["3rd split", 6, 1, "~75 DAT · supports grain development"],
   ]],
-  ["Harvest", C.husk, [["Harvest", 6, 1, "Crop matured through the season, harvest from mid-October onward"]]],
-  ["Field monitoring", C.waterDeep, [["Data collection for agronomy, fertiliser & water", 3, 5, "Captured in FieldKhatta app with geofenced field boundaries"]]],
-  ["Farmer engagement", C.clay, [
-    ["1st VLM", 3, 1, "Demonstration of pani pipe installation"],
-    ["2nd VLM", 4, 1, "Oorjit and Grow Phos application"],
-    ["3rd & 4th VLM", 5, 2, "Residue management and season review"],
-  ]],
-  ["Procurement & compliance", C.mute, [
+  ["Procurement", C.mute, [
     ["Procurement & traceability", 6, 2, "Farm-to-mill audit trail captured in S3 Sutra"],
+  ]],
+  ["GHG quantification & Third party verification", "#B0483C", [
     ["Audit & report submission", 8, 1, "Independent verification and final delivery"],
   ]],
+  ["Harvest", C.husk, [["Harvest", 7, 1, "Crop matured through the season, harvest from mid-April onward"]]],
 ];
 
 const STAGES = [
