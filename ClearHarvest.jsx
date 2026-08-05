@@ -44,7 +44,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import LocationSection from "./ClearHarvestMap.jsx";
 import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
 import growIndigoLogo from "./src/assets/gilogo1.png";
-import growIndigoOverview from "./src/assets/growindigo-overview.jpg";
+import growIndigoOverview from "./src/assets/np.png";
 import photoVlm2 from "./src/assets/vlm2.jpg";
 import photoVlm3 from "./src/assets/3vlm.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
