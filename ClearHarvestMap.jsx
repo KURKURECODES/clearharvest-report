@@ -20,7 +20,7 @@
                           REPLACE with your FieldKhatta app KML export - convert
                           Placemark -> Feature and keep these properties:
                           id, farmer, acres, village, villageName, block,
-                          awd, crm.
+                          awd, crm, procurementMt.
 
    BASEMAP AND INDIAN BOUNDARIES - read before shipping
      The default style below (CARTO Positron) is OSM-derived and depicts the
@@ -55,12 +55,12 @@ import FIELDS_FC from "./fields.geo.json";
 const BASEMAP_STYLE = "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
 
 const C = {
-  ink: "#0A1F16", field: "#0E5B33", leaf: "#4FA65B", water: "#1E88A8",
-  husk: "#C98A2E", clay: "#8C5A3C", paper: "#EEF3EC", paperDim: "#DFE8DD",
-  line: "#C3D3C1", mute: "#5C7264",
+  ink: "#241C16", field: "#A6192E", leaf: "#B3542E", water: "#B8862B",
+  husk: "#E08A34", clay: "#8C5A3C", paper: "#FBF3E8", paperDim: "#F1E3D0",
+  line: "#E1D0B8", mute: "#7C6C5C",
 };
 const EASE = [0.22, 0.61, 0.36, 1];
-const FONT_DATA = "'IBM Plex Mono', ui-monospace, monospace";
+const FONT_DATA = "'Inter', 'Helvetica Neue', Arial, sans-serif";
 
 /* `fields` is the per-village display count, scaled from the real farmer
    rows so the 11 counts sum to the 326 "fields mapped" figure quoted
@@ -68,18 +68,25 @@ const FONT_DATA = "'IBM Plex Mono', ui-monospace, monospace";
    of the geolocated one-row-per-farmer dataset). The map itself still
    draws exactly 300 real, non-overlapping field polygons - see
    fields.geo.json / scripts/gen-fields.cjs. */
+/* `pinLon`/`pinLat` place the district-level label pin; `lon`/`lat` stay the
+   true village coordinate (shown in the village panel and used to frame the
+   camera). The 11 villages sit within a ~7km real cluster, so plotting pins
+   at their true coordinates crams several labels on top of each other at any
+   zoom that still shows all of them. Pins are laid out on a loose, evenly
+   spaced grid instead - still in roughly the right compass direction from
+   one another, just spread enough that every label stays clickable. */
 const VILLAGES = [
-  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, block: "Varni",   fields: 2  },
-  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, block: "Chandur", fields: 37 },
-  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, block: "Varni",   fields: 57 },
-  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, block: "Varni",   fields: 36 },
-  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, block: "Varni",   fields: 65 },
-  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, block: "Varni",   fields: 37 },
-  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, block: "Varni",   fields: 30 },
-  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, block: "Chandur", fields: 23 },
-  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, block: "Varni",   fields: 23 },
-  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, block: "Varni",   fields: 5  },
-  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, block: "Varni",   fields: 11 },
+  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, pinLon: 77.945, pinLat: 18.550, block: "Varni",   fields: 2  },
+  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, pinLon: 77.900, pinLat: 18.585, block: "Chandur", fields: 37 },
+  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, pinLon: 77.970, pinLat: 18.585, block: "Varni",   fields: 57 },
+  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, pinLon: 77.905, pinLat: 18.515, block: "Varni",   fields: 36 },
+  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, pinLon: 77.955, pinLat: 18.515, block: "Varni",   fields: 65 },
+  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, pinLon: 77.925, pinLat: 18.480, block: "Varni",   fields: 37 },
+  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, pinLon: 77.895, pinLat: 18.550, block: "Varni",   fields: 30 },
+  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, pinLon: 77.930, pinLat: 18.625, block: "Chandur", fields: 23 },
+  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, pinLon: 77.985, pinLat: 18.550, block: "Varni",   fields: 23 },
+  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, pinLon: 77.855, pinLat: 18.550, block: "Varni",   fields: 5  },
+  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, pinLon: 77.865, pinLat: 18.515, block: "Varni",   fields: 11 },
 ];
 const MAPPED_FIELDS_TOTAL = VILLAGES.reduce((sum, v) => sum + v.fields, 0); // 326
 
@@ -88,7 +95,10 @@ const MAPPED_FIELDS_TOTAL = VILLAGES.reduce((sum, v) => sum + v.fields, 0); // 3
 const CAMERA = {
   india:     { bounds: [[68.1, 6.7], [97.4, 35.6]], padding: 40 },
   telangana: { bounds: [[77.2, 15.8], [81.8, 19.9]], padding: 56 },
-  district:  { bounds: [[77.5, 18.0], [78.7, 19.0]], padding: 56 },
+  // Tight fit around the actual 11-village cluster (not the full district
+  // boundary) - otherwise all the village pins land crammed into one corner
+  // of the frame and overlap, making them impossible to pick apart or click.
+  district:  { bounds: [[77.83, 18.48], [78.00, 18.64]], padding: 70 },
 };
 const LEVELS = ["india", "telangana", "district", "village"];
 const LEVEL_LABEL = { india: "India", telangana: "Telangana", district: "Nizamabad district", village: "Village" };
@@ -277,11 +287,12 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
     m.setPaintProperty("nz-line", "line-opacity", showDistrict ? 1 : 0);
     m.setPaintProperty("tg-fill", "fill-opacity", level === "india" ? 0.34 : level === "telangana" ? 0.22 : 0.1);
 
-    // all 309 fields render as soon as you're at district level or deeper -
-    // not only after clicking a village pin - so panning/zooming manually
-    // into any village shows its parcels immediately.
-    m.setFilter("fld-fill", showDistrict ? true : ["==", ["get", "village"], ""]);
-    m.setFilter("fld-line", showDistrict ? true : ["==", ["get", "village"], ""]);
+    // Fields only render once a village is picked - at district level we show
+    // just the 11 village pins, so 300 tiny overlapping field polygons don't
+    // clutter the view alongside their labels.
+    const showFields = level === "village";
+    m.setFilter("fld-fill", showFields ? true : ["==", ["get", "village"], ""]);
+    m.setFilter("fld-line", showFields ? true : ["==", ["get", "village"], ""]);
 
     if (level === "village" && village) {
       m.fitBounds(fcBounds(villageFC(village)), { padding: 70, duration: 1800, essential: true });
@@ -310,8 +321,10 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
         ${v.name.toUpperCase()} <span style="opacity:.6">${v.fields}</span>`;
       el.onmouseenter = () => { el.style.transform = "scale(1.07)"; el.style.background = C.field; };
       el.onmouseleave = () => { el.style.transform = "none"; el.style.background = C.ink; };
-      el.onclick = () => onPickVillage(v.key);
-      markers.current.push(new Marker({ element: el }).setLngLat([v.lon, v.lat]).addTo(m));
+      // stop the click from also reaching the map's own click handlers underneath -
+      // without this a pin click could double-fire and fight its own camera move
+      el.onclick = (e) => { e.stopPropagation(); onPickVillage(v.key); };
+      markers.current.push(new Marker({ element: el }).setLngLat([v.pinLon, v.pinLat]).addTo(m));
     });
   }, [level, ready, onPickVillage]);
 
@@ -415,7 +428,7 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Village" v={p.villageName} />
           <Row k="Block" v={p.block} />
           <Row k="Pani pipe" v={p.awd ? "Installed & logged" : "Not enrolled"} accent={p.awd ? C.leaf : "rgba(255,255,255,.5)"} />
-          <Row k="Residue" v={p.crm ? "Baled - no burning" : "Retained in field"} accent={p.crm ? C.husk : undefined} />
+          <Row k="Procurement (in MT)" v={p.procurementMt} accent={p.procurementMt ? C.husk : undefined} />
         </div>
         <p className="mt-5" style={{ fontFamily: FONT_DATA, fontSize: 10.5, color: "rgba(255,255,255,.45)", lineHeight: 1.7 }}>
           Boundary captured by the Kisan Advisor in FieldKhatta app and quality-checked by the scientific team before GHG accounting.

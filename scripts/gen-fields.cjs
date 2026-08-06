@@ -180,6 +180,7 @@ villageList.forEach((v) => {
         block: v.block,
         awd: String(r["AWD Installed"]).trim().toLowerCase() === "yes",
         crm: String(r.CRM).trim().toLowerCase() === "yes",
+        procurementMt: Math.round((+r["Procurement qty."] || 0) / 10),
       },
       geometry: fieldPolygon(lon, lat, acres, r.Farmer_ID || id, radii[i]),
     });

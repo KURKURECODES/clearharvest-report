@@ -98,23 +98,23 @@ gsap.registerPlugin(ScrollTrigger);
    young leaf. Tailwind handles layout; brand colour lives in style objects.
 ---------------------------------------------------------------------------- */
 const C = {
-  ink: "#0A1F16",
-  inkSoft: "#12291F",
-  field: "#0E5B33",
-  leaf: "#4FA65B",
-  water: "#1E88A8",
-  waterDeep: "#12566B",
-  husk: "#C98A2E",
+  ink: "#241C16",
+  inkSoft: "#3A2C22",
+  field: "#A6192E",
+  leaf: "#B3542E",
+  water: "#B8862B",
+  waterDeep: "#4A2F1E",
+  husk: "#E08A34",
   clay: "#8C5A3C",
-  paper: "#EEF3EC",
-  paperDim: "#DFE8DD",
-  line: "#C3D3C1",
-  mute: "#5C7264",
+  paper: "#FBF3E8",
+  paperDim: "#F1E3D0",
+  line: "#E1D0B8",
+  mute: "#7C6C5C",
 };
 
-const FONT_DISPLAY = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
-const FONT_BODY = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
-const FONT_DATA = "'Times New Roman', Times, Georgia, 'Liberation Serif', serif";
+const FONT_DISPLAY = "'Archivo', 'Helvetica Neue', Arial, sans-serif";
+const FONT_BODY = "'Inter', 'Helvetica Neue', Arial, sans-serif";
+const FONT_DATA = "'Inter', 'Helvetica Neue', Arial, sans-serif";
 
 /** Framer's shared easing curve - one curve across the whole site keeps the
  *  motion language coherent no matter which library is driving it. */
@@ -124,6 +124,8 @@ const GSAP_EASE = "power3.out";
 function GlobalStyle() {
   return (
     <style>{`
+      @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
       .ch-root { font-family: ${FONT_BODY}; background: ${C.paper}; color: ${C.ink};
         overflow-x: hidden; }
       .ch-root p { text-align: justify; text-justify: inter-word; }
@@ -425,7 +427,9 @@ function GeoStamp({ place, coords, when }) {
    The programme turns on one object: a perforated pani pipe sunk into the paddy,
    read by hand. Here it becomes the scroll indicator, driven by a scrubbed
    ScrollTrigger rather than a scroll listener, so it stays glued to the
-   scrollbar on momentum devices.
+   scrollbar on momentum devices. Scoped to the "sequence" (Program journey)
+   section only - shown full-page it read as a global progress bar, which was
+   confusing since it didn't track overall scroll position.
 ---------------------------------------------------------------------------- */
 function AwdGauge() {
   const water = useRef(null);
@@ -435,25 +439,27 @@ function AwdGauge() {
 
   const scope = useGsapContext((self, el) => {
     const TOP = 10, H = 168, BOTTOM = TOP + H;
+    const trigger = document.getElementById("sequence");
+    if (!trigger) return;
 
     gsap.matchMedia().add(
       { ok: "(min-width: 1024px) and (prefers-reduced-motion: no-preference)" },
       () => {
-        // entrance: the tube slides in once the reader is past the hero
+        // entrance/exit: the tube only shows while the "Program journey" section is in view
         gsap.fromTo(
           el,
           { autoAlpha: 0, x: 30 },
           {
             autoAlpha: 1, x: 0, duration: 0.9, ease: GSAP_EASE,
-            scrollTrigger: { trigger: document.body, start: "top+=520 top", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger, start: "top 85%", end: "bottom 15%", toggleActions: "play reverse play reverse" },
           }
         );
 
-        // wetting–drying: three full cycles across the document, never fully dry
+        // wetting–drying: three full cycles across the section, never fully dry
         ScrollTrigger.create({
-          trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
+          trigger,
+          start: "top bottom",
+          end: "bottom top",
           scrub: 0.4,
           onUpdate: (st) => {
             const cycle = (Math.sin(st.progress * Math.PI * 6 - Math.PI / 2) + 1) / 2;
@@ -613,7 +619,7 @@ const VERTICALS = [
     sub: "Nature-based crop inputs",
     tone: C.leaf,
     body:
-      "Grow Indigo Biologicals offers world class innovative Biological and safe Agri input formulations improving farmers livelihood by adopting Sustainable, regenerative and climate resilient agriculture. Product offerings are for complete crop duration from Seed Treatment to soil enrichment to better Plant/ Crop Growth to crop protection to quality Harvest. We're not just keeping up; we're staying ahead, shaping a future where every leaf, stem, and harvest is a testament to our commitment to solution-driven excellence.",
+      "We empower farmers with innovative biological products that enhance soil health, promote plant growth, and unlock the full potential of their land.",
   },
   {
     tag: "02",
@@ -621,7 +627,7 @@ const VERTICALS = [
     sub: "Carbon Farming",
     tone: C.field,
     body:
-      "Introducing India's first science-backed agricultural carbon credit program, benefiting smallholder farmers, this unique initiative promotes sustainability and environmental stewardship in agriculture. Unlocking nature's power, we tackle biotic and abiotic stresses in agriculture; our sustainable strategy involves using resilient plant and soil microbiomes for enhanced crop resilience. Furthermore, with our combined expertise of biologicals and carbon accounting, we help food & beverages and apparel companies reduce farm-side/scope 3 emissions to achieve their sustainability targets.",
+      "We're building India's leading vertically integrated carbon program. This program delivers high-quality, certified carbon units, safeguarding businesses from greenwashing claims and driving positive climate action.",
   },
   {
     tag: "03",
@@ -629,7 +635,7 @@ const VERTICALS = [
     sub: "Scope 3 insetting",
     tone: C.water,
     body:
-      "ClearHarvest is dedicated to helping global brands, particularly in the Food & Beverage and Apparel sectors, minimize their Scope 3 (farm-side) emissions. Rather than relying on traditional carbon offsetting, this vertical champions “insetting” by connecting corporations directly with a network of regenerative agriculture farmers to source sustainable produce. Operating in strict alignment with GHG Protocol and IPCC guidelines, ClearHarvest provides the exact accounting and compliance frameworks companies need to achieve their sustainability targets.",
+      "With our combined expertise of biologicals and carbon accounting, we help food, beverage, and apparel companies reduce farm-side emissions to achieve their net-zero goals.",
   },
   {
     tag: "04",
@@ -637,7 +643,7 @@ const VERTICALS = [
     sub: "Carbon-negative soil amendment",
     tone: C.husk,
     body:
-      "Biochar is Grow Indigo's climate technology solution focused on converting agricultural crop residue into high quality biochar through pyrolysis. The biochar is applied directly to soil and incorporated into biochar based biofertilizers to improve soil health, nutrient retention, water holding capacity and crop productivity. The solution helps eliminate crop residue burning, sequesters carbon for the long term, and supports the generation of high integrity carbon removal credits. By creating value from agricultural waste, Grow Indigo promotes a circular economy while delivering environmental benefits, enhancing farmer livelihoods, and supporting sustainable agriculture.",
+      "We convert crop residue into high-quality biochar, restoring soil health and unlocking a permanent, verifiable route to carbon removal - while ending the need for open-field burning.",
   },
 ];
 
@@ -669,17 +675,10 @@ function CompanyIntro() {
         index="14"
         tone="dark"
         title="About Grow Indigo"
-        lede="Grow Indigo builds science-backed, nature-based programmes that make farming more resilient and more rewarding - for farmers, for the corporations that source from them, and for the climate. This report covers ClearHarvest, one of four verticals through which that work reaches the field."
+        lede="Grow Indigo is a pioneering agri-tech company, with a focus on advancing sustainable agriculture to improve farmer profitability, environmental sustainability, and consumer health. Our mission is to accelerate agricultural transformation for a healthier planet, driven by four core pillars."
       />
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
-        <Reveal>
-          <MaskedHeading
-            text="We accelerate ag transformation for a healthy planet."
-            className="ch-display text-3xl md:text-5xl"
-            style={{ color: "#fff", fontWeight: 800, maxWidth: "18ch" }}
-          />
-        </Reveal>
-        <Reveal variants={vScaleIn} delay={0.1}>
+      <div className="flex justify-center mb-16 md:mb-20">
+        <Reveal variants={vScaleIn} style={{ maxWidth: 720, width: "100%" }}>
           <img
             src={growIndigoOverview}
             alt="Grow Indigo overview - Biologicals, ClearHarvest, Carbon and Biochar"
@@ -784,9 +783,9 @@ function Hero() {
       <svg className="hero-field absolute inset-0 w-full h-full ch-scrub" preserveAspectRatio="none" viewBox="0 0 1200 800" aria-hidden="true">
         <defs>
           <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#0A1F16" />
-            <stop offset="62%" stopColor="#0E3324" />
-            <stop offset="100%" stopColor="#12566B" />
+            <stop offset="0%" stopColor="#241C16" />
+            <stop offset="62%" stopColor="#3A2418" />
+            <stop offset="100%" stopColor="#4A2F1E" />
           </linearGradient>
         </defs>
         <rect width="1200" height="800" fill="url(#skyG)" />
@@ -809,9 +808,6 @@ function Hero() {
         <div className="hero-eyebrow">
           <div style={{ maxWidth: 560 }}>
             <LogoLockup light height={38} />
-          </div>
-          <div className="mt-8">
-            <Eyebrow color={C.husk}>Nizamabad, Telangana · 11 villages · 300 Farmers</Eyebrow>
           </div>
         </div>
 
@@ -865,19 +861,19 @@ function Hero() {
 const HEADLINES = [
   { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
-  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT of paddy", tone: C.leaf },
-  { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
+  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestlé baseline of 1,325 kg CO₂e/MT of paddy*", tone: C.leaf },
+  { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy**", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "78.1 → 55.4 kg N/acre vs Nestlé baseline - less use of chemical fertilisers", tone: C.clay },
+  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "78.1 → 55.4 kg N/acre vs Nestlé baseline - less use of chemical fertilisers*", tone: C.clay },
 ];
 
 const TICKER = [
-  "771.41 kg CO₂e/MT of paddy reduced",
-  "~ 58% below Nestle baseline",
+  "~771 kg CO₂e/MT of paddy reduced",
+  "~ 58% below Nestlé baseline",
   "~ 67% water saved",
   "~ 29% less nitrogen",
   "~ 833 acres baled",
-  "11 of 11 villages",
+  "All 11 villages",
   "Collected sampled farmers for calculation",
 ];
 
@@ -932,6 +928,11 @@ function ImpactStrip() {
         />
         <div ref={grid} className="grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {HEADLINES.map((s) => <StatCard key={s.label} stat={s} />)}
+        </div>
+
+        <div className="ch-data mt-3" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.7 }}>
+          *Grow Indigo's own baseline Data<br />
+          **As given by Nestlé
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3 mt-14">
@@ -1049,7 +1050,7 @@ const INTERVENTIONS = [
     ],
     benefits: [
       "New income stream from selling baled residue to gaushalas",
-      "Target exceeded - 178% growth over the original 300-acre plan",
+      "Target exceeded - nearly 3x the original 300-acre plan",
       "Higher soil organic matter; organic carbon retained rather than burnt",
       "Biomass reused as livestock feed, compost and bioenergy",
       "Reduced air pollution and fire risk across the project villages",
@@ -1219,7 +1220,7 @@ function InterventionsSection() {
 const ROLES = [
   ["Project Management Unit", [
     "Strategic supervision and governance",
-    "Alignment with Nestle's sustainability and reporting requirements",
+    "Alignment with Nestlé's sustainability and reporting requirements",
     "Smooth execution throughout the programme, including procurement and reporting",
   ]],
   ["RBM (Regional Business Manager) / Agronomist", [
@@ -1501,7 +1502,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Program Governance and Implementation"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest Business team, keeping the programme aligned to Nestle's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest Business team, keeping the programme aligned to Nestlé's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal><OrgChart /></Reveal>
@@ -1629,7 +1630,7 @@ const AWD_BENEFITS = [
   ]],
   ["Climate change mitigation", C.field, [
     "Lowers the greenhouse-gas footprint of paddy, a globally significant agricultural emission source",
-    "Project delivered 771.41 kg CO₂e/MT of paddy reduction - 58% against Nestle's baseline of 1,325 kg CO₂e/MT of paddy",
+    "Project delivered ~771 kg CO₂e/MT of paddy reduction - 58% against Nestlé's baseline of 1,325 kg CO₂e/MT of paddy",
     "Cuts diesel and electric pumping, reducing fossil-fuel emissions across the value chain",
     "Builds systems that tolerate erratic monsoons, heat waves and drought stress",
   ]],
@@ -1645,7 +1646,7 @@ const AWD_BENEFITS = [
     "Enhanced mineralisation increases plant-available nitrogen and phosphorus from native reserves",
     "Over multiple seasons, AWD plus biologicals builds soil organic carbon and water-holding capacity",
   ]],
-  ["Biodiversity", "#6B8F3A", [
+  ["Biodiversity", "#B97A87", [
     "Alternating conditions diversify field micro-habitats versus monotonic flooding",
     "Lower chemical fertiliser and pesticide dependence protects pollinators, earthworms and pest predators",
     "Less water diverted from rivers and tanks helps preserve riparian and wetland ecosystems downstream",
@@ -1656,7 +1657,7 @@ const AWD_BENEFITS = [
     "Reduced pumping load cuts wear and maintenance on irrigation infrastructure",
     "At national scale, wide AWD adoption can ease peak agricultural electricity demand",
   ]],
-  ["Human health", "#B0483C", [
+  ["Human health", "#B34936", [
     "Less standing water limits mosquito breeding sites for malaria, Japanese encephalitis and dengue",
     "Ending residue burning and cutting methane improves regional air quality and respiratory health",
     "Resilient livelihoods reduce rural distress and protect food, income and nutrition security",
@@ -1863,15 +1864,15 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 }
 
 const EMISSIONS_WATERFALL = buildWaterfall([
-  { name: "Nestle baseline", type: "total", value: 1325, fill: C.mute, note: "Nestle's declared baseline for paddy, kg CO₂e per MT of paddy" },
-  { name: "Reduction", type: "delta", value: -784.87, fill: C.leaf, note: "784.87 kg CO₂e/MT of paddy lower - a ~59% reduction" },
-  { name: "Project", type: "total", value: 560.22, fill: C.field, note: "764.78 kg CO₂e/MT of paddy lower - 58%, the headline result" },
+  { name: "Nestlé baseline", type: "total", value: 1325, fill: C.mute, note: "Nestlé's declared baseline for paddy, kg CO₂e per MT of paddy" },
+  { name: "Reduction", type: "delta", value: -785, fill: C.leaf, note: "~785 kg CO₂e/MT of paddy lower - a ~59% reduction" },
+  { name: "Project", type: "total", value: 560, fill: C.field, note: "764.78 kg CO₂e/MT of paddy lower - 58%, the headline result" },
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
-  { name: "Nestle Baseline", type: "total", value: 78.1, fill: C.mute, note: "Nestlé's baseline application rate in the project area" },
-  { name: "Reduction", type: "delta", value: -22.7, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
-  { name: "Project", type: "total", value: 55.4, fill: C.field, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
+  { name: "Nestlé Baseline", type: "total", value: 78, fill: C.mute, note: "Nestlé's baseline application rate in the project area" },
+  { name: "Reduction", type: "delta", value: -23, fill: C.leaf, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
+  { name: "Project", type: "total", value: 55, fill: C.field, note: "29% below Nestlé baseline · above the PJTSAU recommended dose" },
 ]);
 
 const WATER_WATERFALL = buildWaterfall([
@@ -1945,7 +1946,7 @@ const SEASON_HEADLINE = [
   {
     label: "GHG emission reduction", value: 58, prefix: "~ ", suffix: "%", tone: C.field,
     detail: [
-      ["771.41", "kg CO₂e/MT of paddy reduced · headline (corrected nursery)"],
+      ["~771", "kg CO₂e/MT of paddy reduced · headline (corrected nursery)"],
       ["784.87", "kg CO₂e/MT of paddy reduced · excluding nursery (~59%)"],
       ["764.78", "kg CO₂e/MT of paddy reduced · including gross nursery (~58%)"],
     ],
@@ -2087,7 +2088,7 @@ function ResultsSection() {
               main-field crops.
             </p>
             <Stagger className="mt-5 grid grid-cols-3 gap-3" stagger={0.1}>
-              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["771.41", "net reduction"]].map(([v, l]) => (
+              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["~771", "net reduction"]].map(([v, l]) => (
                 <motion.div key={l} variants={vScaleIn} whileHover={{ y: -4 }} className="p-3 rounded" style={{ background: C.paperDim }}>
                   <div className="ch-display" style={{ fontWeight: 800, color: C.field, fontSize: "1.35rem" }}>{v}</div>
                   <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT of paddy</div>
@@ -2131,7 +2132,7 @@ const TIMELINE = [
   ["Procurement", C.mute, [
     ["Procurement & traceability", 7, 1, "Farm-to-mill audit trail captured in S3 Sutra"],
   ]],
-  ["GHG quantification & Third party verification", "#B0483C", [
+  ["GHG quantification & Third party verification", "#B34936", [
     ["Audit & report submission", 8, 1, "Independent verification and final delivery"],
   ]],
 ];
@@ -2293,7 +2294,7 @@ const SHORT_TERM = [
 const LONG_TERM = [
   ["Improved soil organic carbon", "Repeated use of biological inputs and AWD raises SOC over time, improving nutrient retention and supporting stable, improved yields."],
   ["Reduced production risk", "Regenerative practices strengthen resilience to water stress, erratic rainfall and pest pressure, helping farmers manage climate and market risk."],
-  ["Stronger market access", "Traceable, low-emission paddy opens premium procurement linkages with sustainability-focused buyers like Nestle."],
+  ["Stronger market access", "Traceable, low-emission paddy opens premium procurement linkages with sustainability-focused buyers like Nestlé."],
   ["Community capacity built", "Knowledge of climate-smart practices stays with farmers, multiplying the benefit across seasons and neighbours."],
 ];
 
@@ -2337,7 +2338,7 @@ function EconomicsSection() {
 }
 
 /* ----------------------------------------------------------------------------
-   14 · ALIGNMENT WITH Nestle RESPONSIBLE SOURCING
+   14 · ALIGNMENT WITH Nestlé RESPONSIBLE SOURCING
    Hovering a lever moves a shared layoutId highlight onto its pillar, so the
    mapping is demonstrated by the motion rather than asserted by an arrow.
 ---------------------------------------------------------------------------- */
@@ -2362,8 +2363,8 @@ function SourcingSection() {
       <SectionHead
         index="12"
         tone="dark"
-        title="Mapped to Nestle's Responsible Sourcing Standard"
-        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestle's Scope 3 and ESG disclosure obligations."
+        title="Mapped to Nestlé's Responsible Sourcing Standard"
+        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestlé's Scope 3 and ESG disclosure obligations."
       />
       <LayoutGroup id="sourcing">
         <div className="grid gap-6 lg:grid-cols-2">
@@ -2447,7 +2448,7 @@ function SourcingSection() {
           <Eyebrow color={C.husk}>Insight</Eyebrow>
           <Stagger className="mt-5 grid gap-6 md:grid-cols-3" stagger={0.12} style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,.75)" }}>
             <motion.p variants={vFadeUp}>
-              AWD alone delivers eight distinct ESG benefits. That breadth lets Nestle communicate the work credibly
+              AWD alone delivers eight distinct ESG benefits. That breadth lets Nestlé communicate the work credibly
               across climate, water, biodiversity and rural-development pillars - without overstating any single claim,
               and while staying inside the bounds of the field evidence.
             </motion.p>
@@ -2482,7 +2483,7 @@ const EVIDENCE = [
   { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
   { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
   { n: 7, title: "Form 10", img: a10, fit: "contain", caption: "Weighbridge slip, Form 10 countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
-  { n: 8, title: "Independent Third-Party Audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 8, title: "Independent Third-Party Audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestlé representatives in-field with the Grow Indigo team and participating farmers." },
 ];
 
 function EvidenceSection() {
@@ -2576,7 +2577,7 @@ function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", ta
 const SEQUENCE = [
   {
     n: "01", title: "Programme kick-off", tag: "Mobilisation", color: C.field,
-    body: "Nestle' and Grow Indigo aligned on scope, geography and deliverables",
+    body: "Nestlé and Grow Indigo aligned on scope, geography and deliverables",
     meta: "Varni & Chandur blocks · 11 villages identified",
     photo: photoKickoff,
   },
@@ -2630,7 +2631,7 @@ const SEQUENCE = [
   },
   {
     n: "09", title: "Residue baled, not burnt", tag: "CRM", color: C.husk,
-    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it. 833 acres were baled against an original target of 300 - a 178% overshoot.",
+    body: "Farmers baled and bundled paddy straw immediately after harvest instead of burning it. 833 acres were baled against an original target of 300 - nearly 3x the target.",
     meta: "833 acres baled · zero open field burning",
     photo: photoBailing,
     objectPosition: "center 20%",
@@ -2644,7 +2645,7 @@ const SEQUENCE = [
   },
   {
     n: "11", title: "Quantification & reporting", tag: "Delivery", color: C.leaf,
-    body: "Grow Indigo quantified emissions on the Cool Farm Platform v3.0 using the square-root sample, then compiled this report: 771.41 kg CO₂e/MT of paddy reduced, 58% against Nestle's baseline, with the methodology and its caveats stated in full.",
+    body: "Grow Indigo quantified emissions on the Cool Farm Platform v3.0 using the square-root sample, then compiled this report: ~771 kg CO₂e/MT of paddy reduced, 58% against Nestlé's baseline, with the methodology and its caveats stated in full.",
     meta: "Cool Farm Platform v3.0 · 5 farmers sampled",
     photo: photoSsimp,
     ratio: "3 / 4",
@@ -3049,7 +3050,7 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of 771.41 kg CO₂e/MT of paddy (58%) is measured against Nestle's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of 13.40 kg CO₂e/MT of paddy.",
+  "Headline GHG reduction of ~771 kg CO₂e/MT of paddy (58%) is measured against Nestlé's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of 13.40 kg CO₂e/MT of paddy.",
   "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in the emissions intensity chart rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
@@ -3091,13 +3092,12 @@ function Closing() {
               ))}
             </Stagger>
 
-            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
                 { value: 300, label: "farmers" },
                 { value: 326, label: "fields mapped" },
                 { value: 11, label: "villages" },
                 { value: 3200, suffix: "+", label: "MT procured" },
-                { value: 29, suffix: "%", label: "nitrogen reduction" },
               ].map(({ value, prefix, suffix, label }) => (
                 <div key={label}>
                   <div className="ch-display" style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>
