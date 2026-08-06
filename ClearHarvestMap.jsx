@@ -238,7 +238,6 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
           .setHTML(
             `<div style="font-family:${FONT_DATA};font-size:11px;line-height:1.6">
                <div style="font-weight:600;font-size:12.5px;color:${C.ink}">${f.properties.farmer}</div>
-               <div style="color:${C.mute}">${f.properties.id} - ${f.properties.acres} acres</div>
              </div>`
           )
           .addTo(m);
