@@ -568,7 +568,7 @@ function TopBar() {
         {/* Grow Indigo mark, left */}
         <Magnetic strength={0.2}>
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">
-            <LogoSlot name="Grow Indigo" src={growIndigoLogo} light height={34} />
+            <LogoSlot name="Grow Indigo" src={growIndigoLogo} light height={43} />
           </button>
         </Magnetic>
 
@@ -597,7 +597,7 @@ function TopBar() {
 
         {/* ClearHarvest mark, mirrored right */}
         <div className="ml-auto md:ml-0">
-          <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light height={34} />
+          <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light height={43} />
         </div>
       </div>
       <div style={{ height: 2, background: "rgba(255,255,255,.12)" }}>
