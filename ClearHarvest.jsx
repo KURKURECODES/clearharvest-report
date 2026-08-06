@@ -37,7 +37,7 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
+  BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip,
   ResponsiveContainer, LabelList,
 } from "recharts";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -862,10 +862,10 @@ function Hero() {
 const HEADLINES = [
   { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
-  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestlé baseline of 1,325 kg CO₂e/MT of paddy*", tone: C.leaf },
+  { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestlé baseline* of 1,325 kg CO₂e/MT of paddy", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy**", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "~78 → ~55 kg N/acre vs Nestlé baseline - less use of chemical fertilisers*", tone: C.clay },
+  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "~78 → ~55 kg N/acre vs Nestlé baseline* - less use of chemical fertilisers", tone: C.clay },
 ];
 
 const TICKER = [
@@ -2011,7 +2011,6 @@ function ResultsSection() {
           footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of ~13 kg CO₂e/MT of paddy."
         >
           <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={EMISSIONS_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 1400]} />
             <Tooltip content={<ChartTip unit="kg CO₂e/MT of paddy" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
@@ -2029,7 +2028,6 @@ function ResultsSection() {
           footnote="Driven primarily by Oorjit granules' fertiliser-use efficiency combined with AWD irrigation, and supported by temporary urea market shortages."
         >
           <BarChart data={NITROGEN_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={NITROGEN_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 85]} />
             <Tooltip content={<ChartTip unit="kg N/acre" />} cursor={{ fill: "rgba(14,91,51,.06)" }} />
@@ -2047,7 +2045,6 @@ function ResultsSection() {
           footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption."
         >
           <BarChart data={WATER_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={WATER_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
             <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
             <Tooltip content={<ChartTip unit="litres/kg" />} cursor={{ fill: "rgba(30,136,168,.07)" }} />
@@ -2065,9 +2062,8 @@ function ResultsSection() {
           footnote="A ~7.4% decline attributed to seasonal factors - change in seed variety, irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging."
         >
           <LineChart data={YIELD} margin={{ top: 16, right: 24, left: -18, bottom: 8 }}>
-            <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
             <XAxis dataKey="name" tick={axisStyle} axisLine={{ stroke: C.line }} tickLine={false} />
-            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[2, 3]} />
+            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[2, 3]} tickFormatter={(v) => v.toFixed(2)} />
             <Tooltip content={<ChartTip unit="MT" />} />
             <Line type="linear" dataKey="value" stroke={C.husk} strokeWidth={2.5} dot={{ r: 5, fill: C.husk, strokeWidth: 0 }} activeDot={{ r: 7 }} animationDuration={1400}>
               <LabelList dataKey="value" position="top" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }} />
@@ -2484,7 +2480,7 @@ const EVIDENCE = [
   { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
   { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
   { n: 7, title: "Form 10", img: a10, fit: "contain", caption: "Weighbridge slip, Form 10 countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
-  { n: 8, title: "Independent Third-Party Audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestlé representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 8, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestlé representatives in-field with the Grow Indigo team and participating farmers." },
 ];
 
 function EvidenceSection() {
@@ -2624,7 +2620,7 @@ const SEQUENCE = [
     objectPosition: "top",
   },
   {
-    n: "08", title: "Low Emission Paddy", tag: "Procurement", color: C.husk,
+    n: "08", title: "Low-Emission Paddy", tag: "Procurement", color: C.husk,
     body: "Through this program, we facilitated the procurement of over 3,200 metric tonnes of low-emission paddy through Aishwarya Rice Mills. The entire transaction was recorded in our in-house S3 Sutra application, enabling end-to-end traceability and transparent documentation.",
     meta: "Farm-to-mill audit trail in S3 Sutra",
     photo: photoLep,
