@@ -173,6 +173,7 @@ villageList.forEach((v) => {
       properties: {
         id,
         farmer: titleCase(r.Farmer_Name),
+        farmerId: r.Farmer_ID,
         acres,
         village: v.key,
         villageName: v.name,

@@ -74,7 +74,6 @@ import photoTpa from "./src/assets/tpa.jpeg";
 import photoSsimp from "./src/assets/ssimp.png";
 import rs1 from "./src/assets/rs1.png";
 import rs2 from "./src/assets/rs2.png";
-import rs3 from "./src/assets/rs3.png";
 import rs4 from "./src/assets/rs4.png";
 import rs5 from "./src/assets/rs5.png";
 import trac from "./src/assets/trac.png";
@@ -509,7 +508,7 @@ const NAV = [
   ["governance", "Governance"], ["sequence", "Sequence"], ["testimonials", "Voices"],
   ["photography", "Photography"], ["benefits", "AWD benefits"], ["results", "Results"],
   ["season", "Season"], ["economics", "Economics"], ["sourcing", "Sourcing"], ["evidence", "Evidence"],
-  ["about", "Get in Touch"],
+  ["about", "About Grow Indigo"],
 ];
 
 function TopBar() {
@@ -665,23 +664,21 @@ function VerticalCard({ v }) {
 
 function CompanyIntro() {
   return (
-    <Section id="intro" tone="dark" className="pt-40 md:pt-44">
+    <Section id="about" tone="dark">
+      <SectionHead
+        index="14"
+        tone="dark"
+        title="About Grow Indigo"
+        lede="Grow Indigo builds science-backed, nature-based programmes that make farming more resilient and more rewarding - for farmers, for the corporations that source from them, and for the climate. This report covers ClearHarvest, one of four verticals through which that work reaches the field."
+      />
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
-        <div>
-          <Eyebrow color={C.husk}>About Grow Indigo</Eyebrow>
+        <Reveal>
           <MaskedHeading
             text="We accelerate ag transformation for a healthy planet."
-            className="ch-display mt-4 text-3xl md:text-5xl"
+            className="ch-display text-3xl md:text-5xl"
             style={{ color: "#fff", fontWeight: 800, maxWidth: "18ch" }}
           />
-          <Reveal delay={0.15}>
-            <p className="mt-6 text-base md:text-lg" style={{ color: "rgba(255,255,255,.72)", maxWidth: "56ch", lineHeight: 1.7 }}>
-              Grow Indigo builds science-backed, nature-based programmes that make farming more resilient and more
-              rewarding - for farmers, for the corporations that source from them, and for the climate. This report
-              covers ClearHarvest, one of four verticals through which that work reaches the field.
-            </p>
-          </Reveal>
-        </div>
+        </Reveal>
         <Reveal variants={vScaleIn} delay={0.1}>
           <img
             src={growIndigoOverview}
@@ -698,6 +695,42 @@ function CompanyIntro() {
           <VerticalCard key={v.name} v={v} />
         ))}
       </Stagger>
+
+      <div className="mt-16 md:mt-20">
+        <Eyebrow color={C.husk}>Get in touch</Eyebrow>
+        <Reveal delay={0.1} style={{ maxWidth: 420 }}>
+          <div className="mt-5 p-7 md:p-8 rounded-lg" style={{ background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.14)" }}>
+            <h3 className="ch-display text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
+              ClearHarvest - Grow Indigo
+            </h3>
+            <div className="mt-6">
+              <div
+                className="flex items-baseline justify-between gap-4 py-3"
+                style={{ borderBottom: "1px solid rgba(255,255,255,.15)" }}
+              >
+                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>NAME</span>
+                <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.name}</span>
+              </div>
+              <a
+                href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
+                className="flex items-baseline justify-between gap-4 py-3"
+                style={{ borderBottom: "1px solid rgba(255,255,255,.15)", textDecoration: "none" }}
+              >
+                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>PHONE</span>
+                <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.phone}</span>
+              </a>
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="flex items-baseline justify-between gap-4 py-3"
+                style={{ textDecoration: "none" }}
+              >
+                <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>EMAIL</span>
+                <span style={{ fontSize: 15, color: C.leaf, fontWeight: 700, textAlign: "right" }}>{CONTACT.email}</span>
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </Section>
   );
 }
@@ -830,7 +863,7 @@ function Hero() {
    GSAP ticks each number; framer handles the tilt and hover lift.
 ---------------------------------------------------------------------------- */
 const HEADLINES = [
-  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 of 11 villages", tone: C.field },
+  { value: 300, suffix: "", label: "Paddy farmers", note: "enrolled across 11 villages", tone: C.field },
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
   { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestle baseline of 1,325 kg CO₂e/MT of paddy", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy", tone: C.water },
@@ -1556,17 +1589,6 @@ function GovernanceSection() {
                 </motion.div>
               ))}
             </Stagger>
-
-            <Reveal delay={0.15}>
-              <div className="mt-6 rounded-lg overflow-hidden" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-                <div style={{ background: C.paperDim, aspectRatio: "16 / 9" }}>
-                  <img src={rs3} alt="Monitoring of rice residue burning" style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
-                </div>
-                <div style={{ padding: "16px 22px" }}>
-                  <div style={{ fontSize: 12.5, color: C.mute }}>Rice residue-burning detection, monitored in Google Earth Engine</div>
-                </div>
-              </div>
-            </Reveal>
           </Reveal>
 
           <Reveal delay={0.2}>
@@ -1591,51 +1613,6 @@ function GovernanceSection() {
         </div>
       </div>
 
-      <div className="mt-16 grid gap-6">
-        <Reveal>
-          <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <Eyebrow>Farmer hand-holding</Eyebrow>
-            <h4 className="ch-display mt-4 text-xl" style={{ color: C.field, fontWeight: 700 }}>
-              A high-touch, phygital extension model
-            </h4>
-            <Stagger className="mt-5 space-y-4" stagger={0.07} style={{ fontSize: 14, lineHeight: 1.7, color: C.mute }}>
-              <motion.p variants={vFadeUp}>
-                <strong style={{ color: C.ink }}>Integrated Nutrient Management.</strong> Nutrient decisions combined
-                farmer practice, crop-stage requirements, biological inputs, soil condition and split application of
-                fertilisers - with Oorjit and Grow Phos as biological complements optimising nitrogen and phosphorus
-                availability.
-              </motion.p>
-              <motion.p variants={vFadeUp}>
-                <strong style={{ color: C.ink }}>Field visits.</strong> Kisan Advisors visited from transplanting to
-                harvest: one-on-one support, on-field troubleshooting, verification of AWD practice, nutrient
-                management, crop protection and correct application of biologicals.
-              </motion.p>
-              <motion.p variants={vFadeUp}>
-                <strong style={{ color: C.ink }}>Village-level meetings.</strong> Held four times in the project period,
-                with live demonstrations of pani pipe installation, biological application and residue management.
-                Biological-team members joined every VLM and leaflets were distributed.
-              </motion.p>
-              <motion.p variants={vFadeUp}>
-                <strong style={{ color: C.ink }}>Always-on channels.</strong> Vernacular video on Grow Indigo's YouTube
-                learning platform plus weekly WhatsApp messages in Telugu - including  advisories naming the Kisan
-                Advisor to call.
-              </motion.p>
-            </Stagger>
-          </div>
-        </Reveal>
-      </div>
-
-      <Reveal delay={0.08} className="mt-6">
-        <div className="p-7 rounded-lg" style={{ background: C.ink }}>
-          <Eyebrow color={C.husk}>Stakeholder management</Eyebrow>
-          <p className="mt-3" style={{ color: "rgba(255,255,255,.8)", lineHeight: 1.75, maxWidth: "80ch" }}>
-            Field teams, Aishwarya Rice Mills (Nestle's empanelled miller) and Nestle representatives worked in a
-            connected framework - enabling timely execution, transparent data flow and high implementation fidelity.
-            The TBM and Kisan Advisors supervised the entire procurement process, and the PMU visited fields to ensure
-            timely completion.
-          </p>
-        </div>
-      </Reveal>
     </Section>
   );
 }
@@ -2097,9 +2074,9 @@ function ResultsSection() {
         </ChartFrame>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 mt-12">
+      <div className="mt-12">
         <Reveal>
-          <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
+          <div className="p-7 rounded-lg" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
             <Eyebrow>How the nursery stage was handled</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute }}>
               For the nursery stage, farmers typically raise seedlings on ~10% of their total land area for an average
@@ -2117,16 +2094,6 @@ function ResultsSection() {
                 </motion.div>
               ))}
             </Stagger>
-          </div>
-        </Reveal>
-        <Reveal delay={0.11}>
-          <div className="p-7 rounded-lg h-full" style={{ background: C.field }}>
-            <Eyebrow color={C.husk}>Nitrogen use optimisation</Eyebrow>
-            <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: "rgba(255,255,255,.85)" }}>
-              Nitrogen application rate was reduced from Nestlé's baseline of 78.1 kg N/acre in the region to
-              55.4 kg N/acre - a 29% reduction. This was driven primarily by Oorjit granules and Grow Phos'
-              enhanced fertilizer-use efficiency, combined with AWD irrigation.
-            </p>
           </div>
         </Reveal>
       </div>
@@ -2162,12 +2129,11 @@ const TIMELINE = [
     ["3rd split", 6, 1, "~75 DAT · supports grain development"],
   ]],
   ["Procurement", C.mute, [
-    ["Procurement & traceability", 6, 2, "Farm-to-mill audit trail captured in S3 Sutra"],
+    ["Procurement & traceability", 7, 1, "Farm-to-mill audit trail captured in S3 Sutra"],
   ]],
   ["GHG quantification & Third party verification", "#B0483C", [
     ["Audit & report submission", 8, 1, "Independent verification and final delivery"],
   ]],
-  ["Harvest", C.husk, [["Harvest", 7, 1, "Crop matured through the season, harvest from mid-April onward"]]],
 ];
 
 const STAGES = [
@@ -2261,7 +2227,7 @@ function SeasonSection() {
     <Section id="season">
       <SectionHead
         index="10"
-        title="A season, operation by operation"
+        title="Activity Timeline"
         lede="The paddy production cycle ran from nursery establishment through transplanting to harvest, with a structured sequence of agronomic operations, regenerative interventions and nutrient applications timed to crop stage."
       />
       <Reveal><Timeline /></Reveal>
@@ -2512,11 +2478,11 @@ const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", img: a1, fit: "cover", position: "center 22%", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
   { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
-  { n: 4, title: "Nestle team field visits", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
-  { n: 5, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
-  { n: 6, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
-  { n: 7, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 8, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form of Certificate (X) countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 4, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
+  { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
+  { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
+  { n: 7, title: "Form 10", img: a10, fit: "contain", caption: "Weighbridge slip, Form 10 countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 8, title: "Independent Third-Party Audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestle representatives in-field with the Grow Indigo team and participating farmers." },
 ];
 
 function EvidenceSection() {
@@ -3063,46 +3029,13 @@ function LogoLockup({ light = false, height = 34, rule = true }) {
 }
 
 /* ----------------------------------------------------------------------------
-   20b · ABOUT GROW INDIGO + CONTACT
+   20b · CONTACT
 ---------------------------------------------------------------------------- */
 const CONTACT = {
+  name: "Mr. Amit Kumar",
   email: "clearharvest@growindigo.co.in",
   phone: "+91 8329049612",
 };
-
-function AboutSection() {
-  return (
-    <Section id="about" tone="tint">
-      <SectionHead index="14" title="Get in Touch" />
-
-      <Reveal style={{ maxWidth: 420 }}>
-        <div className="p-7 md:p-8 rounded-lg" style={{ background: C.ink }}>
-          <h3 className="ch-display text-2xl" style={{ color: "#fff", fontWeight: 700 }}>
-            ClearHarvest, Grow Indigo
-          </h3>
-          <div className="mt-6">
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-baseline justify-between gap-4 py-3"
-              style={{ borderBottom: "1px solid rgba(255,255,255,.15)", textDecoration: "none" }}
-            >
-              <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>EMAIL</span>
-              <span style={{ fontSize: 15, color: C.leaf, fontWeight: 700, textAlign: "right" }}>{CONTACT.email}</span>
-            </a>
-            <a
-              href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`}
-              className="flex items-baseline justify-between gap-4 py-3"
-              style={{ textDecoration: "none" }}
-            >
-              <span className="ch-data" style={{ fontSize: 10.5, color: "rgba(255,255,255,.5)", letterSpacing: ".14em" }}>PHONE</span>
-              <span style={{ fontSize: 15, color: "#fff", fontWeight: 700, textAlign: "right" }}>{CONTACT.phone}</span>
-            </a>
-          </div>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
 
 /* ----------------------------------------------------------------------------
    21 · CLOSING - bibliography, data notes, sign-off
@@ -3120,6 +3053,7 @@ const DATA_NOTES = [
   "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in the emissions intensity chart rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
+  "The program delivered a 29% reduction in nitrogen application compared with Nestlé's established baseline.",
 ];
 
 function Closing() {
@@ -3208,7 +3142,6 @@ export default function ClearHarvestReport() {
 
       <main>
         <Hero />
-        <CompanyIntro />
         <ImpactStrip />
         <LocationSection />
         <InterventionsSection />
@@ -3222,7 +3155,7 @@ export default function ClearHarvestReport() {
         <EconomicsSection />
         <SourcingSection />
         <EvidenceSection />
-        <AboutSection />
+        <CompanyIntro />
       </main>
 
       <Closing />

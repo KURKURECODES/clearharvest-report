@@ -410,7 +410,7 @@ function Panel({ level, village, field, hoverField }) {
         </div>
         <h3 className="mt-4" style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem", lineHeight: 1.1 }}>{p.farmer}</h3>
         <div className="mt-5">
-          <Row k="Field ID" v={p.id} />
+          <Row k="Farmer ID" v={p.farmerId} />
           <Row k="Area" v={`${p.acres} acres`} accent={C.leaf} />
           <Row k="Village" v={p.villageName} />
           <Row k="Block" v={p.block} />
