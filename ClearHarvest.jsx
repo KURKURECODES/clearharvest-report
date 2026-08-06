@@ -84,7 +84,6 @@ import videoTestimonial3 from "./src/assets/testimonial3.mp4";
 import photoWaterLevel from "./src/assets/waterlevel.jpg";
 import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
-import diaryWaterLogB from "./src/assets/diary8.png";
 
 
 import diaryFeedback from "./src/assets/diary11.png";
@@ -894,7 +893,7 @@ function Ticker() {
         {[...TICKER, ...TICKER].map((t, i) => (
           <div key={i} className="ch-data flex items-center" style={{ fontSize: 12, color: "rgba(255,255,255,.72)", letterSpacing: ".06em", padding: "0 28px" }}>
             <span style={{ width: 5, height: 5, borderRadius: 99, background: C.husk, marginRight: 14 }} />
-            {t.toUpperCase()}
+            {t.toUpperCase().replace("CO₂E", "CO₂e")}
           </div>
         ))}
       </div>
@@ -2479,7 +2478,7 @@ const EVIDENCE = [
   { n: 4, title: "Pani pipes during monitoring", img: kolluriGangaramAwd, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
   { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 7, title: "Form 10", img: a10, fit: "contain", caption: "Weighbridge slip, Form 10 countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 7, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form X countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
   { n: 8, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestlé representatives in-field with the Grow Indigo team and participating farmers." },
 ];
 
@@ -2920,9 +2919,9 @@ const GALLERY = {
     shots: [
       { label: "Socio-economic profile page", stamp: null, tall: true, src: diarySocioEconomic },
       { label: "Water management log - irrigation dates", stamp: null, tall: true, src: diaryWaterLogA },
-      { label: "Re-irrigation interval entries", stamp: null, tall: true, src: diaryWaterLogB },
-      { label: "Stakeholder feedback form", stamp: null, tall: true, src: diaryFeedback },
-      { label: "Signed consent letter", stamp: null, tall: true, src: photoCls },
+      { label: "Re-irrigation interval entries", stamp: null, tall: true, src: diaryFeedback },
+      { label: "Stakeholder feedback form", stamp: null, tall: true, src: a2 },
+      { label: "Farmer assembled for consent letter signing", stamp: null, tall: true, src: photoCls },
       { label: "Procurement receipt", stamp: null, tall: true, src: a10 },
     ],
   },
