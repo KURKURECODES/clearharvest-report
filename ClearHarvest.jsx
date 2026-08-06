@@ -45,7 +45,7 @@ import LocationSection from "./ClearHarvestMap.jsx";
 import clearHarvestLogo from "./src/assets/chnlogo-removebg.png";
 import growIndigoLogo from "./src/assets/gilogo1.png";
 import growIndigoOverview from "./src/assets/np.png";
-import photoVlm2 from "./src/assets/vlm2.jpg";
+import photoVlm2 from "./src/assets/vlm222.jpg";
 import photoVlm3 from "./src/assets/3vlm.jpg";
 import photoDobs from "./src/assets/dobs.jpg";
 import photoBd2 from "./src/assets/bd2.png";
@@ -138,6 +138,7 @@ function GlobalStyle() {
 
       .ch-ripple { animation: chRipple 4.5s ease-in-out infinite; transform-origin: center; }
       @keyframes chRipple { 0%,100% { transform: scaleY(1) } 50% { transform: scaleY(.82) } }
+      @keyframes chDotPulse { 0% { transform: scale(1); opacity: .35; } 100% { transform: scale(2.4); opacity: 0; } }
 
       .ch-root ::selection { background: ${C.husk}; color: #fff; }
       .ch-root :focus-visible { outline: 2px solid ${C.water}; outline-offset: 3px; border-radius: 2px; }
@@ -424,7 +425,7 @@ function GeoStamp({ place, coords, when }) {
 
 /* ----------------------------------------------------------------------------
    3 · SIGNATURE - the AWD field tube
-   The programme turns on one object: a perforated pani pipe sunk into the paddy,
+   The program turns on one object: a perforated pani pipe sunk into the paddy,
    read by hand. Here it becomes the scroll indicator, driven by a scrubbed
    ScrollTrigger rather than a scroll listener, so it stays glued to the
    scrollbar on momentum devices. Scoped to the "sequence" (Program journey)
@@ -567,7 +568,7 @@ function TopBar() {
         {/* Grow Indigo mark, left */}
         <Magnetic strength={0.2}>
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">
-            <LogoSlot name="Grow Indigo" src={growIndigoLogo} light height={26} />
+            <LogoSlot name="Grow Indigo" src={growIndigoLogo} light height={34} />
           </button>
         </Magnetic>
 
@@ -596,7 +597,7 @@ function TopBar() {
 
         {/* ClearHarvest mark, mirrored right */}
         <div className="ml-auto md:ml-0">
-          <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light height={26} />
+          <LogoSlot name="ClearHarvest" src={clearHarvestLogo} align="right" light height={34} />
         </div>
       </div>
       <div style={{ height: 2, background: "rgba(255,255,255,.12)" }}>
@@ -609,7 +610,7 @@ function TopBar() {
 /* ----------------------------------------------------------------------------
    4b · COMPANY INTRO
    Opens the report proper: who Grow Indigo is, and the four verticals the
-   ClearHarvest programme sits inside of. Pure Reveal/Stagger - no GSAP scrub -
+   ClearHarvest program sits inside of. Pure Reveal/Stagger - no GSAP scrub -
    so it reads calmly before the Hero takes over the motion budget.
 ---------------------------------------------------------------------------- */
 const VERTICALS = [
@@ -677,7 +678,7 @@ function CompanyIntro() {
         title="About Grow Indigo"
         lede="Grow Indigo is a pioneering agri-tech company, with a focus on advancing sustainable agriculture to improve farmer profitability, environmental sustainability, and consumer health. Our mission is to accelerate agricultural transformation for a healthier planet, driven by four core pillars."
       />
-      <div className="flex justify-center mb-16 md:mb-20">
+      <div className="flex justify-center mb-32 md:mb-40">
         <Reveal variants={vScaleIn} style={{ maxWidth: 720, width: "100%" }}>
           <img
             src={growIndigoOverview}
@@ -743,7 +744,7 @@ function CompanyIntro() {
 const HERO_LINES = [["Low-Emission"], ["Paddy", "Offtake"]];
 const HERO_META = [
   ["Season", "Rabi crop season 2025-26"],
-  ["Programme", "ClearHarvest by Grow Indigo"],
+  ["Program", "ClearHarvest by Grow Indigo"],
   ["Geography", "Varni & Chandur blocks, Telangana"],
   ["Quantification", "Cool Farm Platform v3.0"],
 ];
@@ -864,7 +865,7 @@ const HEADLINES = [
   { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestlé baseline of 1,325 kg CO₂e/MT of paddy*", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy**", tone: C.water },
   { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "78.1 → 55.4 kg N/acre vs Nestlé baseline - less use of chemical fertilisers*", tone: C.clay },
+  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "~78 → ~55 kg N/acre vs Nestlé baseline - less use of chemical fertilisers*", tone: C.clay },
 ];
 
 const TICKER = [
@@ -931,8 +932,8 @@ function ImpactStrip() {
         </div>
 
         <div className="ch-data mt-3" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.7 }}>
-          *Grow Indigo's own baseline Data<br />
-          **As given by Nestlé
+          *As given by Nestlé<br />
+          **Grow Indigo's own baseline Data
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3 mt-14">
@@ -946,7 +947,7 @@ function ImpactStrip() {
             </p>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "68ch" }}>
               Participating farmers kept their prevailing paddy establishment method. The single change at the centre of
-              the programme was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
+              the program was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
               conserve water and suppress methane formation. Everything else - biologicals, residue management, digital
               traceability - was built around making that change stick and making it auditable.
             </p>
@@ -1058,7 +1059,7 @@ const INTERVENTIONS = [
   },
   {
     key: "ipm",
-    tag: "Theme 4 · Programme competencies",
+    tag: "Theme 4 · Program competencies",
     title: "A high-touch, phygital extension model",
     kicker: "Field visits, village-level meetings and digital learning",
     color: C.field,
@@ -1221,7 +1222,7 @@ const ROLES = [
   ["Project Management Unit", [
     "Strategic supervision and governance",
     "Alignment with Nestlé's sustainability and reporting requirements",
-    "Smooth execution throughout the programme, including procurement and reporting",
+    "Smooth execution throughout the program, including procurement and reporting",
   ]],
   ["RBM (Regional Business Manager) / Agronomist", [
     "Led on-ground implementation with TBM and Kisan Advisors",
@@ -1277,7 +1278,7 @@ const REMOTE_SENSING = [
   ],
   [
     "Crop Sowing Practice Validation",
-    "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programmes. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
+    "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programs. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
     rs4,
   ],
   [
@@ -1464,7 +1465,7 @@ function WorkflowStepper() {
           MONITORING, TRACEABILITY &amp; ASSURANCE WORKFLOW
         </div>
         <div className="mt-1.5" style={{ fontSize: 12.5, color: C.mute, fontStyle: "italic" }}>
-          From farmer engagement to third-party audit - the operational backbone of the programme
+          From farmer engagement to third-party audit - the operational backbone of the program
         </div>
       </div>
 
@@ -1502,7 +1503,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Program Governance and Implementation"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest Business team, keeping the programme aligned to Nestlé's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest Business team, keeping the program aligned to Nestlé's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal><OrgChart /></Reveal>
@@ -1866,7 +1867,7 @@ function WaterfallBarShape({ x, y, width, height, payload }) {
 const EMISSIONS_WATERFALL = buildWaterfall([
   { name: "Nestlé baseline", type: "total", value: 1325, fill: C.mute, note: "Nestlé's declared baseline for paddy, kg CO₂e per MT of paddy" },
   { name: "Reduction", type: "delta", value: -785, fill: C.leaf, note: "~785 kg CO₂e/MT of paddy lower - a ~59% reduction" },
-  { name: "Project", type: "total", value: 560, fill: C.field, note: "764.78 kg CO₂e/MT of paddy lower - 58%, the headline result" },
+  { name: "Project", type: "total", value: 560, fill: C.field, note: "~765 kg CO₂e/MT of paddy lower - 58%, the headline result" },
 ]);
 
 const NITROGEN_WATERFALL = buildWaterfall([
@@ -1947,8 +1948,8 @@ const SEASON_HEADLINE = [
     label: "GHG emission reduction", value: 58, prefix: "~ ", suffix: "%", tone: C.field,
     detail: [
       ["~771", "kg CO₂e/MT of paddy reduced · headline (corrected nursery)"],
-      ["784.87", "kg CO₂e/MT of paddy reduced · excluding nursery (~59%)"],
-      ["764.78", "kg CO₂e/MT of paddy reduced · including gross nursery (~58%)"],
+      ["~785", "kg CO₂e/MT of paddy reduced · excluding nursery (~59%)"],
+      ["~765", "kg CO₂e/MT of paddy reduced · including gross nursery (~58%)"],
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
@@ -2007,7 +2008,7 @@ function ResultsSection() {
           title="Well over half the carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
           height={360}
-          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of 13.40 kg CO₂e/MT of paddy."
+          footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of ~13 kg CO₂e/MT of paddy."
         >
           <BarChart data={EMISSIONS_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
             <CartesianGrid strokeDasharray="2 4" stroke={C.line} vertical={false} />
@@ -2081,14 +2082,14 @@ function ResultsSection() {
             <Eyebrow>How the nursery stage was handled</Eyebrow>
             <p className="mt-4" style={{ fontSize: 14.5, lineHeight: 1.75, color: C.mute }}>
               For the nursery stage, farmers typically raise seedlings on ~10% of their total land area for an average
-              duration of ~21 days. Given that average landholding in the project is ~6.3 acres, the nursery area is
-              ~0.63 acres per farmer. Methane emissions during cultivation are calculated on a per-day basis, and
-              nursery emissions are estimated for ~0.63 acres × ~21 days. A ~33% correction factor is applied to
+              duration of ~21 days. Given that average landholding in the project is ~6 acres, the nursery area is
+              ~1 acre per farmer. Methane emissions during cultivation are calculated on a per-day basis, and
+              nursery emissions are estimated for ~1 acre × ~21 days. A ~33% correction factor is applied to
               reflect lower methane generation in nurseries, as seedlings produce significantly less biomass than
               main-field crops.
             </p>
             <Stagger className="mt-5 grid grid-cols-3 gap-3" stagger={0.1}>
-              {[["20.09", "gross nursery"], ["13.40", "after correction"], ["~771", "net reduction"]].map(([v, l]) => (
+              {[["~20", "gross nursery"], ["~13", "after correction"], ["~771", "net reduction"]].map(([v, l]) => (
                 <motion.div key={l} variants={vScaleIn} whileHover={{ y: -4 }} className="p-3 rounded" style={{ background: C.paperDim }}>
                   <div className="ch-display" style={{ fontWeight: 800, color: C.field, fontSize: "1.35rem" }}>{v}</div>
                   <div className="ch-data" style={{ fontSize: 9.5, color: C.mute, marginTop: 2 }}>{l} · kg CO₂e/MT of paddy</div>
@@ -2459,7 +2460,7 @@ function SourcingSection() {
               guidance.
             </motion.p>
             <motion.p variants={vFadeUp}>
-              The programme is a working template for how Responsible Sourcing commitments translate into measurable,
+              The program is a working template for how Responsible Sourcing commitments translate into measurable,
               defensible field outcomes - providing both the operational learnings and the disclosure evidence needed
               to scale climate-aligned procurement across the paddy category, and beyond.
             </motion.p>
@@ -2477,7 +2478,7 @@ function SourcingSection() {
 ---------------------------------------------------------------------------- */
 const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", img: a1, fit: "cover", position: "center 22%", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
-  { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
+  { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the program in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Pani pipes during monitoring", img: kolluriGangaramAwd, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
@@ -2570,26 +2571,26 @@ function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", ta
 
 /* ----------------------------------------------------------------------------
    17 · SEQUENCE OF EVENTS
-   The operational spine of the programme, kick-off to reporting. The rail
+   The operational spine of the program, kick-off to reporting. The rail
    draws itself against the scrollbar (scrubbed ScrollTrigger) and each node
    pops as the rail reaches it, so the reader watches the season assemble.
 ---------------------------------------------------------------------------- */
 const SEQUENCE = [
   {
-    n: "01", title: "Programme kick-off", tag: "Mobilisation", color: C.field,
+    n: "01", title: "Program kick-off", tag: "Mobilisation", color: C.field,
     body: "Nestlé and Grow Indigo aligned on scope, geography and deliverables",
     meta: "Varni & Chandur blocks · 11 villages identified",
     photo: photoKickoff,
   },
   {
     n: "02", title: "First village-level meeting", tag: "VLM 1", hideTag: true, color: C.water,
-    body: "Farmers were introduced to the programme in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would and would not require of them. Enrolment was voluntary throughout.",
+    body: "The session introduced the project and explained how AWD and improved water management can reduce methane emissions, irrigation costs and resource use. It also covered biological inputs, INM, safe pesticide use and crop-residue management, followed by an open farmer Q&A.",
     meta: "Telugu-language sessions · leaflets distributed",
     photo: photoVlm1,
   },
   {
     n: "03", title: "Farmer enrollment", tag: "Inputs", color: C.leaf,
-    body: "Every programme farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost.Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting",
+    body: "Every program farmer received a 6 kg bag of Oorjit granules and a 20 kg bag of Grow Phos - one acre's worth - free of cost. Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in program reporting",
     meta: "6 kg of Oorjit and 20 kg of Grow Phos",
     photo: photoBd2,
     ratio: "3 / 4",
@@ -2597,20 +2598,20 @@ const SEQUENCE = [
   },
   {
     n: "04", title: "Second village-level meeting", tag: "VLM 2", hideTag: true, color: C.water,
-    body: "A working session rather than an introduction: live demonstration of correct pani pipe placement in the bund, and how to read the fall in water depth. Biological-team members walked through application timing.",
+    body: "The meeting focused on AWD, Scope-3 emissions, biological products, INM, safe pesticide use, farm records and residue management. Farmers shared positive field results such as reduced input costs and improved soil health, while the biological-products stall generated enquiries and sales of Gullack K.",
     meta: "Hands-on demonstration",
     photo: photoVlm2,
     fit: "scale-down",
   },
   {
     n: "05", title: "Third village-level meeting", tag: "VLM 3", hideTag: true, color: C.water,
-    body: "Mid-season review at crop stage: nutrient splits, weed and pest pressure, and troubleshooting for farmers whose fields were drying faster or slower than the schedule expected.",
+    body: "Participants were trained on sustainable agriculture, AWD, accurate documentation, INM, safe pesticide use and crop-residue management. The session also highlighted beneficial microorganisms and biological inputs, while encouraging farmer-to-farmer knowledge sharing; the biological-products stall received positive interest.",
     meta: "Crop-stage review · nutrient split guidance",
     photo: photoVlm3,
   },
   {
     n: "06", title: "Fourth village-level meeting", tag: "VLM 4", hideTag: true, color: C.water,
-    body: "Pre-harvest planning: residue handling, baling logistics, and what would be required at procurement. Farmers who had not previously baled were connected to balers and to local gaushalas as buyers.",
+    body: "The meeting covered climate-smart rice farming, including AWD irrigation, greenhouse-gas reduction, Integrated Nutrient Management, Leaf Colour Chart use and proper farm record-keeping. Farmers were also encouraged to adopt crop-residue baling, avoid residue burning, use biological products correctly and share field experiences.",
     meta: "Residue planning · procurement briefing",
     photo: photoMedia11,
   },
@@ -2892,7 +2893,7 @@ function TestimonialsSection() {
 
 /* ----------------------------------------------------------------------------
    19 · FIELD PHOTOGRAPHY
-   Three sets the programme documented continuously: village meetings, the
+   Three sets the program documented continuously: village meetings, the
    biologicals handover, and the farmer diaries. Filter chips switch sets with
    a framer layout animation so the grid reflows instead of cutting.
 ---------------------------------------------------------------------------- */
@@ -3050,8 +3051,8 @@ const BIBLIOGRAPHY = [
 ];
 
 const DATA_NOTES = [
-  "Headline GHG reduction of ~771 kg CO₂e/MT of paddy (58%) is measured against Nestlé's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of 13.40 kg CO₂e/MT of paddy.",
-  "Quantification also yields 784.87 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and 764.78 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in the emissions intensity chart rather than being collapsed into one number.",
+  "Headline GHG reduction of ~771 kg CO₂e/MT of paddy (58%) is measured against Nestlé's baseline of 1,325 kg CO₂e/MT of paddy and includes the corrected nursery emission of ~13 kg CO₂e/MT of paddy.",
+  "Quantification also yields ~785 kg CO₂e/MT of paddy (~59%) excluding nursery emissions and ~765 kg CO₂e/MT of paddy (~58%) using gross nursery emissions - all three appear in the emissions intensity chart rather than being collapsed into one number.",
   "Water use of ~1,073 litres/kg is derived from the ~67% saving against the stated ~3,250 litres/kg baseline.",
   "Farmer counts differ by stage: 300 enrolled, 326 fields mapped and geofenced, 139 completing procurement, of whom 5 were sampled for quantification.",
   "The program delivered a 29% reduction in nitrogen application compared with Nestlé's established baseline.",
@@ -3112,8 +3113,8 @@ function Closing() {
 
         <div className="mt-16 pt-10" style={{ borderTop: "1px solid rgba(255,255,255,.15)" }}>
           <LogoLockup light height={40} />
-          <div className="ch-data mt-8 text-center" style={{ fontSize: 10.5, color: "rgba(255,255,255,.4)", letterSpacing: ".1em" }}>
-            LOW-EMISSION RICE OFFTAKE · NIZAMABAD, TELANGANA · RABI 2025-2026
+          <div className="ch-data mt-3" style={{ fontSize: 10.5, color: "rgba(255,255,255,.4)", letterSpacing: ".1em", textAlign: "left" }}>
+            © 2026 Grow Indigo. All rights reserved.
           </div>
         </div>
       </div>

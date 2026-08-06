@@ -265,7 +265,7 @@ function GeoStamp({ place, coords, when, className = "" }) {
 
 /* ----------------------------------------------------------------------------
    4 · SIGNATURE ELEMENT - the AWD field tube
-   The whole programme turns on one object: a perforated pipe sunk into the
+   The whole program turns on one object: a perforated pipe sunk into the
    paddy, read by hand. It becomes the page's scroll indicator. Water rises and
    falls through the report the way it does through a wetting–drying cycle, and
    the "safe re-irrigation" line at 15 cm below surface is marked, as in the
@@ -402,7 +402,7 @@ function TopBar({ progress }) {
 
 /* ----------------------------------------------------------------------------
    6 · HERO
-   Thesis, not decoration: a flooded field that drains as the page loads - the single practice the whole programme rests on, stated in one line.
+   Thesis, not decoration: a flooded field that drains as the page loads - the single practice the whole program rests on, stated in one line.
 ---------------------------------------------------------------------------- */
 function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -570,7 +570,7 @@ function ImpactStrip() {
           </p>
           <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "68ch" }}>
             Participating farmers kept their prevailing rice establishment method. The single change at the centre of
-            the programme was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
+            the program was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
             conserve water and suppress methane formation. Everything else - biologicals, residue management, digital
             traceability - was built around making that change stick and making it auditable.
           </p>
@@ -695,7 +695,7 @@ function LocationSection() {
       <SectionHead
         index="02"
         title="One district, twenty-three villages"
-        lede="The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana - a groundwater-dependent rice bowl where continuous flooding is the default and the case for AWD is strongest."
+        lede="The program ran in the Varni and Chandur blocks of Nizamabad district, Telangana - a groundwater-dependent rice bowl where continuous flooding is the default and the case for AWD is strongest."
       />
       <div className="grid gap-10 lg:grid-cols-2 items-center">
         <Reveal>
@@ -953,7 +953,7 @@ const ROLES = [
   ["Project Management Unit", [
     "Strategic supervision and governance",
     "Alignment with ABC's sustainability and reporting requirements",
-    "Smooth execution throughout the programme, including procurement and reporting",
+    "Smooth execution throughout the program, including procurement and reporting",
   ]],
   ["RBM / Agronomist", [
     "Led on-ground implementation with TBM and Kisan Advisors",
@@ -1145,7 +1145,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Who did what, and how it was checked"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to ABC's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the program aligned to ABC's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal>
@@ -1179,7 +1179,7 @@ function GovernanceSection() {
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
         <Reveal>
           <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <Eyebrow>Theme 4 · Programme competencies</Eyebrow>
+            <Eyebrow>Theme 4 · Program competencies</Eyebrow>
             <h4 className="ch-display mt-4 text-xl" style={{ color: C.field, fontWeight: 700 }}>
               Four IPM principles, applied in the field
             </h4>
@@ -1907,7 +1907,7 @@ function SourcingSection() {
               guidance.
             </p>
             <p>
-              The programme is a working template for how ABC's Responsible Sourcing commitments translate into
+              The program is a working template for how ABC's Responsible Sourcing commitments translate into
               measurable, defensible field outcomes - providing both the operational learnings and the disclosure
               evidence needed to scale climate-aligned procurement across the rice category, and beyond.
             </p>
@@ -1925,7 +1925,7 @@ function SourcingSection() {
 ---------------------------------------------------------------------------- */
 const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", scene: "meeting", place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM GMT +05:30", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
-  { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
+  { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the program in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", scene: "form", place: "Ghanpur, Telangana, India", coords: "Farmer ID 1f22356e", when: "Rabi 2026", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Feedback form (second respondent)", scene: "form", place: "Ghanpur, Telangana, India", coords: "Stakeholder feedback", when: "22-01-26", caption: "Second signed stakeholder feedback record retained in the audit pack." },
   { n: 5, title: "ABC team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "ABC representatives in-field with the Grow Indigo team and participating farmers." },

@@ -380,7 +380,7 @@ function GeoStamp({ place, coords, when }) {
 
 /* ----------------------------------------------------------------------------
    3 · SIGNATURE - the AWD field tube
-   The programme turns on one object: a perforated pipe sunk into the paddy,
+   The program turns on one object: a perforated pipe sunk into the paddy,
    read by hand. Here it becomes the scroll indicator, driven by a scrubbed
    ScrollTrigger rather than a scroll listener, so it stays glued to the
    scrollbar on momentum devices.
@@ -566,7 +566,7 @@ function TopBar() {
 const HERO_LINES = [["Low-Emission"], ["Rice", "Offtake"]];
 const HERO_META = [
   ["Season", "Rabi 2026"],
-  ["Programme", "ClearHarvest by Grow Indigo"],
+  ["Program", "ClearHarvest by Grow Indigo"],
   ["Geography", "Varni & Chandur blocks, Telangana"],
   ["Quantification", "Cool Farm Platform V3.0"],
 ];
@@ -767,7 +767,7 @@ function ImpactStrip() {
             </p>
             <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute, maxWidth: "68ch" }}>
               Participating farmers kept their prevailing rice establishment method. The single change at the centre of
-              the programme was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
+              the program was irrigation: AWD replaced continuous flooding with monitored wetting–drying cycles to
               conserve water and suppress methane formation. Everything else - biologicals, residue management, digital
               traceability - was built around making that change stick and making it auditable.
             </p>
@@ -1225,7 +1225,7 @@ function LocationSection() {
       <SectionHead
         index="02"
         title="Every field on the map"
-        lede={`The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All ${TOTAL_FIELDS} enrolled farmer fields were geofenced as KML boundaries in FieldKhata - drill from the country down to a single plot.`}
+        lede={`The program ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All ${TOTAL_FIELDS} enrolled farmer fields were geofenced as KML boundaries in FieldKhata - drill from the country down to a single plot.`}
       />
 
       <div ref={scope} className="grid gap-6 lg:grid-cols-5 items-start">
@@ -1498,7 +1498,7 @@ const ROLES = [
   ["Project Management Unit", [
     "Strategic supervision and governance",
     "Alignment with ABC's sustainability and reporting requirements",
-    "Smooth execution throughout the programme, including procurement and reporting",
+    "Smooth execution throughout the program, including procurement and reporting",
   ]],
   ["RBM / Agronomist", [
     "Led on-ground implementation with TBM and Kisan Advisors",
@@ -1728,7 +1728,7 @@ function GovernanceSection() {
       <SectionHead
         index="04"
         title="Who did what, and how it was checked"
-        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the programme aligned to ABC's sustainability objectives and reporting requirements."
+        lede="Delivery ran through a layered implementation architecture. Strategic oversight sat with Grow Indigo's ClearHarvest team, keeping the program aligned to ABC's sustainability objectives and reporting requirements."
       />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <Reveal><OrgChart /></Reveal>
@@ -1756,7 +1756,7 @@ function GovernanceSection() {
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
         <Reveal>
           <div className="p-7 rounded-lg h-full" style={{ background: "#fff", border: `1px solid ${C.line}` }}>
-            <Eyebrow>Theme 4 · Programme competencies</Eyebrow>
+            <Eyebrow>Theme 4 · Program competencies</Eyebrow>
             <h4 className="ch-display mt-4 text-xl" style={{ color: C.field, fontWeight: 700 }}>
               Four IPM principles, applied in the field
             </h4>
@@ -2554,7 +2554,7 @@ function SourcingSection() {
               guidance.
             </motion.p>
             <motion.p variants={vFadeUp}>
-              The programme is a working template for how Responsible Sourcing commitments translate into measurable,
+              The program is a working template for how Responsible Sourcing commitments translate into measurable,
               defensible field outcomes - providing both the operational learnings and the disclosure evidence needed
               to scale climate-aligned procurement across the rice category, and beyond.
             </motion.p>
@@ -2572,7 +2572,7 @@ function SourcingSection() {
 ---------------------------------------------------------------------------- */
 const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", scene: "meeting", place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM GMT +05:30", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
-  { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
+  { n: 2, title: "Stakeholder feedback form", scene: "form", place: "Ghanpur, Telangana, India", coords: "Signed at village level", when: "22-01-26", caption: "Bilingual Telugu/English feedback form. Respondent rated the program in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", scene: "form", place: "Ghanpur, Telangana, India", coords: "Farmer ID 1f22356e", when: "Rabi 2026", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Feedback form (second respondent)", scene: "form", place: "Ghanpur, Telangana, India", coords: "Stakeholder feedback", when: "22-01-26", caption: "Second signed stakeholder feedback record retained in the audit pack." },
   { n: 5, title: "ABC team field visits", scene: "team", place: "Srinagar, Nizamabad, Telangana", coords: "18.537088°N 77.925309°E", when: "Mon, 25/05/2026 10:43 AM GMT +05:30", caption: "ABC representatives in-field with the Grow Indigo team and participating farmers." },
@@ -2767,19 +2767,19 @@ function PhotoSlot({ label, ratio = "4 / 3", stamp, src, alt, className = "", ta
 
 /* ----------------------------------------------------------------------------
    17 · SEQUENCE OF EVENTS
-   The operational spine of the programme, kick-off to reporting. The rail
+   The operational spine of the program, kick-off to reporting. The rail
    draws itself against the scrollbar (scrubbed ScrollTrigger) and each node
    pops as the rail reaches it, so the reader watches the season assemble.
 ---------------------------------------------------------------------------- */
 const SEQUENCE = [
   {
-    n: "01", title: "Programme kick-off", tag: "Mobilisation", color: C.field,
-    body: "ClearHarvest and Grow Indigo aligned on scope, geography and reporting obligations, then stood up the delivery team - PMU, RBM/Agronomist, TBM and the Kisan Advisors who would carry the programme village to village.",
+    n: "01", title: "Program kick-off", tag: "Mobilisation", color: C.field,
+    body: "ClearHarvest and Grow Indigo aligned on scope, geography and reporting obligations, then stood up the delivery team - PMU, RBM/Agronomist, TBM and the Kisan Advisors who would carry the program village to village.",
     meta: "Varni & Chandur blocks · 23 villages identified",
   },
   {
     n: "02", title: "First village-level meeting", tag: "VLM 1", color: C.water,
-    body: "Farmers were introduced to the programme in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would and would not require of them. Enrolment was voluntary throughout.",
+    body: "Farmers were introduced to the program in their own villages: what AWD is, why continuous flooding drives methane, and what taking part would and would not require of them. Enrolment was voluntary throughout.",
     meta: "Telugu-language sessions · leaflets distributed",
   },
   {
@@ -2794,7 +2794,7 @@ const SEQUENCE = [
   },
   {
     n: "05", title: "Consent letter signing", tag: "Governance", color: C.clay,
-    body: "Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in programme reporting. Consent is what makes the traceability claim defensible - and it stayed revocable.",
+    body: "Farmers signed written consent covering participation, field data capture and use of their geo-tagged boundary in program reporting. Consent is what makes the traceability claim defensible - and it stayed revocable.",
     meta: "Signed consent retained in the audit pack",
   },
   {
@@ -3050,7 +3050,7 @@ function TestimonialsSection() {
 
 /* ----------------------------------------------------------------------------
    19 · FIELD PHOTOGRAPHY
-   Three sets the programme documented continuously: village meetings, the
+   Three sets the program documented continuously: village meetings, the
    biologicals handover, and the farmer diaries. Filter chips switch sets with
    a framer layout animation so the grid reflows instead of cutting.
 ---------------------------------------------------------------------------- */
@@ -3245,7 +3245,7 @@ function Closing() {
             </Stagger>
 
             <div className="mt-10 grid grid-cols-3 gap-4">
-              {[["309", "fields mapped"], ["23", "villages"], ["12", "programme milestones"]].map(([v, l]) => (
+              {[["309", "fields mapped"], ["23", "villages"], ["12", "program milestones"]].map(([v, l]) => (
                 <div key={l}>
                   <div className="ch-display" style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>
                     <Counter value={parseInt(v, 10)} />

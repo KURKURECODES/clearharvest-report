@@ -68,25 +68,18 @@ const FONT_DATA = "'Inter', 'Helvetica Neue', Arial, sans-serif";
    of the geolocated one-row-per-farmer dataset). The map itself still
    draws exactly 300 real, non-overlapping field polygons - see
    fields.geo.json / scripts/gen-fields.cjs. */
-/* `pinLon`/`pinLat` place the district-level label pin; `lon`/`lat` stay the
-   true village coordinate (shown in the village panel and used to frame the
-   camera). The 11 villages sit within a ~7km real cluster, so plotting pins
-   at their true coordinates crams several labels on top of each other at any
-   zoom that still shows all of them. Pins are laid out on a loose, evenly
-   spaced grid instead - still in roughly the right compass direction from
-   one another, just spread enough that every label stays clickable. */
 const VILLAGES = [
-  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, pinLon: 77.945, pinLat: 18.550, block: "Varni",   fields: 2  },
-  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, pinLon: 77.900, pinLat: 18.585, block: "Chandur", fields: 37 },
-  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, pinLon: 77.970, pinLat: 18.585, block: "Varni",   fields: 57 },
-  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, pinLon: 77.905, pinLat: 18.515, block: "Varni",   fields: 36 },
-  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, pinLon: 77.955, pinLat: 18.515, block: "Varni",   fields: 65 },
-  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, pinLon: 77.925, pinLat: 18.480, block: "Varni",   fields: 37 },
-  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, pinLon: 77.895, pinLat: 18.550, block: "Varni",   fields: 30 },
-  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, pinLon: 77.930, pinLat: 18.625, block: "Chandur", fields: 23 },
-  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, pinLon: 77.985, pinLat: 18.550, block: "Varni",   fields: 23 },
-  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, pinLon: 77.855, pinLat: 18.550, block: "Varni",   fields: 5  },
-  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, pinLon: 77.865, pinLat: 18.515, block: "Varni",   fields: 11 },
+  { key: "afandifarm",  name: "Afandi Farm",  lon: 77.935020, lat: 18.551079, block: "Varni",   fields: 2  },
+  { key: "ghanpur",     name: "Ghanpur",      lon: 77.929814, lat: 18.575105, block: "Chandur", fields: 37 },
+  { key: "humnapur",    name: "Humnapur",     lon: 77.915708, lat: 18.568346, block: "Varni",   fields: 57 },
+  { key: "jakora",      name: "Jakora",       lon: 77.927076, lat: 18.518710, block: "Varni",   fields: 36 },
+  { key: "jalalpur",    name: "Jalalpur",     lon: 77.970090, lat: 18.511968, block: "Varni",   fields: 65 },
+  { key: "kunipur",     name: "Kunipur",      lon: 77.948905, lat: 18.512812, block: "Varni",   fields: 37 },
+  { key: "nehrunagar",  name: "Nehru Nagar",  lon: 77.909051, lat: 18.555280, block: "Varni",   fields: 30 },
+  { key: "sangam",      name: "Sangam",       lon: 77.917817, lat: 18.605009, block: "Chandur", fields: 23 },
+  { key: "srinagar",    name: "Srinagar",     lon: 77.921648, lat: 18.535174, block: "Varni",   fields: 23 },
+  { key: "thagilepally",name: "Thagilepally", lon: 77.867237, lat: 18.542405, block: "Varni",   fields: 5  },
+  { key: "varni",       name: "Varni",        lon: 77.903781, lat: 18.532789, block: "Varni",   fields: 11 },
 ];
 const MAPPED_FIELDS_TOTAL = VILLAGES.reduce((sum, v) => sum + v.fields, 0); // 326
 
@@ -310,21 +303,36 @@ function DrillMap({ level, village, selected, onPickState, onPickVillage, onPick
     markers.current = [];
     if (level !== "district") return;
 
+    // The basemap already labels every village by name at this zoom - we just
+    // need a clickable marker sitting on top of that label, not our own
+    // duplicate name tag. A small red dot at the true coordinate does that
+    // without covering or crowding out the basemap's own labels.
     VILLAGES.forEach((v) => {
       const el = document.createElement("button");
       el.setAttribute("aria-label", `${v.name} - ${v.fields} fields`);
-      el.style.cssText = `display:flex;align-items:center;gap:7px;background:${C.ink};color:#fff;
-        border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 11px 5px 7px;
-        font-family:${FONT_DATA};font-size:10.5px;font-weight:600;cursor:pointer;white-space:nowrap;
-        box-shadow:0 6px 18px -8px rgba(0,0,0,.6);transition:transform .2s ease,background .2s ease`;
-      el.innerHTML = `<span style="width:8px;height:8px;border-radius:99px;background:${C.husk};display:inline-block"></span>
-        ${v.name.toUpperCase()} <span style="opacity:.6">${v.fields}</span>`;
-      el.onmouseenter = () => { el.style.transform = "scale(1.07)"; el.style.background = C.field; };
-      el.onmouseleave = () => { el.style.transform = "none"; el.style.background = C.ink; };
+      // maplibre writes its own `transform: translate(Xpx, Ypx)` onto this
+      // element to keep it pinned to the marker's lng/lat - it must be left
+      // alone. The hover/click scale lives on an inner wrapper instead, so it
+      // never clobbers maplibre's positioning transform (that was the bug:
+      // overwriting el.style.transform reset the marker to its untranslated
+      // default position, i.e. the top-left corner of the map).
+      el.style.cssText = `display:block;width:16px;height:16px;padding:0;border:none;
+        background:none;cursor:pointer;`;
+      el.innerHTML = `
+        <span class="ch-map-dot" style="position:absolute;inset:0;display:block;transition:transform .2s ease;">
+          <span style="position:absolute;inset:0;border-radius:99px;background:#D6273C;opacity:.35;
+            animation:chDotPulse 2s ease-out infinite"></span>
+          <span style="position:absolute;left:3px;top:3px;width:10px;height:10px;border-radius:99px;
+            background:#D6273C;border:2px solid #fff;box-shadow:0 2px 6px -1px rgba(0,0,0,.6);
+            display:block"></span>
+        </span>`;
+      const dot = el.querySelector(".ch-map-dot");
+      el.onmouseenter = () => { dot.style.transform = "scale(1.3)"; };
+      el.onmouseleave = () => { dot.style.transform = "none"; };
       // stop the click from also reaching the map's own click handlers underneath -
       // without this a pin click could double-fire and fight its own camera move
       el.onclick = (e) => { e.stopPropagation(); onPickVillage(v.key); };
-      markers.current.push(new Marker({ element: el }).setLngLat([v.pinLon, v.pinLat]).addTo(m));
+      markers.current.push(new Marker({ element: el, anchor: "center" }).setLngLat([v.lon, v.lat]).addTo(m));
     });
   }, [level, ready, onPickVillage]);
 
@@ -464,7 +472,7 @@ function Panel({ level, village, field, hoverField }) {
           <Row k="Mapped fields" v={MAPPED_FIELDS_TOTAL} accent={C.leaf} />
           <Row k="Villages" v={VILLAGES.length} />
           <Row k="Blocks" v="Varni & Chandur" />
-          <Row k="Emission reduction" v="771.41 kg CO₂e/MT of paddy" accent={C.leaf} />
+          <Row k="Emission reduction" v="~771 kg CO₂e/MT of paddy" accent={C.leaf} />
         </div>
       </motion.div>
     );
@@ -512,7 +520,7 @@ export default function LocationSection() {
             Every field on the map
           </h2>
           <p className="mt-5" style={{ color: C.mute, maxWidth: "62ch", lineHeight: 1.65, fontSize: "1.05rem" }}>
-            The programme ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {MAPPED_FIELDS_TOTAL} enrolled
+            The program ran in the Varni and Chandur blocks of Nizamabad district, Telangana. All {MAPPED_FIELDS_TOTAL} enrolled
             fields were geofenced as KML boundaries in FieldKhatta app.
           </p>
         </div>
