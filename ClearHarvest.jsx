@@ -76,7 +76,7 @@ import rs1 from "./src/assets/rs1.png";
 import rs2 from "./src/assets/rs2.png";
 import rs4 from "./src/assets/rs4.png";
 import rs5 from "./src/assets/rs5.png";
-import trac from "./src/assets/trac.png";
+import trac from "./src/assets/tt2.png";
 import photoBailing from "./src/assets/bailing.jpg";
 import videoTestimonial1 from "./src/assets/testimonial1.mp4";
 import videoTestimonial2 from "./src/assets/testimonial2.mp4";
