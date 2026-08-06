@@ -53,7 +53,7 @@ import a1 from "./src/assets/a1.png";
 import a2 from "./src/assets/a2.png";
 import a3 from "./src/assets/a3.png";
 import a5 from "./src/assets/a5.png";
-import a6 from "./src/assets/a6.png";
+import kolluriGangaramAwd from "./src/assets/Kolluri_Gangaram_1f22354e_AWD.jpg";
 import a8 from "./src/assets/a8.png";
 import a9 from "./src/assets/a9.png";
 import a10 from "./src/assets/a10.png";
@@ -2478,7 +2478,7 @@ const EVIDENCE = [
   { n: 1, title: "Village-level meetings with farmers", img: a1, fit: "cover", position: "center 22%", caption: "Farmers attending a VLM with the field team - four VLMs were held across the project period." },
   { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the programme in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
-  { n: 4, title: "Pani pipes during monitoring", img: a6, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
+  { n: 4, title: "Pani pipes during monitoring", img: kolluriGangaramAwd, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
   { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
   { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
   { n: 7, title: "Form 10", img: a10, fit: "contain", caption: "Weighbridge slip, Form 10 countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
