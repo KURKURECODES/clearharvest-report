@@ -1011,7 +1011,7 @@ const INTERVENTIONS = [
     key: "soil",
     tag: "Theme 2 · Soil",
     title: "Use of Biological Agri inputs",
-    kicker: "6 kg urea and 20 kg phosphorus per acre",
+    kicker: "6 Kg Oorjit and 20 Kg Grow Phos per acre",
     color: C.leaf,
     icon: (
       <path d="M12 21c0-6 3-10 8-11 0 7-3 11-8 11zM12 21C12 15 9 11 4 10c0 7 3 11 8 11z" fill="currentColor" />
