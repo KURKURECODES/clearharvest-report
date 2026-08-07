@@ -871,7 +871,7 @@ const HEADLINES = [
 
 const TICKER = [
   "~771 kg CO₂e/MT of paddy reduced",
-  "~ 58% GHG emissions against Nestlé baseline",
+  "~ 58% GHG emissions reduction against Nestlé baseline",
   "~ 67% water saved against Grow Indigo's baseline",
   "~29% Nitrogen reduction against Nestlé baseline",
   "~ 833 acres baled",
