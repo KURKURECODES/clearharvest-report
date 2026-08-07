@@ -1036,7 +1036,7 @@ const INTERVENTIONS = [
     key: "crm",
     tag: "Theme 3 · Residue",
     title: "Crop Residue Management",
-    kicker: "833 acres baled against a 300 acres target",
+    kicker: "833 acres baled against the 300 acres target",
     color: C.husk,
     icon: (
       <path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-6h6v6" stroke="currentColor" strokeWidth="1.8" fill="none" />
