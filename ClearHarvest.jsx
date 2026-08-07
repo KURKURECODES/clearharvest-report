@@ -2272,16 +2272,15 @@ function EconomicsSection() {
 ---------------------------------------------------------------------------- */
 const LEVERS = [
   ["Alternate Wetting & Drying", "~67% water savings · CH₄ reduction", 0],
-  ["Oorjit, Grow Phos + CRM", "29% N reduction · no field burning", 2],
-  ["FieldKhatta + S3 Sutra", "End-to-end digital audit trail", 3],
+  ["Oorjit, Grow Phos + CRM", "29% N reduction · no field burning", 0],
+  ["FieldKhatta + S3 Sutra", "End-to-end digital audit trail", 2],
   ["Farmer capacity building", "VLMs, KA support, vernacular training", 1],
 ];
 
 const PILLARS = [
-  ["Pillar 01", "Climate Action & Net Zero", "AWD reduces methane formation at source; optimised nitrogen lowers N₂O. A direct, verifiable Scope 3 insetting contribution.", C.field],
-  ["Pillar 02", "Water Stewardship & Livelihoods", "~67% water savings free up aquifer capacity; pumping and fertiliser cuts plus straw monetisation lift farm-gate margins.", C.water],
-  ["Pillar 03", "Land, Forests & Biodiversity", "Oorjit and Grow Phos improve SOC and soil biology; CRM ends open field burning, protecting soil biota and air quality.", C.leaf],
-  ["Pillar 04", "Traceability & Human Rights", "FieldKhatta app  and S3 Sutra build a geo-tagged, audit-ready record; the engagement model preserves voluntary participation.", C.husk],
+  ["Pillar 01", "Environment", "Climate · Water · Soil · Biodiversity - AWD reduces methane formation at source; optimised nitrogen, Oorjit and Grow Phos improve soil biology; CRM ends open field burning, protecting soil biota and air quality.", C.field],
+  ["Pillar 02", "Human Rights", "Farmer wellbeing · Safe practices · Inclusion - VLMs, Kisan Advisor support and vernacular training build farmer capability while preserving voluntary participation.", C.leaf],
+  ["Pillar 03", "Transparency", "Traceability · Digital records · Verification - FieldKhatta and S3 Sutra build a geo-tagged, audit-ready record from farm to mill.", C.husk],
 ];
 
 function SourcingSection() {
