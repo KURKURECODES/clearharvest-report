@@ -85,6 +85,7 @@ import videoTestimonial4 from "./vid4.mp4";
 import photoWaterLevel from "./src/assets/waterlevel.jpg";
 import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
+import photoWhatsappMsg from "./tm.png";
 
 
 import diaryFeedback from "./src/assets/diary11.png";
@@ -874,7 +875,7 @@ const TICKER = [
   "~ 67% water saved against Grow Indigo's baseline",
   "~29% Nitrogen reduction against Nestlé baseline",
   "~ 833 acres baled",
-  "Farmer Sample Used for CFT Analysis",
+  "Farmer Samples Used for CFT Analysis",
 ];
 
 /** Seamless GSAP marquee. Two copies of the strip, x wrapped modulo width. */
@@ -1305,7 +1306,7 @@ function OrgChart() {
             {node("Field Operations", null, C.leaf, "#fff", "org-branch")}
             <div className="mt-3 space-y-3">
               {node("RBM (Regional Business Manager) / Agronomist", "Regional field leadership & agronomic guidance", C.paperDim, C.ink, "org-leaf")}
-              {node("Territory Business Manager", "Team management & operational execution", C.paperDim, C.ink, "org-leaf")}
+              {node("TBM (Territory Business Manager)", "Team management & operational execution", C.paperDim, C.ink, "org-leaf")}
               {node("Kisan Advisors", "Farmer engagement, advisory & hand-holding", C.paperDim, C.ink, "org-leaf")}
             </div>
           </div>
@@ -1941,7 +1942,7 @@ function ResultsSection() {
       <SectionHead
         index="09"
         title="Sampled. Quantified. Audited"
-        lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform v3.0 and was reviewed by a third-party auditor."
+        lede="Grow Indigo started the season with 300 farmers; completed procurement for 139, and farmers were selected for quantification. GHG quantification ran post-harvest on the Cool Farm Platform v3.0."
       />
 
       <SeasonHeadlineResults />
@@ -2407,10 +2408,11 @@ const EVIDENCE = [
   { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the program in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Pani pipes during monitoring", img: kolluriGangaramAwd, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
-  { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300 acres target." },
-  { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
-  { n: 7, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form X countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
-  { n: 8, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Third Party auditor in field with the Grow Indigo team and participating farmers." },
+  { n: 5, title: "Weekly WhatsApp messages sent to farmers", img: photoWhatsappMsg, fit: "contain", caption: "Farmers received messages on a weekly basis about key practices and their benefits, including AWD, regenerative agriculture, the use of biological inputs, reduced reliance on chemical pesticides & chemicals, and CRM." },
+  { n: 6, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300 acres target." },
+  { n: 7, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
+  { n: 8, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form X countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
+  { n: 9, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Third Party auditor in field with the Grow Indigo team and participating farmers." },
 ];
 
 function EvidenceSection() {
