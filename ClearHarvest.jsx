@@ -2979,7 +2979,6 @@ const BIBLIOGRAPHY = [
   ["Ma et al. (2012). Greenhouse gas emissions during the rice seedling stage as affected by cultivar type and crop density.", "ResearchGate", "https://www.researchgate.net/publication/230563682"],
   ["Megha, P. V., Salimath, S. B., Biradar, G. S., Kuri, S., & Anjali, M. C. (2025). Farmer's response under conventional system and alternate wetting and drying method of paddy cultivation in Karnataka. International Journal of Research in Agronomy, 8(10S), 275–278.", "DOI", "https://doi.org/10.33545/2618060X.2025.v8.i10Sd.4098"],
   ["Professor Jayashankar Telangana State Agricultural University. (2017–18). Rice [PDF].", "PJTSAU", "https://www.pjtau.edu.in/pdf2/rice.pdf"],
-  ["Patel Vedant, C., & Vekariya, P. B. (2018). Performance evaluation of pressure head loads and pumping efficiency on electrical pump sets. Indian Journal of Agricultural Research, 52(4), 374–379.", "DOI", "https://doi.org/10.18805/IJARe.A-501"],
 ];
 
 const DATA_NOTES = [
