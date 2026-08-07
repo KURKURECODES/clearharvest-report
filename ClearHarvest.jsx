@@ -78,9 +78,10 @@ import rs4 from "./src/assets/rs4.png";
 import rs5 from "./src/assets/rs5.png";
 import trac from "./src/assets/tt2.png";
 import photoBailing from "./src/assets/bailing.jpg";
-import videoTestimonial1 from "./src/assets/testimonial1.mp4";
-import videoTestimonial2 from "./src/assets/testimonial2.mp4";
-import videoTestimonial3 from "./src/assets/testimonial3.mp4";
+import videoTestimonial1 from "./vid1.mp4";
+import videoTestimonial2 from "./vid2.mp4";
+import videoTestimonial3 from "./vid3.mp4";
+import videoTestimonial4 from "./vid4.mp4";
 import photoWaterLevel from "./src/assets/waterlevel.jpg";
 import diarySocioEconomic from "./src/assets/diary1.png";
 import diaryWaterLogA from "./src/assets/diary7.png";
@@ -869,7 +870,7 @@ const HEADLINES = [
 
 const TICKER = [
   "~771 kg CO₂e/MT of paddy reduced",
-  "~ 58% GHG emissions below Nestlé baseline",
+  "~ 58% GHG emissions against Nestlé baseline",
   "~ 67% water saved against Grow Indigo's baseline",
   "~29% Nitrogen reduction against Nestlé baseline",
   "~ 833 acres baled",
@@ -1269,29 +1270,6 @@ const WORKFLOW = [
   ["Third-party audit & report submission", "Independent verification and final delivery"],
 ];
 
-const REMOTE_SENSING = [
-  [
-    "Field Boundary Correction",
-    "An in-house integrated QGIS-database system performs online quality checking and correction of geotagged field polygons. Polygons are automatically assigned to a QC team, where field boundaries are verified and corrected and non-agricultural areas are removed to ensure accurate delineation of agricultural fields. Quality assurance runs through three levels of verification, with final checking done via a high-precision statistical quality-control method for positional and boundary accuracy. Polygons meeting all criteria are designated as \"good\" polygons.",
-    rs1,
-  ],
-  [
-    "Crop Classification / Validation",
-    "A comprehensive crop inventory is built by distinguishing and mapping crop types using multi-temporal, multi-source satellite imagery and ground-truth observations. The process starts with a reliable database of field polygons, then selects high-quality (\"good\") polygons representing homogeneous fields. Field surveys collect ground-truth data on crops such as rice, cotton, sugarcane, wheat and mustard, which trains and validates a Random Forest machine-learning model. Multi-date Sentinel-1 SAR and Sentinel-2 multispectral imagery supply complementary temporal, structural and spectral information for accurate crop discrimination. Multi-temporal observations (e.g., December 2024 to February 2025) capture distinct phenological and harvest patterns - active wheat vs. harvested potato - improving classification accuracy. The validated crop map serves as a quality-assured layer for all subsequent analyses.",
-    rs2,
-  ],
-  [
-    "Crop Sowing Practice Validation",
-    "Sowing-practice validation identifies and verifies the crop establishment method, enabling assessment of sustainable practices and eligibility for carbon-credit programs. Beginning from validated \"good\" field polygons, multi-date Sentinel-1 SAR and Sentinel-2 imagery capture the temporal, structural and spectral signatures of different establishment practices. A machine-learning model, trained on ground-truth observations, classifies field-level practices such as Direct Seeded Rice (DSR), Transplanted Rice (TPR), Zero Tillage (ZT) and Conventional Tillage (CT). The resulting practice map is integrated with the field database to generate field-wise establishment information, supporting identification of climate-smart fields and their carbon-credit eligibility - a scalable, objective approach over large regions.",
-    rs4,
-  ],
-  [
-    "Crop Residue Burning Detection",
-    "Post-harvest residue burning, common after rice harvest, contributes to air pollution, greenhouse-gas emissions, nutrient loss and soil degradation, making timely detection essential. Burning is monitored by integrating satellite imagery, crop-classification outputs and cloud-based processing in Google Earth Engine (GEE). Multi-temporal post-harvest imagery is processed with spectral indices that enhance contrast between burned and unburned surfaces. The burned-area map is overlaid on the field-boundary database, and burned pixels within each rice field are aggregated to estimate total burned area and the percentage of each field affected - identifying partially and completely burned fields and building spatially explicit inventories. Ground-truth and field-survey data validate the detected burn scars and the reliability of the estimates.",
-    rs5,
-  ],
-];
-
 function OrgChart() {
   // the tree assembles top-down: PMU, connector, then each branch in turn
   const scope = useGsapContext((self, el) => {
@@ -1533,7 +1511,9 @@ function GovernanceSection() {
               Throughout the season, Kisan Advisors conducted periodic field visits to monitor crop growth, AWD
               monitoring, verify nutrient applications and update farmer diaries. Farmer information, field boundary
               geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
-              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>, ODK and Farmer diaries. The agronomist and science
+              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>, ODK and farmer diaries. All
+              mapped field boundaries were also quality-checked and verified using Remote Sensing to confirm
+              spatial accuracy, consistency and no burning on the mapped fields. The agronomist and science
               team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
               consistency to ensure reliable inputs for GHG accounting.
             </p>
@@ -1563,42 +1543,8 @@ function GovernanceSection() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.15}>
-            <Eyebrow>Subtopic 3</Eyebrow>
-            <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
-              Remote Sensing
-            </h4>
-            <p className="mt-4" style={{ lineHeight: 1.75, color: C.mute }}>
-              Role of Remote Sensing and GIS - summary of how satellite imagery and geospatial analysis underpin
-              field verification, crop and practice classification, and residue-burning detection.
-            </p>
-            <Stagger className="mt-6 grid gap-5 md:grid-cols-2" stagger={0.08}>
-              {REMOTE_SENSING.map(([title, body, img], i) => (
-                <motion.div
-                  key={title}
-                  variants={vFadeUp}
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                  className="rounded-lg h-full overflow-hidden"
-                  style={{ background: "#fff", border: `1px solid ${C.line}`, borderTop: `3px solid ${C.field}` }}
-                >
-                  <div style={{ background: C.paperDim, aspectRatio: "16 / 10" }}>
-                    <img src={img} alt={title} style={{ width: "100%", height: "100%", objectFit: "scale-down" }} />
-                  </div>
-                  <div style={{ padding: "20px 22px" }}>
-                    <div className="flex items-baseline gap-3">
-                      <span className="ch-data" style={{ fontSize: 12, color: C.field, fontWeight: 700 }}>{String(i + 1).padStart(2, "0")}</span>
-                      <h5 style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>{title}</h5>
-                    </div>
-                    <p className="mt-3" style={{ lineHeight: 1.75, fontSize: 13.5, color: C.mute }}>{body}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </Stagger>
-          </Reveal>
-
           <Reveal delay={0.2}>
-            <Eyebrow>Subtopic 4</Eyebrow>
+            <Eyebrow>Subtopic 3</Eyebrow>
             <h4 className="ch-display mt-3 text-xl md:text-2xl" style={{ color: C.field, fontWeight: 700 }}>
               Verification
             </h4>
@@ -1946,9 +1892,8 @@ const SEASON_HEADLINE = [
   {
     label: "GHG emission reduction", value: 58, prefix: "~ ", suffix: "%", tone: C.field,
     detail: [
-      ["~771", "kg CO₂e/MT of paddy reduced · headline (corrected nursery)"],
+      ["~771", "kg CO₂e/MT of paddy reduced · including nursery"],
       ["~785", "kg CO₂e/MT of paddy reduced · excluding nursery (~59%)"],
-      ["~765", "kg CO₂e/MT of paddy reduced · including gross nursery (~58%)"],
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
@@ -2767,30 +2712,35 @@ function SequenceSection() {
 const TESTIMONIALS = [
   {
     id: "t1",
-    farmer: "Rodda Poshetti",
-    village: "Sangam",
-    acres: "5.1 acres",
-    te: "నీటి పైపు వాడటం వల్ల ఎప్పుడు నీరు పెట్టాలో స్పష్టంగా తెలుస్తుంది. కరెంటు ఖర్చు తగ్గింది.",
-    en: "With the pani pipe I can see exactly when the field needs irrigating. My electricity cost has come down.",
+    farmer: "Dasari Sai Kumar",
+    village: "Ghanpur",
+    te: "ఊర్జిత్ మరియు గ్రో ఫాస్ కలిపి వాడటం వల్ల నా నేల మెరుగుపడింది, ఎరువుల ఖర్చు తగ్గింది.",
+    en: "Using Oorjit and Grow Phos together has improved my soil and cut down how much fertiliser I need to buy.",
     src: videoTestimonial1,
   },
   {
     id: "t2",
-    farmer: "MD. Abid Pasha",
+    farmer: "Md. Abid Pasha",
     village: "Sangam",
-    acres: "3.0 acres",
-    te: "గ్రో ఫాస్ మరియు ఊర్జిత్ బాగా పనిచేశాయి. యూరియా తక్కువ వాడినా పంట బాగుంది.",
-    en: "Grow Phos and Oorjit worked well. Even with less urea, the crop was good.",
+    te: "పానీ పైప్ వల్ల ఎప్పుడు నీరు పెట్టాలో ఖచ్చితంగా తెలుస్తుంది, ఊర్జిత్ నేలను ఆరోగ్యంగా ఉంచింది.",
+    en: "The pani pipe tells me exactly when to irrigate, and Oorjit has kept my soil healthy.",
     src: videoTestimonial2,
   },
   {
     id: "t3",
-    farmer: "Reddi Suri Babu",
-    village: "Jakora",
-    acres: "9.7 acres",
-    te: "గడ్డిని కాల్చకుండా బేల్ చేసి గోశాలకు అమ్మాము. పొలం శుభ్రంగా ఉంది, కొంత ఆదాయం కూడా వచ్చింది.",
-    en: "Instead of burning the straw we baled it and sold it to the gaushala. The field stayed clean and we earned something too.",
+    farmer: "Kothola Ashok Reddy",
+    village: "Ghanpur",
+    te: "ఊర్జిత్ మరియు గ్రో ఫాస్ వాడటం మొదలుపెట్టినప్పటి నుండి పంట బాగా పెరిగింది, రసాయన ఎరువులు తక్కువ వాడాను.",
+    en: "Since I started using Oorjit and Grow Phos, my crop has grown well while using far less chemical fertiliser.",
     src: videoTestimonial3,
+  },
+  {
+    id: "t4",
+    farmer: "Gunnam Krishna",
+    village: "Humnapur",
+    te: "నేనే పానీ పైప్ అమర్చాను, ఇప్పుడు పొలానికి ఎప్పుడు నీరు కావాలో ఖచ్చితంగా తెలుస్తుంది.",
+    en: "I installed the pani pipe myself, and now I know exactly when my field needs water.",
+    src: videoTestimonial4,
   },
 ];
 
@@ -2846,7 +2796,7 @@ function TestimonialCard({ t, index }) {
         <div>
           <div style={{ fontWeight: 600, fontSize: 15, color: C.field }}>{t.farmer}</div>
           <div className="ch-data mt-1" style={{ fontSize: 10.5, color: C.mute }}>
-            {t.village.toUpperCase()} · {t.acres.toUpperCase()}
+            VILLAGE - {t.village.toUpperCase()}
           </div>
         </div>
         <div className="ch-data" style={{ fontSize: 26, color: C.paperDim, fontWeight: 600, lineHeight: 1 }}>
@@ -2865,7 +2815,7 @@ function TestimonialsSection() {
         index="06"
         title="In the farmers' words"
       />
-      <div ref={grid} className="grid gap-5 md:grid-cols-3">
+      <div ref={grid} className="grid gap-5 sm:grid-cols-2">
         {TESTIMONIALS.map((t, i) => <TestimonialCard key={t.id} t={t} index={i} />)}
       </div>
     </Section>
