@@ -863,18 +863,17 @@ const HEADLINES = [
   { value: 1718, suffix: "", label: "Acres under AWD", note: "Varni & Chandur blocks, Nizamabad", tone: C.field },
   { value: 58, prefix: "~ ", suffix: "%", label: "GHG reduction", note: "vs Nestlé baseline* of 1,325 kg CO₂e/MT of paddy", tone: C.leaf },
   { value: 67, prefix: "~ ", suffix: "%", label: "Water saved", note: "3,250 → ~1,073 litres per kg paddy**", tone: C.water },
-  { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300-acre CRM target", tone: C.husk },
-  { value: 29, prefix: "~ ", suffix: "%", label: "Less nitrogen", note: "~78 → ~55 kg N/acre vs Nestlé baseline* - less use of chemical fertilisers", tone: C.clay },
+  { value: 833, prefix: "~ ", suffix: "", label: "Acres baled", note: "nearly 3x the 300 acres CRM target", tone: C.husk },
+  { value: 29, prefix: "~ ", suffix: "%", label: "Nitrogen reduction", note: "~29% Nitrogen reduction vs Nestlé baseline*", tone: C.clay },
 ];
 
 const TICKER = [
   "~771 kg CO₂e/MT of paddy reduced",
-  "~ 58% below Nestlé baseline",
-  "~ 67% water saved",
-  "~ 29% less nitrogen",
+  "~ 58% GHG emissions below Nestlé baseline",
+  "~ 67% water saved against Grow Indigo's baseline",
+  "~29% Nitrogen reduction against Nestlé baseline",
   "~ 833 acres baled",
-  "All 11 villages",
-  "Collected sampled farmers for calculation",
+  "Farmer Sample Used for CFT Analysis",
 ];
 
 /** Seamless GSAP marquee. Two copies of the strip, x wrapped modulo width. */
@@ -924,7 +923,7 @@ function ImpactStrip() {
         <SectionHead
           index="01"
           title="What the season delivered"
-          lede="The Low-Emission Paddy Offtake project promoted Alternate Wetting & Drying (AWD)–based regenerative practices that cut greenhouse gas emissions, improved water-use efficiency and strengthened long-term soil health"
+          lede="The Low-Emission Paddy Offtake project promoted Alternate Wetting & Drying (AWD)–based regenerative practices that cut greenhouse gas emissions, improved water-use efficiency and strengthened long-term soil health."
         />
         <div ref={grid} className="grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {HEADLINES.map((s) => <StatCard key={s.label} stat={s} />)}
@@ -932,7 +931,7 @@ function ImpactStrip() {
 
         <div className="ch-data mt-3" style={{ fontSize: 10.5, color: C.mute, lineHeight: 1.7 }}>
           *As given by Nestlé<br />
-          **Grow Indigo's own baseline Data
+          **Grow Indigo's baseline data
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3 mt-14">
@@ -1035,7 +1034,7 @@ const INTERVENTIONS = [
     key: "crm",
     tag: "Theme 3 · Residue",
     title: "Crop Residue Management",
-    kicker: "833 acres baled against a 300-acre target",
+    kicker: "833 acres baled against a 300 acres target",
     color: C.husk,
     icon: (
       <path d="M4 20h16M6 20V9l6-4 6 4v11M9 20v-6h6v6" stroke="currentColor" strokeWidth="1.8" fill="none" />
@@ -1043,14 +1042,14 @@ const INTERVENTIONS = [
     mechanism:
       "CRM was implemented to eliminate open field burning. Selected farmers were supported in baling and bundling paddy residues immediately after harvest, so straw was collected, removed or repurposed instead of burnt. Where residues are retained, mulched, composted or incorporated, biomass nutrients recycle back into the soil and may reduce synthetic nitrogen needs in later seasons. Where residues are baled and removed, the gains are cleaner fields, avoided burning and productive biomass use - urea replacement must be assessed against the specific CRM pathway and soil tests.",
     why: [
-      ["Air quality", "Burning releases particulate matter, CO₂, methane and nitrous oxide."],
-      ["Soil biota", "Field fires damage soil life and destroy organic carbon."],
+      ["Air quality improved", "since burning releases particulate matter, CO₂, methane and nitrous oxide."],
+      ["Soil biota improved", "since field fires damage soil life and destroy organic carbon."],
       ["Income", "Baled straw has a buyer - local cowsheds and gaushalas."],
       ["Farmer readiness", "The baling process itself was explained to farmers during village-level meetings, ahead of harvest."],
     ],
     benefits: [
       "New income stream from selling baled residue to gaushalas",
-      "Target exceeded - nearly 3x the original 300-acre plan",
+      "Target exceeded - nearly 3x the original 300 acres plan",
       "Higher soil organic matter; organic carbon retained rather than burnt",
       "Biomass reused as livestock feed, compost and bioenergy",
       "Reduced air pollution and fire risk across the project villages",
@@ -1075,17 +1074,17 @@ const INTERVENTIONS = [
         <p style={{ marginTop: 12 }}>
           Kisan Advisors (KAs) conducted regular field visits from transplanting to harvest. These visits enabled
           one-on-one support, on-field troubleshooting, and verification of AWD practice, nutrient management, crop
-          protection, and correct application of Oorjit. Farmers received clear recommendations on water levels,
+          protection, and correct application of Oorjit and Grow Phos. Farmers received clear recommendations on water levels,
           fertilizer splits, and implementation steps based on field conditions. Farmers were also supported in
           post-harvest operations of residue incorporation and baling to avoid burning and promote sustainable
           residue management.
         </p>
         <p style={{ marginTop: 12 }}>
           Village-level meetings (VLM), held four times during the project period, created opportunities for
-          collective learning. Demonstrations on AWD pipe installation, Oorjit application, and residue management
+          collective learning. Demonstrations on Pani Pipe installation, Oorjit and Grow Phos application, and residue management
           helped farmers understand regenerative ag practices more effectively and encouraged peer learning. In all
           VLMs, the participation of a Biologicals team member was ensured to explain to farmers the benefits of
-          using biological products, including Oorjit. Leaflets were distributed among farmers to create awareness
+          using biological products, including Oorjit and Grow Phos. Leaflets were distributed among farmers to create awareness
           about various biological products.
         </p>
         <p style={{ marginTop: 12 }}>
@@ -1100,6 +1099,12 @@ const INTERVENTIONS = [
           </a>{" "}
           featuring simple, vernacular videos on regenerative agriculture, water-saving methods, soil health, and
           climate-smart practices. This provided continuous learning support that farmers could access anytime.
+        </p>
+        <p style={{ marginTop: 12 }}>
+          This was complemented by weekly WhatsApp messages that reinforced key practices and their benefits,
+          including AWD, regenerative agriculture, the use of biological inputs, reduced reliance on chemical
+          pesticides & chemicals, and CRM. These regular digital touchpoints helped reinforce field-level training
+          and build awareness of the long-term benefits of sustainable practices.
         </p>
         <p style={{ marginTop: 12 }}>
           Together, these field interactions, group sessions, and digital resources created a strong handholding
@@ -1258,7 +1263,7 @@ const ROLES = [
 const WORKFLOW = [
   ["Kisan Advisor visits the farmer", "On-field engagement and practice verification"],
   ["Capability building on interventions", "AWD, CRM, Pest management and Fertilizer management giving awareness about using biological inputs"],
-  ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhatta/ODK"],
+  ["Data capture on agronomic practices", "AWD and CRM logged in FieldKhatta/ODK/Farmer diary"],
   ["QC of field-reported data by scientists", "Methodological review and validation"],
   ["Procurement audit trail", "End-to-end record captured in S3 Sutra"],
   ["Third-party audit & report submission", "Independent verification and final delivery"],
@@ -1321,15 +1326,15 @@ function OrgChart() {
           <div>
             {node("Field Operations", null, C.leaf, "#fff", "org-branch")}
             <div className="mt-3 space-y-3">
-              {node("RBM(Regional Business Manager) / Agronomist", "Regional field leadership & agronomic guidance", C.paperDim, C.ink, "org-leaf")}
-              {node("TBM", "Team management & operational execution", C.paperDim, C.ink, "org-leaf")}
+              {node("RBM (Regional Business Manager) / Agronomist", "Regional field leadership & agronomic guidance", C.paperDim, C.ink, "org-leaf")}
+              {node("Territory Business Manager", "Team management & operational execution", C.paperDim, C.ink, "org-leaf")}
               {node("Kisan Advisors", "Farmer engagement, advisory & hand-holding", C.paperDim, C.ink, "org-leaf")}
             </div>
           </div>
           <div>
             {node("Science & Technology", null, C.water, "#fff", "org-branch")}
             <div className="mt-3 space-y-3">
-              {node("Quantification Lead", "GHG quantification, data analysis & impact assessment", C.paperDim, C.ink, "org-leaf")}
+              {node("Scientists", "GHG quantification, data analysis & impact assessment", C.paperDim, C.ink, "org-leaf")}
               {node("Engineering Team", "Digital tools, data systems & technology enablement", C.paperDim, C.ink, "org-leaf")}
             </div>
           </div>
@@ -1528,7 +1533,7 @@ function GovernanceSection() {
               Throughout the season, Kisan Advisors conducted periodic field visits to monitor crop growth, AWD
               monitoring, verify nutrient applications and update farmer diaries. Farmer information, field boundary
               geofencing and agronomy information (fertiliser, pesticide use, irrigation method) was recorded using
-              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>. The agronomist and science
+              the <strong style={{ color: C.ink }}>FieldKhatta application</strong>, ODK and Farmer diaries. The agronomist and science
               team reviewed these records, performing quality checks on data accuracy, completeness and geolocation
               consistency to ensure reliable inputs for GHG accounting.
             </p>
@@ -1881,11 +1886,6 @@ const WATER_WATERFALL = buildWaterfall([
   { name: "Project (AWD)", type: "total", value: 1073, fill: C.water, note: "Derived from the ~67% saving reported for the project" },
 ]);
 
-const YIELD = [
-  { name: "Previous season", value: 2.7, fill: C.mute, note: "Average paddy yield, MT" },
-  { name: "Current season", value: 2.5, fill: C.husk, note: "Down ~7.4% - attributed to seasonal and agronomic factors" },
-];
-
 function ChartTip({ active, payload, unit }) {
   return (
     <AnimatePresence>
@@ -1952,7 +1952,7 @@ const SEASON_HEADLINE = [
     ],
   },
   { label: "Water savings per MT", value: 67, prefix: "~ ", suffix: "%", tone: C.water },
-  { label: "Nitrogen use reduction", value: 29,prefix: "~ ", suffix: "%", tone: C.clay },
+  { label: "Nitrogen reduction", value: 29,prefix: "~ ", suffix: "%", tone: C.clay },
 ];
 
 function SeasonHeadlineResults() {
@@ -1995,7 +1995,7 @@ function ResultsSection() {
     <Section id="results" tone="tint">
       <SectionHead
         index="09"
-        title="Quantified, sampled, audited"
+        title="Sampled. Quantified. Audited"
         lede="Grow Indigo started the season with 300 farmers; procurement completed for 139, and the square-root sampling method selected 5 of them for measurement. GHG quantification ran post-harvest on the Cool Farm Platform v3.0 and was reviewed by a third-party auditor."
       />
 
@@ -2004,7 +2004,7 @@ function ResultsSection() {
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartFrame
           kicker="Emissions intensity"
-          title="Well over half the carbon in every tonne"
+          title="58% less carbon in every tonne"
           unit="kg CO₂e per MT of paddy"
           height={360}
           footnote="Two project figures are shown because quantification runs with and without the nursery stage. The headline 58% uses the corrected nursery emission of ~13 kg CO₂e/MT of paddy."
@@ -2035,40 +2035,27 @@ function ResultsSection() {
             </Bar>
           </BarChart>
         </ChartFrame>
+      </div>
 
-        <ChartFrame
-          kicker="Water savings"
-          title="Water per kilogram of paddy"
-          unit="litres per kg"
-          height={320}
-          footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption."
-        >
-          <BarChart data={WATER_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
-            <XAxis dataKey="name" tick={WATER_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
-            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
-            <Tooltip content={<ChartTip unit="litres/kg" />} cursor={{ fill: "rgba(30,136,168,.07)" }} />
-            <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400}>
-              <LabelList dataKey="top" content={waterfallLabelContent(WATER_WATERFALL)} />
-            </Bar>
-          </BarChart>
-        </ChartFrame>
-
-        <ChartFrame
-          kicker="Supporting indicator"
-          title="Yield, season on season"
-          unit="MT per acre, average"
-          height={230}
-          footnote="A ~7.4% decline attributed to seasonal factors - change in seed variety, irregular monsoon distribution, untimely rainfall, temporary water stress, high temperatures at flowering or grain filling, cloudy weather and lodging."
-        >
-          <LineChart data={YIELD} margin={{ top: 16, right: 24, left: -18, bottom: 8 }}>
-            <XAxis dataKey="name" tick={axisStyle} axisLine={{ stroke: C.line }} tickLine={false} />
-            <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[2, 3]} tickFormatter={(v) => v.toFixed(2)} />
-            <Tooltip content={<ChartTip unit="MT" />} />
-            <Line type="linear" dataKey="value" stroke={C.husk} strokeWidth={2.5} dot={{ r: 5, fill: C.husk, strokeWidth: 0 }} activeDot={{ r: 7 }} animationDuration={1400}>
-              <LabelList dataKey="value" position="top" style={{ fontSize: 12, fontFamily: FONT_DATA, fill: C.ink, fontWeight: 600 }} />
-            </Line>
-          </LineChart>
-        </ChartFrame>
+      <div className="mt-5 flex justify-center">
+        <div className="w-full lg:w-1/2 lg:pl-2.5">
+          <ChartFrame
+            kicker="Water savings"
+            title="67% less water per Kg of paddy"
+            unit="litres per kg"
+            height={320}
+            footnote="Baseline of ~3,250 litres/kg; the project figure is derived from the ~67% saving reported for AWD adoption."
+          >
+            <BarChart data={WATER_WATERFALL} margin={{ top: 10, right: 10, left: -12, bottom: 46 }}>
+              <XAxis dataKey="name" tick={WATER_AXIS_TICK} interval={0} height={66} axisLine={{ stroke: C.line }} tickLine={false} />
+              <YAxis tick={axisStyle} axisLine={false} tickLine={false} domain={[0, 3600]} />
+              <Tooltip content={<ChartTip unit="litres/kg" />} cursor={{ fill: "rgba(30,136,168,.07)" }} />
+              <Bar dataKey="top" shape={WaterfallBarShape} animationDuration={1400}>
+                <LabelList dataKey="top" content={waterfallLabelContent(WATER_WATERFALL)} />
+              </Bar>
+            </BarChart>
+          </ChartFrame>
+        </div>
       </div>
 
       <div className="mt-12">
@@ -2360,7 +2347,7 @@ function SourcingSection() {
         index="12"
         tone="dark"
         title="Mapped to Nestlé's Responsible Sourcing Standard"
-        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestlé's Scope 3 and ESG disclosure obligations."
+        lede="The standard sets out how the supply chain is expected to operate - environmental performance, human-rights protection, traceability and farmer livelihoods. Every intervention deployed in Nizamabad maps onto a pillar, and every metric here supports Nestlé's Responsible Sourcing."
       />
       <LayoutGroup id="sourcing">
         <div className="grid gap-6 lg:grid-cols-2">
@@ -2476,10 +2463,10 @@ const EVIDENCE = [
   { n: 2, title: "Stakeholder feedback form", img: a2, fit: "contain", caption: "Bilingual Telugu/English feedback form. Respondent rated the program in the top band and noted Grow Phos and Oorjit performed well." },
   { n: 3, title: "Farmer diary", img: a3, fit: "contain", caption: "Socio-economic profile plus a dated water-management log: irrigation date, method, source and re-irrigation frequency for every event." },
   { n: 4, title: "Pani pipes during monitoring", img: kolluriGangaramAwd, fit: "contain", caption: "Perforated field tube with the measuring scale in place - water depth read directly against the gauge." },
-  { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300-acre target." },
+  { n: 5, title: "Baled crop residue, geo-tagged", img: a8, fit: "cover", position: "center 25%", caption: "Straw baled and stacked instead of burnt - 833 acres against a 300 acres target." },
   { n: 6, title: "Grains ready to be transported", img: a9, fit: "cover", position: "center 38%", caption: "Procurement staging at Pedda Kalava Katta ahead of movement to the empanelled miller." },
   { n: 7, title: "Form X", img: a10, fit: "contain", caption: "Weighbridge slip, Form X countersigned by the village officer, and the miller's payment voucher - the closing links in the farm-to-mill chain." },
-  { n: 8, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Nestlé representatives in-field with the Grow Indigo team and participating farmers." },
+  { n: 8, title: "Independent Third-Party audit", img: a5, fit: "cover", position: "center 18%", caption: "Third Party auditor in field with the Grow Indigo team and participating farmers." },
 ];
 
 function EvidenceSection() {
@@ -2877,7 +2864,6 @@ function TestimonialsSection() {
       <SectionHead
         index="06"
         title="In the farmers' words"
-        lede="Recorded on-field in Telugu during the season. English translation runs in the subtitle bar so the original stays first and the translation supports it, rather than replacing it."
       />
       <div ref={grid} className="grid gap-5 md:grid-cols-3">
         {TESTIMONIALS.map((t, i) => <TestimonialCard key={t.id} t={t} index={i} />)}
@@ -2900,7 +2886,7 @@ const GALLERY = {
       { label: "VLM in progress - Kunipoor", stamp: { place: "Kunipoor, Telangana, India", coords: "18.511113°N 77.940613°E", when: "Tue, 16/12/2025 10:27 AM" }, src: photoVlmKuni },
       { label: "Field team presenting to farmers, Jalalpur", stamp: null, src: photoFtmp },
       { label: "Farmers assembled for VLM, Jalalpur", stamp: null, src: photoMedia9 },
-      { label: "Farmer Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },
+      { label: "Farmers Q&A session, Varni block", stamp: { place: "Varni, Nizamabad, Telangana, India", coords: "18.509574°N 77.966003°E", when: "Tue, 17/03/2026 10:16 AM" }, src: photoMedia13 },
     ],
   },
   bio: {
@@ -2936,7 +2922,7 @@ function PhotographySection() {
       <SectionHead
         index="07"
         title="What the field team documented"
-        lede="Photographic and paper evidence collected through the season, geo-tagged and dated at capture. These sit alongside the digital records in FieldKhatta app and S3 Sutra."
+        lede="Photographic and paper evidence is collected throughout the season, geo-tagged and dated at the time of capture. These sit alongside the digital records in FieldKhatta app and S3 Sutra."
       />
 
       <LayoutGroup id="gallery">

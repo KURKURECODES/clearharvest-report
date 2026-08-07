@@ -461,10 +461,12 @@ function Panel({ level, village, field, hoverField }) {
     body = (
       <motion.div key={level} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.28, ease: EASE }}>
-        <div style={{ fontFamily: FONT_DATA, fontSize: 11, color: C.husk, letterSpacing: ".18em", fontWeight: 600 }}>
-          {LEVEL_LABEL[level].toUpperCase()}
-        </div>
-        <h3 className="mt-4" style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem", lineHeight: 1.1 }}>
+        {level === "india" && (
+          <div style={{ fontFamily: FONT_DATA, fontSize: 11, color: C.husk, letterSpacing: ".18em", fontWeight: 600 }}>
+            {LEVEL_LABEL[level].toUpperCase()}
+          </div>
+        )}
+        <h3 className={level === "india" ? "mt-4" : ""} style={{ color: "#fff", fontWeight: 700, fontSize: "1.75rem", lineHeight: 1.1 }}>
           {level === "india" ? "Where the paddy comes from" : level === "telangana" ? "Telangana" : "Nizamabad district"}
         </h3>
         <div className="mt-5">
